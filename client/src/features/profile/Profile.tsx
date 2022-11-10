@@ -4,7 +4,7 @@ import * as React from 'react';
 function Profile() {
     return ( 
         <>
-            Profile
+            <img src='User.png' width={200}/>
         </>
      );
 }

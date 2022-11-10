@@ -10,16 +10,16 @@ function Layout() {
     return (
         <>
             <Grid container className='main-grid'>
-                <Grid xs={12} className='grid-item'>
+                <Grid item xs={12} className='grid-item'>
                     <TopMenu/>
                 </Grid>
-                <Grid xs={3} >
+                <Grid item xs={3} >
                     <LeftSide/>
                 </Grid>
-                <Grid xs={5} className='main'>
+                <Grid item xs={5} className='main'>
                     <Outlet/>
                 </Grid>
-                <Grid xs={4} className='grid-item'>
+                <Grid item xs={4} className='grid-item'>
                     <Item/>
                 </Grid>
             </Grid>

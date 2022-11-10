@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TextField, Grid, ListItemIcon, ListItemText, ListItem, FormControl, InputAdornment} from '@mui/material';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
-import SearchIcon from '@mui/icons-material/Search';
+import {Grid, ListItemIcon, ListItemText, ListItemButton} from '@mui/material';
+import Diversity2Icon from '@mui/icons-material/Diversity2';
+import UserMenu from './UserMenu';
+import SearchForm from './SearchForm';
+import { Link } from 'react-router-dom';
+
 const Wrapper = styled.div`
     background-color: white;
     @media screen and (max-width: 992px) {
@@ -12,41 +15,26 @@ const Wrapper = styled.div`
 
 function TopMenu() {
 
-
-
-    return ( 
+    return (
         <Wrapper>
             <Grid container>
-                <Grid xs={0.25} lg={1.5}>
+                <Grid item xs={0.25} lg={1.5}>
                 </Grid>
-                <Grid xs={2.75} lg={1.5}>
-                    <ListItem>
-                        <ListItemIcon>  
-                            <Diversity3Icon fontSize='large' color='primary'/>
+                <Grid item xs={2.75} lg={1.5} style={{ display: 'flex', alignItems: 'center' }}>
+                    <ListItemButton component={Link} to='news' disableRipple={true}>
+                        <ListItemIcon>
+                            <Diversity2Icon fontSize='large' color='primary' />
                         </ListItemIcon>
-                        <ListItemText primary="Messages" />
-                    </ListItem>
+                        <ListItemText primary="COOPCHIK" />
+                    </ListItemButton>
                 </Grid>
-                <Grid xs={5}>
-                    <FormControl>
-                        <TextField 
-                            style={{margin:'1em auto'}} 
-                            size='small' 
-                            label="Search" 
-                            variant="filled"
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <SearchIcon/>
-                                    </InputAdornment>
-                                ),
-                              }}
-                            />
-
-                    </FormControl>
+                <Grid item xs={5}>
+                    <SearchForm/>
                 </Grid>
-                <Grid xs={4}>
-
+                <Grid item xs={1}>
+                </Grid>
+                <Grid item xs={3} style={{ display: 'flex', alignItems: 'center' }}>
+                    <UserMenu/>
                 </Grid>
             </Grid>
         </Wrapper>
