@@ -12,7 +12,17 @@ namespace backend.Extensions
                 opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
 
-
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("", policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:3000");
+                });
+            });
             services.AddSignalR();
             return services;
         }

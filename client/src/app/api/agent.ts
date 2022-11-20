@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
+import {User,UserFormValues } from "../models/User";
 
-axios.defaults.baseURL = '';
+axios.defaults.baseURL = 'https://localhost:5001/api';
 
 
 const responseBody = <T>(response:AxiosResponse<T>)=>{
@@ -16,9 +17,19 @@ const requests = {
 }
 
 
+const Account = {
+    login: (user:UserFormValues)=>requests.post<User>('account/', user),
+    register: (user:UserFormValues)=>requests.post<User>('account/register', user),
+    current: ()=>requests.get<User>('account/current')
+}
+
+const Posts = {
+
+}
 
 const agent = {
-
+    Account,
+    Posts
 }
 
 export default agent;

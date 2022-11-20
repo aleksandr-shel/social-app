@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Image = styled.img`
     width: 200px;
 `
-console.log('hello')
+
 function Profile() {
     return ( 
         <>

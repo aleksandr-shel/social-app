@@ -1,0 +1,8 @@
+1) login/register
+2) post/delete/update/get news
+3) messages
+4) friends, befriend, unfriend
+5) profile setup (image, description)
+6) news posts likes
+7) posts search engine
+8) groups creation 
