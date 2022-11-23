@@ -6,8 +6,11 @@ import HelpIcon from '@mui/icons-material/Help';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../app/stores/store';
+import { logout } from '../../app/stores/slices/userSlice';
 
 function UserMenu() {
+    const dispatch = useAppDispatch();
     const [anchorUserMenuBtn, setAnchorUserMenuBtn] = React.useState<null | HTMLElement>(null);
     const openUserMenu = Boolean(anchorUserMenuBtn);
 
@@ -18,6 +21,11 @@ function UserMenu() {
     const handleClickAway = ()=>{
         setAnchorUserMenuBtn(null);
     }
+
+    const signOutClick = ()=>{
+        dispatch(logout())
+    }
+
     return ( 
         <ClickAwayListener onClickAway={handleClickAway}>
             <div>
@@ -47,7 +55,7 @@ function UserMenu() {
                                 <ListItemText>Help</ListItemText>
                             </MenuItem>
                             <Divider />
-                            <MenuItem>
+                            <MenuItem onClick={signOutClick}>
                                 <ListItemIcon>
                                     <ExitToAppIcon/>
                                 </ListItemIcon>

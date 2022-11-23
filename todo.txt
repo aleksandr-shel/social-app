@@ -1,5 +1,5 @@
-1) login/register
-2) post/delete/update/get news
+1) login/register///done
+2) post/delete/update/get news ///done
 3) messages
 4) friends, befriend, unfriend
 5) profile setup (image, description)

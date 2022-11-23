@@ -9,6 +9,7 @@ namespace backend.Data
         public DataContext(DbContextOptions options) : base(options)
         {
         }
-        
+
+        public DbSet<Post> Posts { get; set; }
     }
 }

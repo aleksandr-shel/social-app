@@ -14,7 +14,7 @@ export const login = (user: UserFormValues):ThunkAction<void, RootState, unknown
             const response = await agent.Account.login(user);
             dispatch(userActions.setUser(response));
             dispatch(userActions.setToken(response.token));
-            window.localStorage.setItem('coopchik-token', response.token)
+            window.localStorage.setItem('ridiculum-token', response.token)
             dispatch(userActions.setLoading(false))
         }catch(error){
             console.log(error);
@@ -30,7 +30,7 @@ export const register = (user: UserFormValues):ThunkAction<void, RootState, unkn
             const response = await agent.Account.register(user);
             dispatch(userActions.setUser(response))
             dispatch(userActions.setToken(response.token))
-            window.localStorage.setItem('coopchik-token', response.token)
+            window.localStorage.setItem('ridiculum-token', response.token)
             dispatch(userActions.setLoading(false))
         }catch(error){
             console.log(error);
@@ -46,7 +46,7 @@ export const current = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
             const response = await agent.Account.current();
             dispatch(userActions.setUser(response))
             dispatch(userActions.setToken(response.token))
-            window.localStorage.setItem('coopchik-token', response.token)
+            window.localStorage.setItem('ridiculum-token', response.token)
         }catch(error){
             console.log(error);
         }

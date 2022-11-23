@@ -4,23 +4,19 @@ import { Outlet } from 'react-router-dom';
 import LeftSide from '../../features/menu/LeftSide';
 import TopMenu from '../../features/menu/TopMenu';
 
-const Item = ()=><div style={{height:'50px'}}></div>
-
 function Layout() {
+
     return (
         <>
             <Grid container className='main-grid'>
-                <Grid item xs={12} className='grid-item'>
+                <Grid item xs={12}>
                     <TopMenu/>
                 </Grid>
-                <Grid item xs={3} >
+                <Grid item xs={3}>
                     <LeftSide/>
                 </Grid>
-                <Grid item xs={5} className='main'>
+                <Grid item xs={9}>
                     <Outlet/>
-                </Grid>
-                <Grid item xs={4} className='grid-item'>
-                    <Item/>
                 </Grid>
             </Grid>
         </>

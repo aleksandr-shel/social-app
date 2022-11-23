@@ -1,7 +1,15 @@
 import axios, { AxiosResponse } from "axios";
+import { Post, PostCreate, PostUpdate } from "../models/Post";
 import {User,UserFormValues } from "../models/User";
+import store from "../stores/store";
 
-axios.defaults.baseURL = 'https://localhost:5001/api';
+axios.defaults.baseURL = 'https://localhost:5001/api/';
+
+axios.interceptors.request.use(config =>{
+    const token = store.getState().userReducer.token;
+    if (token) config.headers!.Authorization = `Bearer ${token}`;
+    return config;
+})
 
 
 const responseBody = <T>(response:AxiosResponse<T>)=>{
@@ -18,18 +26,22 @@ const requests = {
 
 
 const Account = {
-    login: (user:UserFormValues)=>requests.post<User>('account/', user),
+    login: (user:UserFormValues)=>requests.post<User>('account/login', user),
     register: (user:UserFormValues)=>requests.post<User>('account/register', user),
     current: ()=>requests.get<User>('account/current')
 }
 
 const Posts = {
-
+    getPosts: ()=>requests.get<Post[]>('posts'),
+    getPost: (id:string)=> requests.get<Post>(`posts/${id}`),
+    updatePost:(id:string, updatePost: PostUpdate) => requests.put<Post>(`posts/${id}`, updatePost),
+    createPost:(newPost:PostCreate) => requests.post<Post>('posts', newPost),
+    deletePost:(id:string) => requests.del(`posts/${id}`),
 }
 
 const agent = {
     Account,
-    Posts
+    Posts,
 }
 
 export default agent;

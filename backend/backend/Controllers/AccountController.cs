@@ -86,6 +86,7 @@ namespace backend.Controllers
         {
             return new UserDto
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = _tokenService.CreateToken(user),

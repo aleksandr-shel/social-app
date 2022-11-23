@@ -29,7 +29,7 @@ const userSlice = createSlice({
         logout: (state)=>{
             state.token = null;
             state.user = null;
-            window.localStorage.removeItem('coopchik-token')
+            window.localStorage.removeItem('ridiculum-token')
         },
         setLoading: (state, action: PayloadAction<boolean>)=>{
             state.loading = action.payload;

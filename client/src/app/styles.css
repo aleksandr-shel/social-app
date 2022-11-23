@@ -4,17 +4,6 @@ body{
   background-color: #EAEAEA;
 }
 
-.grid-item{
-  border: 1px solid red;
-  border-radius: 7px;
-}
-
-.main{
-  border: 1px solid black;
-  border-radius: 7px;
-  height: 250vh;
-}
-
 .main-grid{
   overflow-x: auto;
   min-width: 900px;

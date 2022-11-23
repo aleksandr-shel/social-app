@@ -1,4 +1,6 @@
-﻿using backend.Data;
+﻿using AutoMapper;
+using backend.Core;
+using backend.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Extensions
@@ -14,15 +16,21 @@ namespace backend.Extensions
 
             services.AddCors(opt =>
             {
-                opt.AddPolicy("", policy =>
+                opt.AddPolicy("CorsPolicy", policy =>
                 {
                     policy
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowCredentials()
-                        .WithOrigins("http://localhost:3000");
+                        .AllowAnyOrigin();
                 });
             });
+
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+            }).CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddSignalR();
             return services;
         }

@@ -25,15 +25,13 @@ function TopMenu() {
                         <ListItemIcon>
                             <Diversity2Icon fontSize='large' color='primary' />
                         </ListItemIcon>
-                        <ListItemText primary="COOPCHIK" />
+                        <ListItemText primary="COOPCHICK" />
                     </ListItemButton>
                 </Grid>
-                <Grid item xs={5}>
+                <Grid item xs={3}>
                     <SearchForm/>
                 </Grid>
-                <Grid item xs={1}>
-                </Grid>
-                <Grid item xs={3} style={{ display: 'flex', alignItems: 'center' }}>
+                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent:'center'}}>
                     <UserMenu/>
                 </Grid>
             </Grid>

@@ -66,3 +66,4 @@ C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\backend.pdb
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\backend.genruntimeconfig.cache
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\ref\backend.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\AutoMapper.dll
