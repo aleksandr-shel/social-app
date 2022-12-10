@@ -27,6 +27,9 @@ namespace backend.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("About")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
@@ -93,6 +96,53 @@ namespace backend.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("backend.Models.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("backend.Models.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("backend.Models.Post", b =>
                 {
                     b.Property<Guid>("Id")
@@ -113,6 +163,32 @@ namespace backend.Data.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("backend.Models.Room", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("backend.Models.RoomUser", b =>
+                {
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("RoomId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RoomUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -248,6 +324,22 @@ namespace backend.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("backend.Models.Image", b =>
+                {
+                    b.HasOne("backend.Models.AppUser", null)
+                        .WithMany("Images")
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("backend.Models.Message", b =>
+                {
+                    b.HasOne("backend.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId");
+
+                    b.Navigation("Room");
+                });
+
             modelBuilder.Entity("backend.Models.Post", b =>
                 {
                     b.HasOne("backend.Models.AppUser", "Author")
@@ -255,6 +347,25 @@ namespace backend.Data.Migrations
                         .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("backend.Models.RoomUser", b =>
+                {
+                    b.HasOne("backend.Models.Room", "Room")
+                        .WithMany("RoomUsers")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.AppUser", "User")
+                        .WithMany("Rooms")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -306,6 +417,18 @@ namespace backend.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("backend.Models.AppUser", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("backend.Models.Room", b =>
+                {
+                    b.Navigation("RoomUsers");
                 });
 #pragma warning restore 612, 618
         }

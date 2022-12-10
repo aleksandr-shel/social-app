@@ -1,6 +1,9 @@
-﻿using AutoMapper;
+﻿using Amazon;
+using Amazon.S3;
+using AutoMapper;
 using backend.Core;
 using backend.Data;
+using backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Extensions
@@ -32,6 +35,12 @@ namespace backend.Extensions
             services.AddSingleton(mapper);
 
             services.AddSignalR();
+
+
+            services.AddSingleton<IAmazonS3>(_=> new AmazonS3Client(config.GetValue<string>("AWSCredentials:AccessKeyID"), config.GetValue<string>("AWSCredentials:SecretAccessKey"), RegionEndpoint.CACentral1));
+
+            services.AddSingleton<IUploadFile>(provider=> new S3BucketService(provider.GetRequiredService<IAmazonS3>(), provider.GetRequiredService<ILogger<S3BucketService>>()));
+
             return services;
         }
     }

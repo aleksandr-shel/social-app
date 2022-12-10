@@ -44,6 +44,7 @@ namespace backend.Data
 
                 foreach (var user in users)
                 {
+                    user.About = $"We don't know much about them, but we're sure {user.FirstName} is great.";
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
 

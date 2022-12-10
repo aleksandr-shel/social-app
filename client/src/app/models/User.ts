@@ -15,3 +15,10 @@ export interface UserFormValues {
     email:string,
     password:string
 }
+
+
+export interface Profile{
+    id:string,
+    firstName:string,
+    lastName:string,
+}

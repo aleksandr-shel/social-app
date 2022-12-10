@@ -1,8 +1,8 @@
 1) login/register///done
 2) post/delete/update/get news ///done
-3) messages
+3) profile setup (image, description)
 4) friends, befriend, unfriend
-5) profile setup (image, description)
+5) messages
 6) news posts likes
 7) posts search engine
 8) groups creation 

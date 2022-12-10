@@ -1,6 +1,7 @@
 using backend.Data;
 using backend.Extensions;
 using backend.Models;
+using backend.RealTime.Messages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -62,5 +63,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<MessagesHub>("/messages");
 
 app.Run();

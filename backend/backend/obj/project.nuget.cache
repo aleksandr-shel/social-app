@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "uObOLA2eDIpgGZUUiAVPmMKjICKc4SaD2fbN5Kqsw2SO6XFAhYHhRet2qNFxFtN8vcOFKT5xRrMY+5mQPJs2Og==",
+  "dgSpecHash": "VU4G2+a8hmGNhcWiVyCl/2KmizXx1qHMhdIqaqhLK6aZV06YHvjiX9iT6r4DSW+KtN2lSKAjcZ9+kggfClgGcQ==",
   "success": true,
   "projectFilePath": "C:\\Web Development\\Social-App\\backend\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Owner\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\Owner\\.nuget\\packages\\awssdk.core\\3.7.102\\awssdk.core.3.7.102.nupkg.sha512",
+    "C:\\Users\\Owner\\.nuget\\packages\\awssdk.s3\\3.7.101.32\\awssdk.s3.3.7.101.32.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.10\\microsoft.aspnetcore.authentication.jwtbearer.6.0.10.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.10\\microsoft.aspnetcore.cryptography.internal.6.0.10.nupkg.sha512",

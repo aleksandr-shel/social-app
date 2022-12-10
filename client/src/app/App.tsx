@@ -6,6 +6,7 @@ import Groups from '../features/groups/Groups';
 import Help from '../features/help/Help';
 import Main from '../features/Main';
 import Messages from '../features/messages/Messages';
+import MessagesPanel from '../features/messages/MessagesPanel';
 import News from '../features/news/News';
 import Profile from '../features/profile/Profile';
 import Settings from '../features/settings/Settings';
@@ -34,7 +35,7 @@ function App() {
 					<Route index element={<Navigate to="/news" />}/>
 					<Route path='profile' element={<Profile/>}/>
 					<Route path='news' element={<News/>}/>
-					<Route path='messages' element={<Messages/>}/>
+					<Route path='messages' element={<MessagesPanel/>}/>
 					<Route path='settings' element={<Settings/>}/>
 					<Route path='help' element={<Help/>}/>
 					<Route path='friends' element={<Friends/>}/>

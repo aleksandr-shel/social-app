@@ -39,9 +39,14 @@ const Posts = {
     deletePost:(id:string) => requests.del(`posts/${id}`),
 }
 
+const Profile = {
+
+}
+
 const agent = {
     Account,
     Posts,
+    Profile,
 }
 
 export default agent;

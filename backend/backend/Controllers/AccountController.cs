@@ -61,7 +61,8 @@ namespace backend.Controllers
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 Email = registerDto.Email,
-                UserName = registerDto.Email
+                UserName = registerDto.Email,
+                About = $"We don't know much about them, but we're sure {registerDto.FirstName} is great."
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);

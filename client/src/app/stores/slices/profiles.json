@@ -1,0 +1,22 @@
+[
+    {
+        "id": "8a8751a0-1b4d-4fe9-b09d-9aca33275331",
+        "firstName": "Aleksandr",
+        "lastName": "Shelukheev"
+    },
+    {
+        "id": "d7cbc441-c478-4c35-839e-4564ac67071e",
+        "firstName": "Jack",
+        "lastName": "Shephard"
+    },
+    {
+        "id": "e1592e55-30a2-4fab-8a22-81bafad91a63",
+        "firstName": "Harry",
+        "lastName": "Potter"
+    },
+    {
+        "id": "e7fb0f1f-f21d-405b-8d25-cb85875b413d",
+        "firstName": "John",
+        "lastName": "Connor"
+    }
+]
