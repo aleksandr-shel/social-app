@@ -36,9 +36,10 @@ namespace backend.Controllers
             return Ok(profile);
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateAbout(ProfileUpdateDto updateDto)
+        public async Task<IActionResult> UpdateProfile(ProfileUpdateDto updateDto)
         {
             var user = await _context.Users
+              .Include(x => x.Images)
               .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
             user.About = updateDto.About;
             user.FirstName = updateDto.FirstName;
@@ -48,7 +49,7 @@ namespace backend.Controllers
 
             if (result)
             {
-                return Ok();
+                return Ok(_mapper.Map<ProfileDto>(user));
             }
 
             return BadRequest("Error updating profile info");
@@ -81,7 +82,7 @@ namespace backend.Controllers
 
             if (result)
             {
-                return Ok(image.Url);
+                return Ok(_mapper.Map<ProfileImage>(image));
             }
 
             return BadRequest("Error adding image");

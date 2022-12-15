@@ -18,7 +18,8 @@ function Profile() {
     return ( 
         <>
             {/* <Image src='User.jpg'/> */}
-            <Avatar sx={{width:"250px", height:'250px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}>
+            <Avatar sx={{width:"250px", height:'250px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}
+                >
                 {user?.lastName.slice(0,1)}
             </Avatar>
             <Box>

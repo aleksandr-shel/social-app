@@ -16,9 +16,16 @@ export interface UserFormValues {
     password:string
 }
 
+export interface ProfileUpdateValues{
+    firstName?:string,
+    lastName?:string,
+    about: string
+}
 
 export interface Profile{
     id:string,
     firstName:string,
     lastName:string,
+    imageUrl:string,
+    about:string
 }

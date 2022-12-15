@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
+import { Image } from "../models/Image";
 import { Post, PostCreate, PostUpdate } from "../models/Post";
-import {User,UserFormValues } from "../models/User";
+import {Profile, ProfileUpdateValues, User,UserFormValues } from "../models/User";
 import store from "../stores/store";
 
 axios.defaults.baseURL = 'https://localhost:5001/api/';
@@ -40,7 +41,18 @@ const Posts = {
 }
 
 const Profile = {
-
+    getProfile:()=> requests.get<Profile>('profile'),
+    updateProfile:(updateProfile:ProfileUpdateValues)=>requests.put('profile', updateProfile),
+    addImage:(file:Blob)=>{
+        const formData = new FormData()
+        formData.append('image', file);
+        return axios.post<Image>('profile/image',formData,{
+            headers:{'Content-type':'multipart/form-data'}
+        })
+    },
+    deleteImage:(key:string)=>requests.del(`profile/image/${key}`),
+    setMain:(key:string)=>requests.put(`profile/image/${key}`, {}),
+    getImages:()=>requests.get<Image[]>('profile/images'),
 }
 
 const agent = {
