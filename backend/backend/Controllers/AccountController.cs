@@ -91,7 +91,7 @@ namespace backend.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = _tokenService.CreateToken(user),
-                Email = user.Email,
+                Email = user.Email
             };
         }
     }

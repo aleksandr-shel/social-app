@@ -1,20 +1,29 @@
 import { Box, Grid } from '@mui/material';
 import * as React from 'react';
 import { useEffect } from 'react';
+import { Post } from '../../app/models/Post';
 import { getPosts } from '../../app/stores/actions/postsActions';
+import { setPosts } from '../../app/stores/slices/postsSlice';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import CreatePostNews from './CreatePostNews';
 import NewsPost from './NewsPost';
 
+interface NewsProps{
+    profilePosts?:Post[]
+}
 
-function News() {
+function News({profilePosts}:NewsProps) {
 
     const {posts} = useAppSelector(state => state.postsReducer)
     const dispatch = useAppDispatch();
     useEffect(()=>{
         document.title = 'News'
-        dispatch(getPosts())
-    },[dispatch])
+        if (profilePosts !== undefined){
+            dispatch(setPosts(profilePosts))
+        } else {
+            dispatch(getPosts())
+        }
+    },[dispatch, profilePosts])
 
     return ( 
         <Grid container>

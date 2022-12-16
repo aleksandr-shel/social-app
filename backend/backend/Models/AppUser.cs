@@ -9,5 +9,6 @@ namespace backend.Models
         public string About { get; set; }
         public ICollection<RoomUser> Rooms { get; set; }
         public ICollection<Image> Images { get; set; }
+        public ICollection<Post> Posts { get; set; }
     }
 }

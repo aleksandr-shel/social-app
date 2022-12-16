@@ -40,8 +40,8 @@ const Posts = {
     deletePost:(id:string) => requests.del(`posts/${id}`),
 }
 
-const Profile = {
-    getProfile:()=> requests.get<Profile>('profile'),
+const Profiles = {
+    getProfile:(id:string)=> requests.get<Profile>(`profile/${id}`),
     updateProfile:(updateProfile:ProfileUpdateValues)=>requests.put('profile', updateProfile),
     addImage:(file:Blob)=>{
         const formData = new FormData()
@@ -58,7 +58,7 @@ const Profile = {
 const agent = {
     Account,
     Posts,
-    Profile,
+    Profiles,
 }
 
 export default agent;

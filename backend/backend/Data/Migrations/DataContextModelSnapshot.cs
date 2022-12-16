@@ -343,7 +343,7 @@ namespace backend.Data.Migrations
             modelBuilder.Entity("backend.Models.Post", b =>
                 {
                     b.HasOne("backend.Models.AppUser", "Author")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
@@ -422,6 +422,8 @@ namespace backend.Data.Migrations
             modelBuilder.Entity("backend.Models.AppUser", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("Posts");
 
                     b.Navigation("Rooms");
                 });

@@ -78,7 +78,7 @@ function NewsPost({post}:Props) {
                     <div>
                         <Grid container className='header-post'>
                             <Grid item xs={1.5}>
-                                <Avatar>
+                                <Avatar src={post.author.imageUrl}>
                                     {post.author.lastName.slice(0,1)}
                                 </Avatar>
                             </Grid>

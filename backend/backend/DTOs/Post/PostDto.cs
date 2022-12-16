@@ -1,6 +1,6 @@
 ﻿using backend.Models;
 
-namespace backend.DTOs
+namespace backend.DTOs.Post
 {
     public class PostDto
     {

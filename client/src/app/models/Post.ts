@@ -12,6 +12,7 @@ interface Author {
     id:string,
     firstName:string,
     lastName:string,
+    imageUrl:string
 }
 
 export interface PostUpdate{

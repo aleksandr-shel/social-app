@@ -1,30 +1,33 @@
-import { Avatar, Box } from '@mui/material';
+import { Avatar} from '@mui/material';
 import * as React from 'react';
-import styled from 'styled-components';
-import { useAppSelector } from '../../app/stores/store';
+import { getProfile } from '../../app/stores/actions/profileActions';
+import { useAppDispatch, useAppSelector } from '../../app/stores/store';
+import News from '../news/News';
 
-const Image = styled.img`
-    width: 200px;
-`
 
 function Profile() {
 
     const {user} = useAppSelector(state => state.userReducer);
+    const {profile} = useAppSelector(state => state.profileReducer);
+    const dispatch = useAppDispatch();
 
     React.useEffect(()=>{
-        document.title = user?.firstName + ' ' + user?.lastName;
-    },[user?.firstName, user?.lastName])
+        dispatch(getProfile(user!.id))
+        document.title = profile?.firstName + ' ' + profile?.lastName
+    },[profile?.firstName, profile?.lastName, dispatch, user])
 
     return ( 
         <>
-            {/* <Image src='User.jpg'/> */}
-            <Avatar sx={{width:"250px", height:'250px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}
+            <Avatar sx={{width:"150px", height:'150px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}
+                src={profile?.imageUrl}
                 >
-                {user?.lastName.slice(0,1)}
+                {profile?.lastName.slice(0,1)}
             </Avatar>
-            <Box>
-                
-            </Box>
+            {
+                profile?.posts 
+                &&
+                <News profilePosts={profile.posts}/>
+            }
         </>
      );
 }

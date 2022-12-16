@@ -1,7 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import { Room } from '../../models/Room';
 import { Profile } from '../../models/User';
-import profiless from './profiles.json'
 
 interface MessagesState{
     rooms: Room[],
@@ -10,7 +9,7 @@ interface MessagesState{
 
 const initialState : MessagesState = {
     rooms: [],
-    profiles: profiless
+    profiles: []
 }
 
 const messagesSlice = createSlice({

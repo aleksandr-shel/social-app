@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using backend.Data;
-using backend.DTOs;
+using backend.DTOs.Post;
 using backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +29,7 @@ namespace backend.Controllers
         {
             var posts = await _context.Posts
                 .Include(x => x.Author)
+                .Include(a => a.Author.Images)
                 .OrderByDescending(x => x.Date)
                 .ToListAsync();
             var _posts = _mapper.Map<List<PostDto>>(posts);
@@ -40,6 +41,7 @@ namespace backend.Controllers
         {
             var post = await _context.Posts
                 .Include(_x => _x.Author)
+                .Include(a => a.Author.Images)
                 .FirstOrDefaultAsync(x => x.Id == id);
             return Ok(_mapper.Map<PostDto>(post));
         }
@@ -47,7 +49,9 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(PostCreateDto post)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+            var user = await _context.Users
+                .Include(x => x.Images)
+                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 
             var newPost = new Post
             {
@@ -70,6 +74,7 @@ namespace backend.Controllers
         {
             var post = await _context.Posts
                 .Include(_x => _x.Author)
+                .Include(a => a.Author.Images)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (post.Author.Id != User.FindFirstValue(ClaimTypes.NameIdentifier))

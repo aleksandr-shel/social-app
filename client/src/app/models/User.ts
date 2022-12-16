@@ -1,4 +1,5 @@
-
+import {Image} from './Image'
+import { Post } from './Post'
 
 export interface User {
     id:string,
@@ -27,5 +28,7 @@ export interface Profile{
     firstName:string,
     lastName:string,
     imageUrl:string,
-    about:string
+    about:string,
+    images: Image[],
+    posts: Post[]
 }

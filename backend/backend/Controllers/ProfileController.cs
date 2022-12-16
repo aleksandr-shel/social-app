@@ -26,15 +26,27 @@ namespace backend.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetProfile()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProfile(string id)
         {
             var profile = _mapper.Map<ProfileDto>(await _context.Users
                 .Include(x => x.Images)
-                .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email)));
+                .Include(x => x.Posts.OrderByDescending(p=>p.Date))
+                .FirstOrDefaultAsync(x => x.Id == id));
 
             return Ok(profile);
         }
+
+        [HttpGet("list")]
+        public async Task<IActionResult> GetProfiles()
+        {
+            var profiles = _mapper.Map<List<ProfileDto>>(await _context.Users
+                .Include(_ => _.Images)
+                .ToListAsync());
+
+            return Ok(profiles);
+        }
+
         [HttpPut]
         public async Task<IActionResult> UpdateProfile(ProfileUpdateDto updateDto)
         {
@@ -118,8 +130,13 @@ namespace backend.Controllers
             var user = await _context.Users
               .Include(x => x.Images)
               .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+            var image = await _context.Images
+                .FirstOrDefaultAsync(x => x.Key == key);
 
-            var image = user.Images.FirstOrDefault(x => x.Key == key);
+            if (!user.Images.Contains(image))
+            {
+                return Unauthorized("Don't have permission to delete this image");
+            }
 
             var isDeleted = await _uploadFile.DeleteFile(key);
 
