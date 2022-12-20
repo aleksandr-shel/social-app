@@ -9,18 +9,20 @@ import CreatePostNews from './CreatePostNews';
 import NewsPost from './NewsPost';
 
 interface NewsProps{
-    profilePosts?:Post[]
+    profilePosts?:Post[],
+    username?:string
 }
 
-function News({profilePosts}:NewsProps) {
+function News({profilePosts, username}:NewsProps) {
 
     const {posts} = useAppSelector(state => state.postsReducer)
+    const {user} = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
     useEffect(()=>{
-        document.title = 'News'
         if (profilePosts !== undefined){
             dispatch(setPosts(profilePosts))
         } else {
+            document.title = 'News'
             dispatch(getPosts())
         }
     },[dispatch, profilePosts])
@@ -29,7 +31,11 @@ function News({profilePosts}:NewsProps) {
         <Grid container>
             <Grid item xs={7}>
                 <Box>
-                    <CreatePostNews/>
+                    {
+                        (username === undefined || user?.username === username)
+                        &&
+                        <CreatePostNews/>
+                    }
                     {posts?.map((post) => (
                         <NewsPost key={post.id} post={post}/>
                     ))}

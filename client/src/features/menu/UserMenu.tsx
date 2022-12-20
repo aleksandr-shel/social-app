@@ -6,13 +6,15 @@ import HelpIcon from '@mui/icons-material/Help';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../app/stores/store';
+import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import { logout } from '../../app/stores/slices/userSlice';
 
 function UserMenu() {
     const dispatch = useAppDispatch();
     const [anchorUserMenuBtn, setAnchorUserMenuBtn] = React.useState<null | HTMLElement>(null);
     const openUserMenu = Boolean(anchorUserMenuBtn);
+
+    const {user} = useAppSelector(state=>state.userReducer);
 
     const handleClickUserMenuBtn = (event:React.MouseEvent<HTMLElement>)=>{
         setAnchorUserMenuBtn(anchorUserMenuBtn ? null : event.currentTarget);
@@ -36,7 +38,7 @@ function UserMenu() {
                 <Popper open={openUserMenu} anchorEl={anchorUserMenuBtn} placement='bottom-end'>
                     <Paper sx={{ width: 320, maxWidth: '100%'}}>
                         <MenuList>
-                            <MenuItem component={Link} to='profile'>
+                            <MenuItem component={Link} to={`profile/${user?.username}`}>
                                 <ListItemIcon>
                                     <PersonIcon />
                                 </ListItemIcon>

@@ -2,7 +2,7 @@ import {Image} from './Image'
 import { Post } from './Post'
 
 export interface User {
-    id:string,
+    username:string,
     firstName:string,
     lastName:string,
     email:string,
@@ -24,7 +24,7 @@ export interface ProfileUpdateValues{
 }
 
 export interface Profile{
-    id:string,
+    username:string,
     firstName:string,
     lastName:string,
     imageUrl:string,

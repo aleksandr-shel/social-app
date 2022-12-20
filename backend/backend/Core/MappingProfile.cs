@@ -17,6 +17,8 @@ namespace backend.Core
                 .ForMember(x => x.ImageUrl, p => p.MapFrom(x => x.Images.FirstOrDefault(i => i.IsMain).Url));
 
             CreateMap<Image, ProfileImage>();
+
+
         }
     }
 }

@@ -3,11 +3,13 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import LeftSide from '../../features/menu/LeftSide';
 import TopMenu from '../../features/menu/TopMenu';
+import ScrollToTop from '../common/ScrollToTop';
 
 function Layout() {
 
     return (
         <>
+            <ScrollToTop/>
             <Grid container className='main-grid'>
                 <Grid item xs={12}>
                     <TopMenu/>

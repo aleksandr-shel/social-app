@@ -10,5 +10,8 @@ namespace backend.Models
         public ICollection<RoomUser> Rooms { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<Post> Posts { get; set; }
+
+        public ICollection<Friends> Followers { get; set; }
+        public ICollection<Friends> Followings { get; set; }
     }
 }

@@ -2,11 +2,16 @@
 using backend.CustomAttributes;
 using backend.Data;
 using backend.DTOs.Profile;
+using backend.Helper;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 
 namespace backend.Controllers
@@ -26,15 +31,42 @@ namespace backend.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetProfile(string id)
+        [HttpGet("{username}")]
+        public async Task<IActionResult> GetProfile(string username)
         {
             var profile = _mapper.Map<ProfileDto>(await _context.Users
                 .Include(x => x.Images)
                 .Include(x => x.Posts.OrderByDescending(p=>p.Date))
-                .FirstOrDefaultAsync(x => x.Id == id));
+                .FirstOrDefaultAsync(x => x.UserName == username));
 
             return Ok(profile);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery]SearchParams search)
+        {
+
+            var queryArray = search.Q.Split();
+            var result = new List<ProfileDto>();
+            foreach (string q in queryArray)
+            {
+                result.AddRange(_mapper.Map<List<ProfileDto>>(await _context.Users
+                    .Where(x => (x.FirstName + " " + x.LastName).Contains(q))
+                    .Include(x => x.Images)
+                    .ToListAsync()));
+            }
+            if (result.Count > 0)
+            {
+                return Ok(result.Distinct());
+            }
+
+            //return based on friends connection
+            //result = _mapper.Map<List<ProfileDto>>(await _context.Users
+            //    .Include(x => x.Images)
+            //    .Take(10)
+            //    .ToListAsync());
+
+            return Ok();
         }
 
         [HttpGet("list")]
@@ -168,5 +200,28 @@ namespace backend.Controllers
             return Ok(images);
         }
 
+        //[HttpGet("test")]
+        //public async Task<IActionResult> test()
+        //{
+        //    var users = await _context.Users
+        //        .Where(x => x.Email != User.FindFirstValue(ClaimTypes.Email))
+        //        .ToListAsync();
+
+        //    foreach(var user in users)
+        //    {
+        //        user.UserName = UsernameGenerator.Generate();
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return Ok(users);
+        //}
+
+    }
+
+
+    public class SearchParams
+    {
+        [Required]
+        public string Q { get; set; }
     }
 }

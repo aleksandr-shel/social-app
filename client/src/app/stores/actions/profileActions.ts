@@ -6,10 +6,10 @@ import { RootState } from "../store";
 
 
 
-export const getProfile = (id:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
+export const getProfile = (username:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch)=>{
         try{
-            const profile = await agent.Profiles.getProfile(id);
+            const profile = await agent.Profiles.getProfile(username);
             dispatch(setProfile(profile))
         }catch(error){
             console.log(error);

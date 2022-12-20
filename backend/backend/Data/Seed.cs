@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.Helper;
+using backend.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace backend.Data
@@ -17,34 +18,31 @@ namespace backend.Data
                         FirstName = "Aleksandr",
                         LastName = "Shelukheev",
                         Email = "alex@test.com",
-                        UserName = "alex"
                     },
                     new AppUser
                     {
                         FirstName = "John",
                         LastName = "Connor",
                         Email = "connor@test.com",
-                        UserName = "connor"
                     },
                     new AppUser
                     {
                         FirstName = "Jack",
                         LastName = "Shephard",
                         Email = "shephard@test.com",
-                        UserName = "shephard"
                     },
                     new AppUser
                     {
                         FirstName = "Harry",
                         LastName = "Potter",
                         Email = "potter@test.com",
-                        UserName = "potter"
                     },
                 };
 
                 foreach (var user in users)
                 {
-                    user.About = $"We don't know much about them, but we're sure {user.FirstName} is great.";
+                    user.UserName = UsernameGenerator.Generate();
+                    user.About = $"We don't know much about {user.FirstName}, but we're sure {user.FirstName} is great.";
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
 

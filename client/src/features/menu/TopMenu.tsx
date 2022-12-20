@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import {Grid, ListItemIcon, ListItemText, ListItemButton} from '@mui/material';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import UserMenu from './UserMenu';
-import SearchForm from './SearchForm';
 import { Link } from 'react-router-dom';
+import SearchForm from '../search/SearchForm';
 
 const Wrapper = styled.div`
     background-color: white;
     @media screen and (max-width: 992px) {
-        background-color: lightpink;
+        background-color: #EAEAEA;
     }
 `
 

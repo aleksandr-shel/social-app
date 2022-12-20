@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { Image } from "../models/Image";
 import { Post, PostCreate, PostUpdate } from "../models/Post";
 import {Profile, ProfileUpdateValues, User,UserFormValues } from "../models/User";
+import { FriendsState } from "../stores/slices/friendsSlice";
 import store from "../stores/store";
 
 axios.defaults.baseURL = 'https://localhost:5001/api/';
@@ -41,7 +42,7 @@ const Posts = {
 }
 
 const Profiles = {
-    getProfile:(id:string)=> requests.get<Profile>(`profile/${id}`),
+    getProfile:(username:string)=> requests.get<Profile>(`profile/${username}`),
     updateProfile:(updateProfile:ProfileUpdateValues)=>requests.put('profile', updateProfile),
     addImage:(file:Blob)=>{
         const formData = new FormData()
@@ -53,12 +54,19 @@ const Profiles = {
     deleteImage:(key:string)=>requests.del(`profile/image/${key}`),
     setMain:(key:string)=>requests.put(`profile/image/${key}`, {}),
     getImages:()=>requests.get<Image[]>('profile/images'),
+    search:(q:string)=>requests.get<Profile[]>(`profile/search?q=${q}`)
+}
+
+const Friends = {
+    toggleFriend:(username:string)=>axios.post(`friends/${username}`,{}),
+    getFollows:()=>requests.get<FriendsState>('friends'),
 }
 
 const agent = {
     Account,
     Posts,
     Profiles,
+    Friends,
 }
 
 export default agent;

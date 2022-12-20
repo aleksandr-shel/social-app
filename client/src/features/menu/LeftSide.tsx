@@ -6,9 +6,13 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import EmailIcon from '@mui/icons-material/Email';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {Link} from 'react-router-dom';
+import { useAppSelector } from '../../app/stores/store';
 
 
 function LeftSide() {
+
+    const {user} = useAppSelector(state => state.userReducer)
+
     return ( 
         <Grid container>
             <Grid item xs={1} lg={6}>
@@ -16,7 +20,7 @@ function LeftSide() {
             </Grid>
             <Grid item xs={11} lg={6}>
                 <List>
-                    <ListItemButton component={Link} to="/profile">
+                    <ListItemButton component={Link} to={`/profile/${user?.username}`}>
                         <ListItemIcon>
                             <AccountCircleIcon fontSize='large'/>
                         </ListItemIcon>

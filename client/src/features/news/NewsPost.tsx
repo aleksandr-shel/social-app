@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Post } from '../../app/models/Post';
 import styled from 'styled-components';
-import { Avatar, Grid, List, ListItem, ListItemButton, ListItemText, Popper } from '@mui/material';
+import { Avatar, Box, Grid, List, ListItem, ListItemButton, ListItemText, Popper } from '@mui/material';
 import {formatDistanceToNow} from 'date-fns';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import { deletePost } from '../../app/stores/actions/postsActions';
 import EditPostNews from './EditPostNews';
+import { Link } from 'react-router-dom';
 
 const StyledPostDiv = styled.div`
     border-radius: 15px;
@@ -78,16 +79,16 @@ function NewsPost({post}:Props) {
                     <div>
                         <Grid container className='header-post'>
                             <Grid item xs={1.5}>
-                                <Avatar src={post.author.imageUrl}>
+                                <Avatar style={{textDecoration:'none'}} component={Link} to={`/profile/${post.author.username}`} src={post.author.imageUrl}>
                                     {post.author.lastName.slice(0,1)}
                                 </Avatar>
                             </Grid>
                             <Grid item xs={10}>
-                                <div>
+                                <Box style={{textDecoration:'none'}} component={Link} to={`/profile/${post.author.username}`}>
                                     {post.author.firstName} 
                                     {' '}
                                     {post.author.lastName} 
-                                </div>
+                                </Box>
                                 <div className='date-div'>
                                     {/* {format(new Date(post.date+'Z'), 'dd MMM yyyy h:mm aa')} */}
                                     {formatDistanceToNow(new Date(post.date.endsWith('Z') ? post.date : post.date + 'Z'))} ago
@@ -104,7 +105,7 @@ function NewsPost({post}:Props) {
                                                         <ListItemText primary="Add to favorites" />
                                                     </ListItemButton>
                                                 </ListItem>
-                                                {user!.id === post.author.id &&
+                                                {user!.username === post.author.username &&
                                                     <>
                                                         <ListItem>
                                                             <ListItemButton onClick={()=>{setEditMode(true); setAnchorDotsButton(null);}}>

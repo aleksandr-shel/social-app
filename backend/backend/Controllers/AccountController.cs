@@ -1,4 +1,5 @@
 ﻿using backend.DTOs;
+using backend.Helper;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -61,8 +62,8 @@ namespace backend.Controllers
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 Email = registerDto.Email,
-                UserName = registerDto.Email,
-                About = $"We don't know much about them, but we're sure {registerDto.FirstName} is great."
+                UserName = UsernameGenerator.Generate(),
+                About = $"We don't know much about {registerDto.FirstName}, but we're sure {registerDto.FirstName} is great."
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
@@ -87,7 +88,7 @@ namespace backend.Controllers
         {
             return new UserDto
             {
-                Id = user.Id,
+                Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = _tokenService.CreateToken(user),
