@@ -15,10 +15,13 @@ const profileSlice = createSlice({
     reducers:{
         setProfile: (state, {payload}:PayloadAction<Profile | null> )=>{
             state.profile = payload;
+        },
+        toggleFollow: (state)=>{
+            state.profile!.following = !state.profile?.following
         }
     }
 })
 
-export const {setProfile} = profileSlice.actions
+export const {setProfile, toggleFollow} = profileSlice.actions
 
 export default profileSlice

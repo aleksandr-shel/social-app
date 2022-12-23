@@ -12,7 +12,7 @@ namespace backend.DTOs.Profile
         public string Username { get; set; }
         public ICollection<ProfileImage> Images { get; set; }
         public ICollection<PostDto> Posts { get; set; }
-
+        public bool Following { get; set; }
         public override bool Equals(object obj)
         {
             return obj is ProfileDto dto &&

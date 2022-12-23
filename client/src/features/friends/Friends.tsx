@@ -60,7 +60,7 @@ function Friends() {
 					<Box sx={{ width: '100%' }}>
 						<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 							<Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-								<Tab label="Friends" {...a11yProps(0)} />
+								<Tab title="Follow each other" label="Friends" {...a11yProps(0)} />
 								<Tab label="Followers" {...a11yProps(1)} />
 								<Tab label="Followings" {...a11yProps(2)} />
 							</Tabs>

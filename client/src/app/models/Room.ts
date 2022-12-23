@@ -1,3 +1,6 @@
+import { Profile } from "./User";
+
 export interface Room{
-    id:string
+    id:string,
+    users: Profile[]
 }

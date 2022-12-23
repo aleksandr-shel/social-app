@@ -2,6 +2,7 @@ import { AnyAction, ThunkAction } from "@reduxjs/toolkit"
 import agent from "../../api/agent"
 import { Profile } from "../../models/User"
 import { setFollowers, setFollowings, setFriends, toggleFriendRed } from "../slices/friendsSlice"
+import { toggleFollow } from "../slices/profileSlice"
 import { RootState } from "../store"
 
 
@@ -25,6 +26,7 @@ export const toggleFriend = (profile:Profile):ThunkAction<void, RootState, unkno
             agent.Friends.toggleFriend(profile.username).then(response => {
                 if (response.status === 200){
                     dispatch(toggleFriendRed(profile))
+                    dispatch(toggleFollow())
                 }
             })
         }catch(error){

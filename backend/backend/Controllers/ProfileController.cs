@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using backend.CustomAttributes;
 using backend.Data;
 using backend.DTOs.Profile;
@@ -34,10 +35,13 @@ namespace backend.Controllers
         [HttpGet("{username}")]
         public async Task<IActionResult> GetProfile(string username)
         {
-            var profile = _mapper.Map<ProfileDto>(await _context.Users
-                .Include(x => x.Images)
-                .Include(x => x.Posts.OrderByDescending(p=>p.Date))
-                .FirstOrDefaultAsync(x => x.UserName == username));
+            //var profile = _mapper.Map<ProfileDto>(await _context.Users
+            //    .Include(x => x.Images)
+            //    .Include(x => x.Posts.OrderByDescending(p=>p.Date))
+            //    .FirstOrDefaultAsync(x => x.UserName == username));
+            var profile = await _context.Users
+               .ProjectTo<ProfileDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
+               .FirstOrDefaultAsync(x => x.Username == username);
 
             return Ok(profile);
         }
@@ -72,9 +76,14 @@ namespace backend.Controllers
         [HttpGet("list")]
         public async Task<IActionResult> GetProfiles()
         {
-            var profiles = _mapper.Map<List<ProfileDto>>(await _context.Users
+            //var profiles = _mapper.Map<List<ProfileDto>>(await _context.Users
+            //    .Include(_ => _.Images)
+            //    .ToListAsync());
+
+            var profiles = await _context.Users
                 .Include(_ => _.Images)
-                .ToListAsync());
+                .ProjectTo<ProfileDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
+                .ToListAsync();
 
             return Ok(profiles);
         }

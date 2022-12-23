@@ -30,5 +30,6 @@ export interface Profile{
     imageUrl:string,
     about:string,
     images: Image[],
-    posts: Post[]
+    posts: Post[],
+    following: boolean,
 }

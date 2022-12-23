@@ -8,6 +8,7 @@ interface Props{
 }
 
 function ProfileList({profiles}:Props) {
+    if (profiles.length === 0) return null
     return ( 
         <List>
             {

@@ -24,7 +24,8 @@ namespace backend.Extensions
                     policy
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowAnyOrigin();
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:3000");
                 });
             });
 

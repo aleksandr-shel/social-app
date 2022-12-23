@@ -151,9 +151,14 @@ namespace backend.Data.Migrations
                     b.Property<Guid?>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("SenderId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoomId");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Messages");
                 });
@@ -371,7 +376,13 @@ namespace backend.Data.Migrations
                         .WithMany()
                         .HasForeignKey("RoomId");
 
+                    b.HasOne("backend.Models.AppUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+
                     b.Navigation("Room");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("backend.Models.Post", b =>

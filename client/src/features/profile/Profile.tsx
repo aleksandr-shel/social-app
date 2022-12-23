@@ -54,7 +54,12 @@ function Profile() {
                                     Message
                                 </Button>
                                 <Button onClick={handleToggleFriend}>
-                                    Follow
+                                    {
+                                        profile.following ?
+                                        'unfollow'
+                                        :
+                                        'follow'
+                                    }
                                 </Button>
                             </div>
                         }
