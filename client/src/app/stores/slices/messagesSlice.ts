@@ -1,18 +1,20 @@
 import { HubConnection } from '@microsoft/signalr';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import { Message } from '../../models/Message';
 import { Room } from '../../models/Room';
-import { Profile } from '../../models/User';
 
 interface MessagesState{
     rooms: Room[],
-    profiles: Profile[],
     hubConnection: HubConnection | null;
+    messages: Message[],
+    loadingMessages: boolean,
 }
 
 const initialState : MessagesState = {
     rooms: [],
-    profiles: [],
-    hubConnection: null
+    hubConnection: null,
+    messages: [],
+    loadingMessages: false,
 }
 
 const messagesSlice = createSlice({
@@ -27,10 +29,22 @@ const messagesSlice = createSlice({
         },
         setRooms:(state, {payload}:PayloadAction<Room[]>)=>{
             state.rooms = payload;
+        },
+        setMessages:(state, {payload}:PayloadAction<Message[]>)=>{
+            // payload.reverse().forEach(m =>{
+            //     state.messages.push(m);
+            // })
+            state.messages = payload.reverse()
+        },
+        setLoading: (state, {payload}:PayloadAction<boolean>)=>{
+            state.loadingMessages = payload;
+        },
+        addMessage: (state, {payload}:PayloadAction<Message>)=>{
+            state.messages.push(payload);
         }
     }
 })
 
-export const {setHubConnection, stopHubConnection} = messagesSlice.actions;
+export const {setHubConnection, stopHubConnection, setRooms, setMessages, setLoading, addMessage} = messagesSlice.actions;
 
 export default messagesSlice;

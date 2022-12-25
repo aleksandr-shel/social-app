@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { Image } from "../models/Image";
+import { Message, PostMessage } from "../models/Message";
 import { Post, PostCreate, PostUpdate } from "../models/Post";
 import { Room } from "../models/Room";
 import {Profile, ProfileUpdateValues, User,UserFormValues } from "../models/User";
@@ -66,7 +67,8 @@ const Friends = {
 
 const Messages = {
     getRooms: ()=>requests.get<Room[]>('messages/rooms'),
-    getMessages: (roomId:string)=>requests.get('messages'),
+    getMessages: (roomId:string)=>requests.get<Message[]>(`messages/${roomId}`),
+    postMessage:(username:string, message:PostMessage)=>requests.post(`messages/${username}`,message)
 }
 
 const agent = {

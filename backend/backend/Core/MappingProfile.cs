@@ -21,7 +21,9 @@ namespace backend.Core
                 .ForMember(x => x.Following, p => p.MapFrom(x=> x.Followers.Any(x=>x.Observer.UserName == currentUsername)));
 
             CreateMap<Image, ProfileImage>();
-            CreateMap<Message, MessageDto>();
+            CreateMap<Message, MessageDto>()
+                .ForMember(x => x.RoomId, p => p.MapFrom(x => x.Room.Id));
+
 
         }
     }

@@ -3,6 +3,7 @@ using AutoMapper.Configuration.Annotations;
 using AutoMapper.QueryableExtensions;
 using backend.Data;
 using backend.DTOs.Messages;
+using backend.DTOs.Post;
 using backend.DTOs.Profile;
 using backend.Models;
 using backend.RealTime.Messages;
@@ -70,7 +71,7 @@ namespace backend.Controllers
                 .Include(ru => ru.User.Images)
                 .Where(ru => rooms.Contains(ru.Room))
                 .GroupBy(ru => ru.RoomId)
-                .Select(x => new { Id = x.Key, users = _mapper.Map<List<ProfileDto>>(x.Select(y => y.User).ToList()) })
+                .Select(x => new { Id = x.Key, users = _mapper.Map<List<AuthorDto>>(x.Select(y => y.User).ToList()) })
                 .ToListAsync();
             
             return Ok(roomUsers);
@@ -83,6 +84,7 @@ namespace backend.Controllers
 
             var user = await _context.Users
                 .Include(x => x.Rooms)
+                .Include(x => x.Images)
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 
             var toUser = await _context.Users
@@ -98,10 +100,11 @@ namespace backend.Controllers
                     Content = message.Content,
                     Sender = user
                 };
-                await _context.Messages.AddAsync(newMessage);
+                var res = await _context.Messages.AddAsync(newMessage);
                 await _context.SaveChangesAsync();
-                await _hubContext.Clients.Group(room.Id.ToString()).SendAsync("ReceiveMessage", newMessage);
-                return Ok();
+                var newMes = _mapper.Map<MessageDto>(res.Entity);
+                await _hubContext.Clients.Group(room.Id.ToString()).SendAsync("ReceiveMessage", newMes);
+                return Ok(newMes);
             }
 
             var newRoom = new Room
@@ -138,11 +141,13 @@ namespace backend.Controllers
                 Sender = user
             };
 
-            await _context.Messages.AddAsync(newMessage_);
+            var res_ = await _context.Messages.AddAsync(newMessage_);
             await _context.SaveChangesAsync();
-            await _hubContext.Clients.Group(newRoom.Id.ToString()).SendAsync("ReceiveMessage", newMessage_);
-            return Ok();
+            var newMes_ = _mapper.Map<MessageDto>(res_.Entity);
+            await _hubContext.Clients.Group(newRoom.Id.ToString()).SendAsync("ReceiveMessage", newMes_);
+            return Ok(newMes_);
         }
+
     }
 
 }

@@ -8,7 +8,7 @@ export interface Post{
 }
 
 
-interface Author {
+export interface Author {
     username:string,
     firstName:string,
     lastName:string,

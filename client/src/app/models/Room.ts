@@ -1,6 +1,6 @@
-import { Profile } from "./User";
+import { Author } from "./Post";
 
 export interface Room{
     id:string,
-    users: Profile[]
+    users: Author[]
 }
