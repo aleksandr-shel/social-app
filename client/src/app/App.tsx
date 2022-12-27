@@ -10,6 +10,7 @@ import News from '../features/news/News';
 import Profile from '../features/profile/Profile';
 import SearchResults from '../features/search/SearchResults';
 import Settings from '../features/settings/Settings';
+import ModalContainer from './common/ModalContainer';
 import Layout from './layout/Layout';
 import { current } from './stores/actions/userActions';
 import { setToken } from './stores/slices/userSlice';
@@ -29,6 +30,7 @@ function App() {
 
 	return (
 		<>
+			<ModalContainer/>
 			<Routes>
 				<Route path='/' element={user !== null ? <Layout/> : <Main/>}>
 					<Route path='*' element={<NotFound/>}/>

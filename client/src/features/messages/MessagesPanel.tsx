@@ -10,15 +10,14 @@ function MessagesPanel() {
         
     },[])
     
-    const [roomId, setRoomId] = React.useState<string>();
 
     return ( 
         <Grid container>
             <Grid item xs={3}>
-                <MessagesUsers setRoomId={setRoomId}/>
+                <MessagesUsers/>
             </Grid>
             <Grid item xs={6}>
-                <Messages roomId={roomId}/>
+                <Messages/>
             </Grid>
         </Grid>
      );

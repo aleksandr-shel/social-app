@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import News from '../news/News';
 import {Grid} from '@mui/material';
 import { toggleFriend } from '../../app/stores/actions/friendsActions';
+import { openModal } from '../../app/stores/slices/modalSlice';
+import MessageForm from '../messages/MessageForm';
 
 function Profile() {
 
@@ -50,7 +52,7 @@ function Profile() {
                             user?.username !== profile.username
                             &&
                             <div style={{ marginTop:'1em'}}>
-                                <Button>
+                                <Button onClick={()=>dispatch(openModal(<MessageForm/>))}>
                                     Message
                                 </Button>
                                 <Button onClick={handleToggleFriend}>

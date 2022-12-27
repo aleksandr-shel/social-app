@@ -4,11 +4,8 @@ import { getRooms } from '../../app/stores/actions/messagesActions';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import RoomComponent from './RoomComponent';
 
-interface Props{
-    setRoomId: (roomId:string)=>void
-}
 
-function MessagesUsers({setRoomId}:Props) {
+function MessagesUsers() {
 
     const {rooms} = useAppSelector(state=>state.messagesReducer);
     const dispatch = useAppDispatch();
@@ -20,7 +17,7 @@ function MessagesUsers({setRoomId}:Props) {
         <>
             <List sx={{ width: '100%'}}>
                 {rooms.map(r=>(
-                    <RoomComponent key={r.id} setRoomId={setRoomId} room={r}/>
+                    <RoomComponent key={r.id} room={r}/>
                 ))}
             </List>
         </>

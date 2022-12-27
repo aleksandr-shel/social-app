@@ -1,8 +1,9 @@
 import { HubConnection, HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import agent from "../../api/agent";
-import { Message } from "../../models/Message";
+import { Message, PostMessage } from "../../models/Message";
 import { addMessage, setHubConnection, setLoading, setMessages, setRooms } from "../slices/messagesSlice";
+import { closeModal } from "../slices/modalSlice";
 import { RootState } from "../store";
 
 
@@ -55,6 +56,19 @@ export const getMessages = (roomId:string):ThunkAction<void, RootState, unknown,
         }catch(error){
             console.log(error);
             dispatch(setLoading(false))
+        }
+    }
+}
+
+export const postMessage = (username:string, message:PostMessage):ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async (dispatch, getState)=>{
+        try{
+            await agent.Messages.postMessage(username, message);
+            if (getState().modalReducer.open){
+                dispatch(closeModal())
+            }
+        }catch(error){
+            console.log(error)
         }
     }
 }

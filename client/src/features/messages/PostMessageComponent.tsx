@@ -1,20 +1,28 @@
 import { FormControl, InputAdornment, TextField } from '@mui/material';
 import * as React from 'react';
 import { Form } from 'react-bootstrap';
-import { useAppDispatch } from '../../app/stores/store';
+import { PostMessage } from '../../app/models/Message';
+import { postMessage } from '../../app/stores/actions/messagesActions';
+import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 
 
 function PostMessageComponent() {
     const dispatch = useAppDispatch();
     const [content, setContent] = React.useState<string>('');
-
+    const {partner} = useAppSelector(state => state.messagesReducer);
     function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        setContent('')
+        if (partner){
+            let message:PostMessage = {
+                content
+            }
+            dispatch(postMessage(partner.username,message));
+        }
+        setContent('');
     }   
     return ( 
-        <Form onSubmit={handleSubmit}>
-            <FormControl style={{width:'100%', transition: 'width 1s'}}>
+        <Form onSubmit={handleSubmit} style={{width:'100%'}}>
+            <FormControl style={{width:'100%'}}>
                 <TextField
                     style={{float:'left'}}
                     size='small'

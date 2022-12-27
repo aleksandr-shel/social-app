@@ -68,7 +68,7 @@ const Friends = {
 const Messages = {
     getRooms: ()=>requests.get<Room[]>('messages/rooms'),
     getMessages: (roomId:string)=>requests.get<Message[]>(`messages/${roomId}`),
-    postMessage:(username:string, message:PostMessage)=>requests.post(`messages/${username}`,message)
+    postMessage:(username:string, message:PostMessage)=>requests.post<Message>(`messages/${username}`,message)
 }
 
 const agent = {

@@ -6,36 +6,27 @@ import { stopHubConnection } from '../../app/stores/slices/messagesSlice';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import MessageComponent from './MessageComponent';
 import PostMessageComponent from './PostMessageComponent';
-interface Props{
-    roomId?:string | null
-}
 
-function Messages({roomId}:Props) {
+function Messages() {
     const dispatch = useAppDispatch();
-    const {messages, loadingMessages} = useAppSelector(state => state.messagesReducer);
-    // React.useEffect(()=>{
-    //     if (roomId){
-    //         dispatch(getMessages(roomId))
-    //     }
-
-    // },[dispatch, roomId])
+    const {messages, loadingMessages, selectedRoom} = useAppSelector(state => state.messagesReducer);
     React.useEffect(()=>{
-        if (roomId){
-            dispatch(getMessages(roomId))
-            dispatch(createHubConnection(roomId))
+        if (selectedRoom){
+            dispatch(getMessages(selectedRoom.id))
+            dispatch(createHubConnection(selectedRoom.id))
         }
         return ()=>{
             dispatch(stopHubConnection())
         }
-    },[dispatch, roomId])
-    if (roomId === undefined) return <div style={{textAlign:'center'}}>Select chat</div>
+    },[dispatch, selectedRoom])
+    if (selectedRoom === undefined) return <div style={{textAlign:'center'}}>Select chat</div>
 
     if (loadingMessages) return <LoadingComponent/>
 
     if (messages.length === 0) return <>No messages</>
     return ( 
-        <div style={{height:'80%'}}>
-            <List sx={{ width: '100%'}}>
+        <div style={{height:'90vh'}}>
+            <List sx={{ width: '100%', overflow:'auto', height:'90%', display:'flex', flexDirection:'column-reverse', padding:0, margin:'0.5em'}}>
                 {messages.map(mes => <MessageComponent key={mes.id} message={mes}/>)}
             </List>
             <PostMessageComponent/>

@@ -30,6 +30,16 @@ namespace backend.RealTime.Messages
 
         }
 
+        public async Task ConnectToRoom(string roomId)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+        }
+
+        public async Task DisconnectFromRoom(string roomId)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId);
+        }
+
         public override async Task OnConnectedAsync()
         {
             //var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == _httpContext.User.FindFirstValue(ClaimTypes.Email));
@@ -37,7 +47,6 @@ namespace backend.RealTime.Messages
             var httpContext = Context.GetHttpContext();
             string roomId = httpContext.Request.Query["roomId"];
             await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
-
             //var messages = _mapper.Map<List<MessageDto>>(await _context.Messages
             //    .Include(x => x.Room)
             //    .Include(x => x.Sender)

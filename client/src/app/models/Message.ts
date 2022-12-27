@@ -11,6 +11,5 @@ export interface Message{
 
 
 export interface PostMessage{
-    content:string,
-    roomId?:string,
+    content:string
 }

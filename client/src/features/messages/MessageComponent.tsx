@@ -7,6 +7,7 @@ import { Message } from '../../app/models/Message';
 
 
 const MessageDiv = styled.div`
+    margin:0;
     .date-div{
         display: inline;
         font-size: small;
@@ -26,21 +27,6 @@ function MessageComponent({message}:Props) {
                 <ListItemAvatar>
                     <Avatar alt={message.sender.firstName} src={message.sender.imageUrl} />
                 </ListItemAvatar>
-                {/* <ListItemText
-                    primary={message.sender.firstName}
-                    secondary={
-                        <React.Fragment>
-                        <Typography
-                            sx={{ display: 'inline' }}
-                            component="span"
-                            variant="body2"
-                            color="text.primary"
-                        >
-                            {message.content}
-                        </Typography>
-                        </React.Fragment>
-                    }
-                /> */}
                 <div>
                     <div>
                         <Link className='sender' to={`/profile/${message.sender.username}`}>

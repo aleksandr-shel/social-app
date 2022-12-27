@@ -77,10 +77,80 @@ namespace backend.Controllers
             return Ok(roomUsers);
         }
 
+        //[HttpPost("{username}")]
+        //public async Task<IActionResult> SendMessage(string username, MessagePostDto message)
+        //{
+        //    //await _hubContext.Clients.Client
+
+        //    var user = await _context.Users
+        //        .Include(x => x.Rooms)
+        //        .Include(x => x.Images)
+        //        .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+
+        //    var toUser = await _context.Users
+        //        .Include(x => x.Rooms)
+        //        .FirstOrDefaultAsync(x => x.UserName == username);
+
+        //    if (message.RoomId != null)
+        //    {
+        //        var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id.ToString()==message.RoomId);
+        //        var newMessage = new Message
+        //        {
+        //            Room = room,
+        //            Content = message.Content,
+        //            Sender = user
+        //        };
+        //        var res = await _context.Messages.AddAsync(newMessage);
+        //        await _context.SaveChangesAsync();
+        //        var newMes = _mapper.Map<MessageDto>(res.Entity);
+        //        await _hubContext.Clients.Group(room.Id.ToString()).SendAsync("ReceiveMessage", newMes);
+        //        return Ok(newMes);
+        //    }
+
+        //    var newRoom = new Room
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        RoomUsers = new List<RoomUser>()
+        //    };
+
+        //    var newRoomUser = new RoomUser
+        //    {
+        //        Room = newRoom,
+        //        RoomId = newRoom.Id,
+        //        User = user,
+        //        UserId = user.Id
+        //    };
+
+        //    var newRoomUser2 = new RoomUser
+        //    {
+        //        Room = newRoom,
+        //        RoomId = newRoom.Id,
+        //        User = toUser,
+        //        UserId = toUser.Id
+        //    };
+
+        //    newRoom.RoomUsers.Add(newRoomUser);
+        //    newRoom.RoomUsers.Add(newRoomUser2);
+
+        //    await _context.Rooms.AddAsync(newRoom);
+
+        //    var newMessage_ = new Message
+        //    {
+        //        Room = newRoom,
+        //        Content = message.Content,
+        //        Sender = user
+        //    };
+
+        //    var res_ = await _context.Messages.AddAsync(newMessage_);
+        //    await _context.SaveChangesAsync();
+        //    var newMes_ = _mapper.Map<MessageDto>(res_.Entity);
+        //    await _hubContext.Clients.Group(newRoom.Id.ToString()).SendAsync("ReceiveMessage", newMes_);
+        //    return Ok(newMes_);
+        //}
+
         [HttpPost("{username}")]
         public async Task<IActionResult> SendMessage(string username, MessagePostDto message)
         {
-            //await _hubContext.Clients.Client
 
             var user = await _context.Users
                 .Include(x => x.Rooms)
@@ -91,9 +161,23 @@ namespace backend.Controllers
                 .Include(x => x.Rooms)
                 .FirstOrDefaultAsync(x => x.UserName == username);
 
-            if (message.RoomId != null)
+            //get rooms that we are in
+            var rooms = await _context.RoomUsers
+                .Where(ru => ru.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .Select(ru => ru.Room)
+                .ToListAsync();
+
+            //get rooms that we are in
+            var rooms_user = await _context.RoomUsers
+                .Where(ru => ru.User.UserName == username)
+                .Select(ru => ru.Room)
+                .ToListAsync();
+
+            var intersectRooms = rooms.Intersect(rooms_user);
+            var room = intersectRooms.FirstOrDefault();
+
+            if (room != null)
             {
-                var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id.ToString()==message.RoomId);
                 var newMessage = new Message
                 {
                     Room = room,
@@ -147,7 +231,6 @@ namespace backend.Controllers
             await _hubContext.Clients.Group(newRoom.Id.ToString()).SendAsync("ReceiveMessage", newMes_);
             return Ok(newMes_);
         }
-
     }
 
 }

@@ -3,6 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import appSlice from "./slices/appSlice";
 import friendsSlice from "./slices/friendsSlice";
 import messagesSlice from "./slices/messagesSlice";
+import modalSlice from "./slices/modalSlice";
 import postsSlice from "./slices/postsSlice";
 import profileSlice from "./slices/profileSlice";
 import searchSlice from "./slices/searchSlice";
@@ -17,6 +18,7 @@ const store = configureStore({
         profileReducer: profileSlice.reducer,
         searchReducer: searchSlice.reducer,
         friendsReducer: friendsSlice.reducer,
+        modalReducer: modalSlice.reducer,
     },
     middleware:(getDefaultMiddleware)=> getDefaultMiddleware({
         serializableCheck: false

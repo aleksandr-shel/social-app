@@ -3,12 +3,12 @@ import * as React from 'react';
 import { Link} from 'react-router-dom';
 import { Author } from '../../app/models/Post';
 import { Room } from '../../app/models/Room';
-import { useAppSelector } from '../../app/stores/store';
+import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import styled from 'styled-components';
+import { selectRoom, setPartner } from '../../app/stores/slices/messagesSlice';
 
 interface Props{
-    room:Room,
-    setRoomId: (roomId:string)=>void;
+    room:Room
 }
 
 const ListItemDiv = styled.div`
@@ -16,14 +16,19 @@ const ListItemDiv = styled.div`
 `
 
 
-function RoomComponent({room, setRoomId}:Props) {
+function RoomComponent({room}:Props) {
     const {user} = useAppSelector(state => state.userReducer)
     const [partner,] = React.useState<Author>(room.users.filter(x=>x.username !== user?.username)[0]);
-    
+    const dispatch = useAppDispatch();
+
+    function clickOnRoom(){
+        dispatch(selectRoom(room));
+        dispatch(setPartner(partner))
+    }
 
     return ( 
         <ListItemDiv
-            onClick={()=>setRoomId(room.id)}
+            onClick={clickOnRoom}
             >
             <ListItem alignItems="flex-start" 
                     sx={{bgcolor:'background.paper', border: '0.5px solid  #D3D3D3'}}
