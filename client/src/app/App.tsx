@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
 import NotFound from '../features/errors/NotFound';
 import Friends from '../features/friends/Friends';
 import Groups from '../features/groups/Groups';
@@ -12,7 +13,9 @@ import SearchResults from '../features/search/SearchResults';
 import Settings from '../features/settings/Settings';
 import ModalContainer from './common/ModalContainer';
 import Layout from './layout/Layout';
+import { createHubConnection } from './stores/actions/messagesActions';
 import { current } from './stores/actions/userActions';
+import { stopHubConnection } from './stores/slices/messagesSlice';
 import { setToken } from './stores/slices/userSlice';
 import { useAppDispatch, useAppSelector } from './stores/store';
 
@@ -25,11 +28,16 @@ function App() {
 			dispatch(setToken(savedToken));
 			dispatch(current())
 		}
+		dispatch(createHubConnection())
+		return ()=>{
+			dispatch(stopHubConnection())
+		}
 	},[dispatch])
 
 
 	return (
 		<>
+			<ToastContainer autoClose={8000} hideProgressBar position='bottom-right'/>
 			<ModalContainer/>
 			<Routes>
 				<Route path='/' element={user !== null ? <Layout/> : <Main/>}>

@@ -45,7 +45,7 @@ const Posts = {
 
 const Profiles = {
     getProfile:(username:string)=> requests.get<Profile>(`profile/${username}`),
-    updateProfile:(updateProfile:ProfileUpdateValues)=>requests.put('profile', updateProfile),
+    updateProfile:(updateProfile:ProfileUpdateValues)=>requests.put<Profile>('profile', updateProfile),
     addImage:(file:Blob)=>{
         const formData = new FormData()
         formData.append('image', file);

@@ -34,7 +34,7 @@ function RoomComponent({room}:Props) {
                     sx={{bgcolor:'background.paper', border: '0.5px solid  #D3D3D3'}}
                 >
                 <ListItemAvatar style={{marginRight:'1em'}}>
-                    <Avatar component={Link} to={`/profile/${partner.username}`} alt={partner.firstName + ' ' +partner.lastName} src={partner.imageUrl}>
+                    <Avatar style={{textDecoration:'none'}} component={Link} to={`/profile/${partner.username}`} alt={partner.firstName + ' ' +partner.lastName} src={partner.imageUrl}>
                         {partner.lastName.slice(0,1)}
                     </Avatar>
                 </ListItemAvatar>
@@ -43,6 +43,7 @@ function RoomComponent({room}:Props) {
                     secondary={
                         <React.Fragment>
                         <Typography
+                            component='span'
                             sx={{ display: 'inline'}}
                             variant="body2"
                             color="text.primary"

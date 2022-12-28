@@ -1,4 +1,4 @@
-import { Avatar, FormControl,TextField } from '@mui/material';
+import { Avatar, Box, CircularProgress, FormControl,TextField } from '@mui/material';
 import * as React from 'react';
 import { PostMessage } from '../../app/models/Message';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
@@ -11,6 +11,7 @@ function MessageForm() {
     const dispatch = useAppDispatch();
     const {profile} = useAppSelector(state => state.profileReducer);
     const [content, setContent] = React.useState<string>('');
+    const [isSent, setSent] = React.useState(false);
     function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         if (profile){
@@ -19,6 +20,7 @@ function MessageForm() {
             }
             dispatch(postMessage(profile.username,message));
         }
+        setSent(true);
         setContent('');
         
     }   
@@ -35,6 +37,14 @@ function MessageForm() {
 
     return ( 
         <div>
+            {
+                isSent
+                ?
+                <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center',height:'100%'}}>
+                    <CircularProgress />
+                </Box>
+                :
+            <>
             <h5 style={{textAlign:'center'}}>
                 New message
             </h5>
@@ -64,6 +74,8 @@ function MessageForm() {
                     </Button>
                 </Form>
             </div>
+            </>
+            }
         </div>
      );
 }

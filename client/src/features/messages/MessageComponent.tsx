@@ -36,7 +36,7 @@ function MessageComponent({message}:Props) {
                             {formatDistanceToNow(new Date(message.date.endsWith('Z') ? message.date : message.date + 'Z'))} ago
                         </div>
                     </div>
-                    <div>
+                    <div style={{whiteSpace:'pre-wrap'}}>
                         {message.content}
                     </div>
                 </div>

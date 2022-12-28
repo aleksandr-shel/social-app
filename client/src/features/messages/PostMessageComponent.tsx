@@ -1,4 +1,4 @@
-import { FormControl, InputAdornment, TextField } from '@mui/material';
+import { FormControl,TextField } from '@mui/material';
 import * as React from 'react';
 import { Form } from 'react-bootstrap';
 import { PostMessage } from '../../app/models/Message';
@@ -20,24 +20,26 @@ function PostMessageComponent() {
         }
         setContent('');
     }   
+    function handleKeyDown(e:React.KeyboardEvent<HTMLFormElement>){
+        if (e.key === 'Enter' && e.shiftKey){
+            return;
+        }
+        if (e.key === 'Enter' && !e.shiftKey){
+            e.preventDefault();
+            handleSubmit(e);
+        }
+    }
     return ( 
-        <Form onSubmit={handleSubmit} style={{width:'100%'}}>
-            <FormControl style={{width:'100%'}}>
+        <Form onSubmit={handleSubmit} onKeyDown={e=>handleKeyDown(e)} style={{width:'100%'}}>
+            <FormControl style={{width:'100%', display:'flex'}}>
                 <TextField
-                    style={{float:'left'}}
                     size='small'
                     label="Write your message"
+                    multiline
                     variant="filled"
                     value={content}
                     onChange={(e)=>setContent(e.target.value)}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                            </InputAdornment>
-                        ),
-                    }}
                 />
-
             </FormControl>
         </Form>
      );

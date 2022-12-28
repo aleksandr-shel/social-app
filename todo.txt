@@ -2,7 +2,7 @@
 2) post/delete/update/get news ///done
 3) profile setup (image, description) //done
 4) friends, befriend, unfriend //done
-5) messages 
+5) messages //done
 6) news posts likes
 7) posts search engine
 8) groups creation 

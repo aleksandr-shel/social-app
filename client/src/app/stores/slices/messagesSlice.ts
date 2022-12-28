@@ -53,9 +53,12 @@ const messagesSlice = createSlice({
         selectRoom: (state, {payload}:PayloadAction<Room | null>)=>{
             state.selectedRoom = payload;
         },
+        addRoom: (state, {payload}:PayloadAction<Room>)=>{
+            state.rooms.unshift(payload);
+        }
     }
 })
 
-export const {setHubConnection, stopHubConnection, setRooms, setMessages, setLoading, addMessage, setPartner, selectRoom} = messagesSlice.actions;
+export const {setHubConnection, stopHubConnection, setRooms, setMessages, setLoading, addMessage, setPartner, selectRoom, addRoom} = messagesSlice.actions;
 
 export default messagesSlice;

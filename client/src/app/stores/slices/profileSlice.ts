@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Profile } from "../../models/User";
+import { Profile, ProfileUpdateValues } from "../../models/User";
 
 interface ProfileState{
     profile: Profile | null
@@ -18,10 +18,15 @@ const profileSlice = createSlice({
         },
         toggleFollow: (state)=>{
             state.profile!.following = !state.profile?.following
+        },
+        updateProfileRed:(state, {payload}:PayloadAction<ProfileUpdateValues>)=>{
+            state.profile!.about = payload.about;
+            state.profile!.firstName = payload.firstName!;
+            state.profile!.lastName = payload.lastName!;
         }
     }
 })
 
-export const {setProfile, toggleFollow} = profileSlice.actions
+export const {setProfile, toggleFollow, updateProfileRed} = profileSlice.actions
 
 export default profileSlice

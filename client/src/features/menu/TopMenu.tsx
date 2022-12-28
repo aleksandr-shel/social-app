@@ -25,7 +25,7 @@ function TopMenu() {
                         <ListItemIcon>
                             <Diversity2Icon fontSize='large' color='primary' />
                         </ListItemIcon>
-                        <ListItemText primary="COOPCHICK" />
+                        <ListItemText />
                     </ListItemButton>
                 </Grid>
                 <Grid item xs={3}>
