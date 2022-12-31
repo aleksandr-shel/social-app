@@ -46,11 +46,11 @@ const Posts = {
 const Profiles = {
     getProfile:(username:string)=> requests.get<Profile>(`profile/${username}`),
     updateProfile:(updateProfile:ProfileUpdateValues)=>requests.put<Profile>('profile', updateProfile),
-    addImage:(file:Blob)=>{
-        const formData = new FormData()
-        formData.append('image', file);
-        return axios.post<Image>('profile/image',formData,{
-            headers:{'Content-type':'multipart/form-data'}
+    addImage:(image:File)=>{
+        let formData = new FormData()
+        formData.append('Image', image);
+        return axios.post<Image>('profile/Image',formData,{
+            headers:{'Content-Type':'multipart/form-data'}
         })
     },
     deleteImage:(key:string)=>requests.del(`profile/image/${key}`),

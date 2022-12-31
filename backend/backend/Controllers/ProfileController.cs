@@ -109,6 +109,7 @@ namespace backend.Controllers
         }
 
         [HttpPost("Image")]
+        [RequestSizeLimit(100000000)]
         public async Task<IActionResult> PostImage([FromForm]ProfilePostImageDto profilePostImageDto)
         {
             var user = await _context.Users

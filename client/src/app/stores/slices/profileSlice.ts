@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Profile, ProfileUpdateValues } from "../../models/User";
-
+import {Image} from '../../models/Image';
 interface ProfileState{
     profile: Profile | null
 }
@@ -23,10 +23,14 @@ const profileSlice = createSlice({
             state.profile!.about = payload.about;
             state.profile!.firstName = payload.firstName!;
             state.profile!.lastName = payload.lastName!;
+        },
+        updateProfileImage:(state, {payload}:PayloadAction<Image>)=>{
+            state.profile!.imageUrl = payload.url;
+            state.profile?.images.push(payload);
         }
     }
 })
 
-export const {setProfile, toggleFollow, updateProfileRed} = profileSlice.actions
+export const {setProfile, toggleFollow, updateProfileRed, updateProfileImage} = profileSlice.actions
 
 export default profileSlice

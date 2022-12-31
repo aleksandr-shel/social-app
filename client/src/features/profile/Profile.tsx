@@ -3,12 +3,13 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { getProfile } from '../../app/stores/actions/profileActions';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
-import News from '../news/News';
 import {Grid} from '@mui/material';
 import { toggleFriend } from '../../app/stores/actions/friendsActions';
 import { openModal } from '../../app/stores/slices/modalSlice';
 import MessageForm from '../messages/MessageForm';
 import EditProfileComponent from './EditProfileComponent';
+import ImagesPanel from './ImagesPanel';
+import NewsList from '../news/NewsList';
 
 function Profile() {
 
@@ -82,14 +83,15 @@ function Profile() {
                         </>
                     }
                 </Grid>
-                <Grid item  xs={3}>
+                <Grid item xs={7}>
+                    <ImagesPanel owner={user?.username === profile.username} images={profile.images}/>
+                    {
+                        profile?.posts 
+                        &&
+                        <NewsList profilePosts={profile.posts} username={username}/>
+                    }
                 </Grid>
             </Grid>
-            {
-                profile?.posts 
-                &&
-                <News profilePosts={profile.posts} username={username}/>
-            }
         </>
      );
 }

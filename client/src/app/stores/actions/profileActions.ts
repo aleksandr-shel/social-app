@@ -1,7 +1,8 @@
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import agent from "../../api/agent";
 import { ProfileUpdateValues } from "../../models/User";
-import { setProfile, updateProfileRed } from "../slices/profileSlice";
+import { closeModal } from "../slices/modalSlice";
+import { setProfile, updateProfileImage, updateProfileRed } from "../slices/profileSlice";
 import { RootState } from "../store";
 
 
@@ -27,6 +28,18 @@ export const updateProfileAct = (updateProfile:ProfileUpdateValues):ThunkAction<
             }).catch((reason)=>{
                 console.log(reason)
             })
+        }catch(error){
+            console.log(error);
+        }
+    }
+}
+
+export const addImageAct = (file:File):ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async(dispatch)=>{
+        try{
+            const image = await agent.Profiles.addImage(file).then(response => response.data);
+            dispatch(updateProfileImage(image))
+            dispatch(closeModal());
         }catch(error){
             console.log(error);
         }
