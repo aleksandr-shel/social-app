@@ -6,12 +6,14 @@ interface UserState{
     token: string | null,
     user: User | null,
     loading: boolean,
+    refreshTokenTimeout:any,
 }
 
 const initialState:UserState={
     token: null,
     user: null,
     loading: false,
+    refreshTokenTimeout: null,
 }
 
 
@@ -33,10 +35,16 @@ const userSlice = createSlice({
         },
         setLoading: (state, action: PayloadAction<boolean>)=>{
             state.loading = action.payload;
+        },
+        setRefreshTokenTimeout: (state, {payload}:PayloadAction<any>)=>{
+            state.refreshTokenTimeout = payload;
+        },
+        stopRefreshTokenTimeout:(state)=>{
+            clearTimeout(state.refreshTokenTimeout);
         }
     }
 })
 
-export const {logout, setToken, setUser, setLoading} = userSlice.actions;
+export const {logout, setToken, setUser, setLoading, setRefreshTokenTimeout, stopRefreshTokenTimeout} = userSlice.actions;
 
 export default userSlice;

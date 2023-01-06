@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace backend.Services
@@ -19,7 +20,7 @@ namespace backend.Services
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                //new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.NameIdentifier, user.FirstName + " " + user.LastName)
@@ -32,7 +33,7 @@ namespace backend.Services
             {
                 Subject = new ClaimsIdentity(claims),
                 SigningCredentials = creds,
-                Expires = DateTime.Now.AddDays(1)
+                Expires = DateTime.UtcNow.AddMinutes(10)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -40,6 +41,14 @@ namespace backend.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+
+        public RefreshToken GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return new RefreshToken { Token = Convert.ToBase64String(randomNumber) };
         }
     }
 }

@@ -2,7 +2,6 @@ import * as React from 'react';
 import {Image} from '../../app/models/Image';
 import styled from 'styled-components';
 import ImagePanelItem from './ImagePanelItem';
-
 interface Props{
     images:Image[],
     owner: boolean,
@@ -25,6 +24,7 @@ const ImagesPanelDiv = styled.div`
     }
 
     .btn-slider{
+        user-select: none;
         cursor: pointer;
         z-index: 1100;
         position: absolute;
@@ -93,7 +93,7 @@ function ImagesPanel({images, owner}:Props) {
                 <div className='images'>
                     {images.map((img,index)=>{
                         if (index < pageSize * current && index >= pageSize * (current - 1)){
-                            return <ImagePanelItem key={img.key} img={img}/>
+                            return (<ImagePanelItem key={img.key} img={img} owner={owner}/>)
                         } else {
                             return null;
                         }

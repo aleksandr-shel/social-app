@@ -5,7 +5,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HelpIcon from '@mui/icons-material/Help';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import { logout } from '../../app/stores/slices/userSlice';
 
@@ -13,7 +13,7 @@ function UserMenu() {
     const dispatch = useAppDispatch();
     const [anchorUserMenuBtn, setAnchorUserMenuBtn] = React.useState<null | HTMLElement>(null);
     const openUserMenu = Boolean(anchorUserMenuBtn);
-
+    const navigate = useNavigate();
     const {user} = useAppSelector(state=>state.userReducer);
 
     const handleClickUserMenuBtn = (event:React.MouseEvent<HTMLElement>)=>{
@@ -26,6 +26,7 @@ function UserMenu() {
 
     const signOutClick = ()=>{
         dispatch(logout())
+        navigate('/')
     }
 
     return ( 

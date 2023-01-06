@@ -27,7 +27,7 @@ export interface Profile{
     username:string,
     firstName:string,
     lastName:string,
-    imageUrl:string,
+    imageUrl?:string,
     about:string,
     images: Image[],
     posts: Post[],

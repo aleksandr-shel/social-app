@@ -14,7 +14,7 @@ function ProfileList({profiles}:Props) {
             {
                 profiles.map(p => {
                     return(
-                        <ListItem component={Link} to={`/profile/${p.username}`} alignItems="flex-start">
+                        <ListItem key={p.username} component={Link} to={`/profile/${p.username}`} alignItems="flex-start">
                             <ListItemAvatar style={{marginRight:'1em'}}>
                                 <Avatar sx={{width:56, height:56}} alt={p.firstName+' '+p.lastName} src={p.imageUrl}>
                                     {p.lastName.slice(0,1)}

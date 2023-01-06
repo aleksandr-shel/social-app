@@ -185,6 +185,33 @@ namespace backend.Data.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("backend.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("RefreshToken");
+                });
+
             modelBuilder.Entity("backend.Models.Room", b =>
                 {
                     b.Property<Guid>("Id")
@@ -394,6 +421,15 @@ namespace backend.Data.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("backend.Models.RefreshToken", b =>
+                {
+                    b.HasOne("backend.Models.AppUser", "AppUser")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("backend.Models.RoomUser", b =>
                 {
                     b.HasOne("backend.Models.Room", "Room")
@@ -473,6 +509,8 @@ namespace backend.Data.Migrations
                     b.Navigation("Images");
 
                     b.Navigation("Posts");
+
+                    b.Navigation("RefreshTokens");
 
                     b.Navigation("Rooms");
                 });

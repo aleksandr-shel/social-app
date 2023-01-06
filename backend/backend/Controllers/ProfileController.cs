@@ -64,10 +64,16 @@ namespace backend.Controllers
                 return Ok(result.Distinct());
             }
 
+
             //return based on friends connection
             //result = _mapper.Map<List<ProfileDto>>(await _context.Users
             //    .Include(x => x.Images)
             //    .Take(10)
+            //    .ToListAsync());
+
+            //returning all users
+            //var profiles = _mapper.Map<List<ProfileDto>>(await _context.Users
+            //    .Include(u => u.Images)
             //    .ToListAsync());
 
             return Ok();

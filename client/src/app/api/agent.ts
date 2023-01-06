@@ -32,7 +32,8 @@ const requests = {
 const Account = {
     login: (user:UserFormValues)=>requests.post<User>('account/login', user),
     register: (user:UserFormValues)=>requests.post<User>('account/register', user),
-    current: ()=>requests.get<User>('account/current')
+    current: ()=>requests.get<User>('account/current'),
+    refreshToken:()=>requests.post<User>('/account/refreshToken',{}),
 }
 
 const Posts = {
@@ -56,7 +57,9 @@ const Profiles = {
     deleteImage:(key:string)=>requests.del(`profile/image/${key}`),
     setMain:(key:string)=>requests.put(`profile/image/${key}`, {}),
     getImages:()=>requests.get<Image[]>('profile/images'),
-    search:(q:string)=>requests.get<Profile[]>(`profile/search?q=${q}`)
+    search:(q:string)=>{
+        return requests.get<Profile[]>(`profile/search?q=${q}`)
+    }
 }
 
 const Friends = {
