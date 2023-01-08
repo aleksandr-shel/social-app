@@ -20,7 +20,7 @@ namespace backend.Services
         {
             var claims = new List<Claim>()
             {
-                //new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(ClaimTypes.NameIdentifier, user.FirstName + " " + user.LastName)
@@ -33,7 +33,7 @@ namespace backend.Services
             {
                 Subject = new ClaimsIdentity(claims),
                 SigningCredentials = creds,
-                Expires = DateTime.UtcNow.AddMinutes(10)
+                Expires = DateTime.UtcNow.AddDays(7),
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

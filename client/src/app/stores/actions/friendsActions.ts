@@ -1,7 +1,7 @@
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit"
 import agent from "../../api/agent"
 import { Profile } from "../../models/User"
-import { setFollowers, setFollowings, setFriends, toggleFriendRed } from "../slices/friendsSlice"
+import { setFollowers, setFollowings, toggleFriendRed } from "../slices/friendsSlice"
 import { toggleFollow } from "../slices/profileSlice"
 import { RootState } from "../store"
 
@@ -10,8 +10,7 @@ import { RootState } from "../store"
 export const getFollows = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch)=>{
         try{
-            const {friends, followers, followings} = await agent.Friends.getFollows();
-            dispatch(setFriends(friends))
+            const {followers, followings} = await agent.Friends.getFollows();
             dispatch(setFollowers(followers))
             dispatch(setFollowings(followings))
         }catch(error){

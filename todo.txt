@@ -3,6 +3,11 @@
 3) profile setup (image, description) //done
 4) friends, befriend, unfriend //done
 5) messages //done
-6) news posts likes
-7) posts search engine
-8) groups creation 
+6) delete edit messages
+7) add images to posts 
+8) show posts only from who you follow
+9) show how many followers user has
+
+--news posts likes --
+--posts search engine --
+--groups creation  --

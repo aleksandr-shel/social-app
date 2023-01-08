@@ -49,7 +49,7 @@ function App() {
 					<Route path='settings' element={<Settings/>}/>
 					<Route path='help' element={<Help/>}/>
 					<Route path='friends' element={<Friends/>}/>
-					<Route path='groups' element={<Groups/>}/>
+					{/* <Route path='groups' element={<Groups/>}/> */}
 					<Route path='search' element={<SearchResults/>}/>
 				</Route>
 			</Routes>

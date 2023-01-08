@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { Image } from '../../app/models/Image';
 import styled from 'styled-components';
-import { Button, imageListClasses } from '@mui/material';
+import { Button } from '@mui/material';
 import { useAppDispatch } from '../../app/stores/store';
 import { deleteImageAct, setMainImageAct } from '../../app/stores/actions/profileActions';
+import { openModal } from '../../app/stores/slices/modalSlice';
+import ImageCarousel from '../images/ImageCarousel';
+import { setCurrentImage, setImages } from '../../app/stores/slices/imagesSlices';
 const ImageDiv = styled.div`
     flex: 0 0 33.3%;
     overflow: hidden;
@@ -21,9 +24,10 @@ const ImageDiv = styled.div`
 interface Props{
     img:Image,
     owner: boolean,
+    images: Image[],
 }
 
-function ImagePanelItem({img, owner}:Props) {
+function ImagePanelItem({img, owner,images}:Props) {
 
     const dispatch = useAppDispatch();
     function handleSetMain(){
@@ -34,13 +38,19 @@ function ImagePanelItem({img, owner}:Props) {
         dispatch(deleteImageAct(img))
     }
 
+    function handleClickImage(){
+        dispatch(openModal(<ImageCarousel/>))
+        dispatch(setCurrentImage(img))
+        dispatch(setImages(images))
+    }
+
     return (
-            <ImageDiv key={img.key}>
+            <ImageDiv key={img.key} onClick={()=>{handleClickImage()}}>
                 <img src={img.url} alt={img.key}/>
                 {
                     owner 
                     &&
-                    <div className='buttons'>
+                    <div className='buttons' onClick={(e)=>e.stopPropagation()}>
                         {
                             !img.isMain
                             &&

@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import appSlice from "./slices/appSlice";
 import friendsSlice from "./slices/friendsSlice";
+import imagesSlice from "./slices/imagesSlices";
 import messagesSlice from "./slices/messagesSlice";
 import modalSlice from "./slices/modalSlice";
 import postsSlice from "./slices/postsSlice";
@@ -19,6 +20,7 @@ const store = configureStore({
         searchReducer: searchSlice.reducer,
         friendsReducer: friendsSlice.reducer,
         modalReducer: modalSlice.reducer,
+        imagesReducer: imagesSlice.reducer,
     },
     middleware:(getDefaultMiddleware)=> getDefaultMiddleware({
         serializableCheck: false

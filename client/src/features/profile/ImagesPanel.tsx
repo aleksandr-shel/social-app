@@ -26,7 +26,7 @@ const ImagesPanelDiv = styled.div`
     .btn-slider{
         user-select: none;
         cursor: pointer;
-        z-index: 1100;
+        z-index: 100;
         position: absolute;
         font-size: 5em;
         background-color: #EAEAEA;
@@ -51,12 +51,16 @@ const ImagesPanelDiv = styled.div`
         border-bottom: 2px solid #01579b;
         margin: 0.5em 1em 0 1em;
     }
+
+    .disabled{
+        display: none;
+    }
 `;
 
 function ImagesPanel({images, owner}:Props) {
     const pageSize = 3;
     const [current, setCurrent] = React.useState(1);
-    const [pages, setPages] = React.useState((images.length+2) / pageSize);
+    const [pages, setPages] = React.useState((images.length+(pageSize-1)) / pageSize);
 
     React.useEffect(()=>{
         setCurrent(1);
@@ -84,16 +88,16 @@ function ImagesPanel({images, owner}:Props) {
                 </h4>
             </div>
             <div className='images-container'>
-                <div className='left-btn btn-slider' onClick={handleLeftBtn}>
+                <div className={pages > 1 ? 'left-btn btn-slider' : 'left-btn btn-slider disabled'} onClick={handleLeftBtn}>
                     {'<'}
                 </div>
-                <div className='right-btn btn-slider' onClick={handleRightBtn}>
+                <div className={pages > 1 ? 'right-btn btn-slider' : 'right-btn btn-slider disabled'}  onClick={handleRightBtn}>
                     {'>'}
                 </div>
                 <div className='images'>
                     {images.map((img,index)=>{
                         if (index < pageSize * current && index >= pageSize * (current - 1)){
-                            return (<ImagePanelItem key={img.key} img={img} owner={owner}/>)
+                            return (<ImagePanelItem key={img.key} img={img} owner={owner} images={images}/>)
                         } else {
                             return null;
                         }

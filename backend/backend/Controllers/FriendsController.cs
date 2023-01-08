@@ -41,7 +41,6 @@ namespace backend.Controllers
 
             var res = new
             {
-                friends,
                 followers,
                 followings
             };

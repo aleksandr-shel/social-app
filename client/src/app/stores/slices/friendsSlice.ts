@@ -2,13 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Profile } from "../../models/User";
 
 export interface FriendsState{
-    friends:Profile[],
     followers: Profile[],
     followings: Profile[],
 }
 
 const initialState:FriendsState = {
-    friends: [],
     followers: [],
     followings: [],
 }
@@ -24,9 +22,6 @@ const friendsSlice = createSlice({
                 state.followings.push(payload);
             }
         },
-        setFriends: (state, {payload}:PayloadAction<Profile[]>)=>{
-            state.friends = payload
-        },
         setFollowers: (state, {payload}:PayloadAction<Profile[]>)=>{
             state.followers = payload
         },
@@ -36,7 +31,7 @@ const friendsSlice = createSlice({
     }
 })
 
-export const {toggleFriendRed, setFriends, setFollowers, setFollowings} = friendsSlice.actions
+export const {toggleFriendRed,setFollowers, setFollowings} = friendsSlice.actions
 
 
 export default friendsSlice

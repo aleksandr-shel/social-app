@@ -23,7 +23,7 @@ function TabPanel(props: TabPanelProps) {
       >
         {value === index && (
           <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
+            <Typography component={'span'}>{children}</Typography>
           </Box>
         )}
       </div>
@@ -39,7 +39,7 @@ function TabPanel(props: TabPanelProps) {
   
 function Friends() {
 
-    const {friends, followers, followings} = useAppSelector(state => state.friendsReducer);
+    const {followers, followings} = useAppSelector(state => state.friendsReducer);
     const dispatch = useAppDispatch();
 
     React.useEffect(()=>{
@@ -60,18 +60,15 @@ function Friends() {
 					<Box sx={{ width: '100%' }}>
 						<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 							<Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-								<Tab title="Follow each other" label="Friends" {...a11yProps(0)} />
-								<Tab label="Followers" {...a11yProps(1)} />
-								<Tab label="Followings" {...a11yProps(2)} />
+								{/* <Tab title="Follow each other" label="Friends" {...a11yProps(0)} /> */}
+								<Tab label="Followers" {...a11yProps(0)} />
+								<Tab label="Followings" {...a11yProps(1)} />
 							</Tabs>
 						</Box>
 						<TabPanel value={value} index={0}>
-							<ProfileList profiles={friends}/>
-						</TabPanel>
-						<TabPanel value={value} index={1}>
 							<ProfileList profiles={followers}/>
 						</TabPanel>
-						<TabPanel value={value} index={2}>
+						<TabPanel value={value} index={1}>
 							<ProfileList profiles={followings}/>
 						</TabPanel>
 					</Box>
