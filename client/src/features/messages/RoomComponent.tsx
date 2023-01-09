@@ -48,7 +48,6 @@ function RoomComponent({room}:Props) {
                             variant="body2"
                             color="text.primary"
                         >
-                            here message
                         </Typography>
                         </React.Fragment>
                     }

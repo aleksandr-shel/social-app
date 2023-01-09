@@ -64,6 +64,22 @@ namespace backend.Controllers
                 .Select(ru => ru.Room)
                 .ToListAsync();
 
+            //select last message of each room
+            //select*
+            //from dbo.Messages m
+            //where m.Date = (select max(m2.Date)
+            //                from dbo.Messages m2
+            //                where m.RoomId = m2.RoomId)
+
+            //var latestDateOfAMessageInRoom = from m in _context.Messages
+            //                           where m.Room.Id.ToString() == "roomid"
+            //                           group m by m.Date into g
+            //                           select g.Max(x => x.Date);
+
+
+            //var lastMessages = from m in _context.Messages
+            //                   where m.Date == 
+            //                   select m;
 
             // get users of the rooms and grouped by room id
             var roomUsers = await _context.RoomUsers
@@ -146,7 +162,7 @@ namespace backend.Controllers
             await _context.Rooms.AddAsync(newRoom);
 
             var roomUser = new { Id = newRoom.Id, users = _mapper.Map<List<AuthorDto>>(new List<AppUser> { user, toUser}) };
-
+            await _hubContext.Clients.Group(user.Id).SendAsync("ReceiveRoom", roomUser);
             await _hubContext.Clients.Group(toUser.Id).SendAsync("ReceiveRoom", roomUser);
 
             var newMessage_ = new Message
@@ -162,6 +178,40 @@ namespace backend.Controllers
             await _hubContext.Clients.Group(newRoom.Id.ToString()).SendAsync("ReceiveMessage", newMes_);
             return Ok(newMes_);
         }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMessage(string id)
+        {
+            var message = await _context
+                .Messages
+                .Include(x => x.Room)
+                .Include(x => x.Sender)
+                .FirstOrDefaultAsync(x => x.Id.ToString() == id);
+            if (message == null)
+            {
+                return BadRequest("No message with this id: " + id);
+            }
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.UserName == User.FindFirstValue(ClaimTypes.Name));
+
+
+            if (!message.Sender.Equals(user))
+            {
+                return Unauthorized();
+            }
+
+            _context.Messages.Remove(message);
+
+            var res = await _context.SaveChangesAsync() > 0;
+            if (res)
+            {
+                await _hubContext.Clients.Group(message.Room.Id.ToString()).SendAsync("DeleteMessage", id);
+                return Ok();
+            }
+            return BadRequest("Problem removing message");
+        }
+
     }
 
 }

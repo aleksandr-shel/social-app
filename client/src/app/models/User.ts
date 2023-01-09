@@ -32,4 +32,6 @@ export interface Profile{
     images: Image[],
     posts: Post[],
     following: boolean,
+    followers: number,
+    followings: number,
 }

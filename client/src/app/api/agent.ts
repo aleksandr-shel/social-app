@@ -65,13 +65,15 @@ const Profiles = {
 const Friends = {
     toggleFriend:(username:string)=>axios.post(`friends/${username}`,{}),
     getFollows:()=>requests.get<FriendsState>('friends'),
+    followings:()=>requests.get<Profile[]>('friends/followings'),
 }
 
 
 const Messages = {
     getRooms: ()=>requests.get<Room[]>('messages/rooms'),
     getMessages: (roomId:string)=>requests.get<Message[]>(`messages/${roomId}`),
-    postMessage:(username:string, message:PostMessage)=>requests.post<Message>(`messages/${username}`,message)
+    postMessage:(username:string, message:PostMessage)=>requests.post<Message>(`messages/${username}`,message),
+    deleteMessage:(id:string)=>requests.del(`messages/${id}`),
 }
 
 const agent = {

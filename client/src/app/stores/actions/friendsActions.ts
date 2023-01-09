@@ -19,6 +19,17 @@ export const getFollows = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
     }
 }
 
+export const getFollowings = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async(dispatch)=>{
+        try{
+            const followings = await agent.Friends.followings()
+            dispatch(setFollowings(followings))
+        }catch(error){
+            console.log(error);
+        }
+    }
+}
+
 export const toggleFriend = (profile:Profile):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch)=>{
         try{

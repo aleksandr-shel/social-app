@@ -3,7 +3,9 @@ import { formatDistanceToNow } from 'date-fns';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import agent from '../../app/api/agent';
 import { Message } from '../../app/models/Message';
+import { useAppSelector } from '../../app/stores/store';
 
 
 const MessageDiv = styled.div`
@@ -21,6 +23,15 @@ interface Props{
     message:Message
 }
 function MessageComponent({message}:Props) {
+    const {user} = useAppSelector(state => state.userReducer);
+    async function handleDelete(){
+        try{
+            await agent.Messages.deleteMessage(message.id);
+        }catch(error){
+            console.log(error);
+        }
+    }
+
     return ( 
         <MessageDiv>
             <ListItem alignItems="flex-start" sx={{bgcolor: 'background.paper'}}>
@@ -39,6 +50,11 @@ function MessageComponent({message}:Props) {
                     <div style={{whiteSpace:'pre-wrap'}}>
                         {message.content}
                     </div>
+                    {
+                        user?.username === message.sender.username
+                        &&
+                        <button onClick={handleDelete} type="button" className="btn-close position-absolute top-0 end-0" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    }
                 </div>
             </ListItem>
         </MessageDiv>

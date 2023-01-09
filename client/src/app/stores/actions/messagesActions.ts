@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import agent from "../../api/agent";
 import { Message, PostMessage } from "../../models/Message";
 import { Room } from "../../models/Room";
-import { addMessage, addRoom, setHubConnection, setLoading, setMessages, setRooms } from "../slices/messagesSlice";
+import { addMessage, addRoom, deleteMessage, setHubConnection, setLoading, setMessages, setRooms } from "../slices/messagesSlice";
 import { closeModal } from "../slices/modalSlice";
 import { RootState } from "../store";
 
@@ -29,12 +29,18 @@ export const createHubConnection = ():ThunkAction<void, RootState, unknown, AnyA
         })
 
         hubConnection.on('ReceiveMessage',(message:Message)=>{
+            //toast only when not in messages location
             dispatch(addMessage(message))
+        })
+
+        hubConnection.on('DeleteMessage',(id:string)=>{
+            dispatch(deleteMessage(id));
         })
 
         hubConnection.on('ReceiveRoom', (room:Room)=>{
             dispatch(addRoom(room))
-            toast.success('New message :)')
+            // toast if new room for a receiver
+            // toast.success('New message :)')
         })
 
         dispatch(setHubConnection(hubConnection));
@@ -82,7 +88,6 @@ export const postMessage = (username:string, message:PostMessage):ThunkAction<vo
         }
     }
 }
-
 
 export const connectToRoom = (roomId:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async (dispatch,getState)=>{

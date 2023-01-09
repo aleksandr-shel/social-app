@@ -3,11 +3,12 @@
 3) profile setup (image, description) //done
 4) friends, befriend, unfriend //done
 5) messages //done
-6) delete edit messages
+6) delete edit messages //done delete
 7) add images to posts 
 8) show posts only from who you follow
-9) show how many followers user has
-
+9) show how many followers user has //done
+10) show room's last message and sort rooms by last message's date // naxyi
+11) new message form and search who to message in followings //done
 --news posts likes --
 --posts search engine --
 --groups creation  --

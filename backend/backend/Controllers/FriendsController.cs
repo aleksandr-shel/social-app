@@ -46,6 +46,17 @@ namespace backend.Controllers
             };
             return Ok(res);
         }
+
+        [HttpGet("followings")]
+        public async Task<IActionResult> Followings()
+        {
+            var followings = _mapper.Map<List<ProfileDto>>(await _context.Friends
+                .Where(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name))
+                .Include(x => x.Target.Images)
+                .Select(x => x.Target)
+                .ToListAsync());
+            return Ok(followings);
+        }
         [HttpPost("{username}")]
         public async Task<IActionResult> ToggleFollow(string username)
         {

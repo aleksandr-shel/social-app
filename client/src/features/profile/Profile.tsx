@@ -42,11 +42,13 @@ function Profile() {
                         <EditProfileComponent setEditMode={setEditMode}/>
                         :
                         <>
-                            <Avatar sx={{width:"150px", height:'150px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}
-                                src={profile?.imageUrl}
-                                >
-                                {profile.lastName.slice(0,1)}
-                            </Avatar>
+                            <div>
+                                <Avatar sx={{width:"150px", height:'150px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}
+                                    src={profile?.imageUrl}
+                                    >
+                                    {profile.lastName.slice(0,1)}
+                                </Avatar>
+                            </div>
                             <div style={{display:'flex', flexDirection:'column', justifyContent:'space-between', marginLeft: '1em'}}>
                                 <span style={{color:'#01579b', fontSize:'large', fontWeight:'bold'}}>
                                     {profile.firstName} 
@@ -79,6 +81,25 @@ function Profile() {
                                         </Button>
                                     </div>
                                 }
+                                <div style={{display:'flex', color:'gray',fontWeight:'bold'}}>
+                                    <div style={{marginRight:'1em'}}>
+                                        <span style={{color:'#01579b'}}>
+                                            {profile.followers}
+                                        </span>
+                                        {' '}
+                                        followers
+                                    </div>
+                                    {
+                                        '|'
+                                    }
+                                    <div style={{marginLeft:'1em'}}>
+                                        <span style={{color:'#01579b'}}>
+                                            {profile.followings}
+                                        </span>
+                                        {' '}
+                                        followings
+                                    </div>
+                                </div>
                             </div>
                         </>
                     }

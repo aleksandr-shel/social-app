@@ -13,6 +13,8 @@ namespace backend.DTOs.Profile
         public ICollection<ProfileImage> Images { get; set; }
         public ICollection<PostDto> Posts { get; set; }
         public bool Following { get; set; }
+        public int Followers { get; set; }
+        public int Followings { get; set; }
         public override bool Equals(object obj)
         {
             return obj is ProfileDto dto &&

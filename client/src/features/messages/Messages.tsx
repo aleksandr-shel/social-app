@@ -26,7 +26,7 @@ function Messages() {
 
     if (loadingMessages) return <LoadingComponent/>
 
-    if (messages.length === 0) return <>No messages</>
+    // if (messages.length === 0) return <>No messages</>
     return ( 
         <div style={{height:'90vh'}}>
             <List sx={{ width: '100%', 

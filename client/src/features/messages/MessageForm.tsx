@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import { postMessage } from '../../app/stores/actions/messagesActions';
 import { Form } from 'react-bootstrap';
 import Button from '@mui/material/Button';
+import { setProfile } from '../../app/stores/slices/profileSlice';
 
 function MessageForm() {
 
@@ -12,6 +13,12 @@ function MessageForm() {
     const {profile} = useAppSelector(state => state.profileReducer);
     const [content, setContent] = React.useState<string>('');
     const [isSent, setSent] = React.useState(false);
+
+    React.useEffect(()=>{
+        return ()=>{
+            dispatch(setProfile(null))
+        }
+    },[dispatch])
     function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         if (profile){
