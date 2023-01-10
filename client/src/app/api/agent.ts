@@ -40,7 +40,16 @@ const Posts = {
     getPosts: ()=>requests.get<Post[]>('posts'),
     getPost: (id:string)=> requests.get<Post>(`posts/${id}`),
     updatePost:(id:string, updatePost: PostUpdate) => requests.put<Post>(`posts/${id}`, updatePost),
-    createPost:(newPost:PostCreate) => requests.post<Post>('posts', newPost),
+    createPost:(newPost:PostCreate) => {
+        // requests.post<Post>('posts', newPost)
+        let formData = new FormData()
+        formData.append('content', newPost.content)
+        return axios.post<Post>('posts', formData,{
+            headers:{'Content-Type':'multipart/form-data'}
+        }).then(response=>{
+            return response.data;
+        })
+    },
     deletePost:(id:string) => requests.del(`posts/${id}`),
 }
 

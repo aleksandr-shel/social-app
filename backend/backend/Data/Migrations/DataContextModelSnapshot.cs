@@ -185,6 +185,28 @@ namespace backend.Data.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("backend.Models.PostImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostImages");
+                });
+
             modelBuilder.Entity("backend.Models.RefreshToken", b =>
                 {
                     b.Property<int>("Id")
@@ -421,6 +443,13 @@ namespace backend.Data.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("backend.Models.PostImage", b =>
+                {
+                    b.HasOne("backend.Models.Post", null)
+                        .WithMany("Images")
+                        .HasForeignKey("PostId");
+                });
+
             modelBuilder.Entity("backend.Models.RefreshToken", b =>
                 {
                     b.HasOne("backend.Models.AppUser", "AppUser")
@@ -513,6 +542,11 @@ namespace backend.Data.Migrations
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("backend.Models.Post", b =>
+                {
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("backend.Models.Room", b =>

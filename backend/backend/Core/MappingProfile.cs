@@ -26,6 +26,8 @@ namespace backend.Core
             CreateMap<Message, MessageDto>()
                 .ForMember(x => x.RoomId, p => p.MapFrom(x => x.Room.Id));
 
+            CreateMap<PostImage, PostImageDto>();
+
 
         }
     }

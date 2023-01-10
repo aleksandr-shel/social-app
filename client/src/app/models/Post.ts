@@ -1,10 +1,12 @@
+import { Image } from "./Image"
 
 
 export interface Post{
     id:string,
     content:string,
     author:Author,
-    date:string
+    date:string,
+    images: Image[],
 }
 
 
@@ -20,5 +22,6 @@ export interface PostUpdate{
 }
 
 export interface PostCreate{
-    content:string
+    content:string,
+    files?:File[],
 }

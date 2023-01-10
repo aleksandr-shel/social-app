@@ -1,4 +1,6 @@
-﻿namespace backend.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace backend.Models
 {
     public class Post
     {
@@ -6,6 +8,7 @@
         public string Content { get; set; }
         public AppUser Author { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
+        public ICollection<PostImage> Images { get; set; } = new List<PostImage>();
 
     }
 }

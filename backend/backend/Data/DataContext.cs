@@ -15,7 +15,7 @@ namespace backend.Data
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomUser> RoomUsers { get; set; }
         public DbSet<Image> Images { get; set; }
-
+        public DbSet<PostImage> PostImages { get; set; }
         public DbSet<Friends> Friends { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,6 +32,7 @@ namespace backend.Data
                 .WithMany(x => x.Rooms)
                 .HasForeignKey(x => x.UserId);
 
+
             builder.Entity<Friends>(b =>
             {
                 b.HasKey(k => new { k.ObserverId, k.TargetId });
@@ -45,6 +46,7 @@ namespace backend.Data
                     .HasForeignKey(o => o.TargetId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
+            
         }
     }
 }

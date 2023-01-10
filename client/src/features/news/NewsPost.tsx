@@ -29,6 +29,18 @@ const StyledPostDiv = styled.div`
         border-top: 0.5px solid #D3D3D3;
         white-space: pre-wrap;
     }
+
+    .images-container{
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1em;
+    }
+
+    .images-container img{
+        width: 90%;
+    }
 `
 const DotsButton = styled.div`
     cursor:pointer;
@@ -128,6 +140,13 @@ function NewsPost({post}:Props) {
                         <div className='content-text'>
                             {post.content}
                         </div>
+                        {
+                            post.images.length !== 0
+                            &&
+                            <div className='images-container'>
+                                <img src={post.images[0].url}/>
+                            </div>
+                        }
                     </div>
                 </StyledPostDiv>
             }
