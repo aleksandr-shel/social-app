@@ -44,6 +44,11 @@ const Posts = {
         // requests.post<Post>('posts', newPost)
         let formData = new FormData()
         formData.append('content', newPost.content)
+        if (newPost.files !== undefined && newPost.files.length>0){
+            newPost.files.forEach(file=>{
+                formData.append('files',file);
+            })
+        }
         return axios.post<Post>('posts', formData,{
             headers:{'Content-Type':'multipart/form-data'}
         }).then(response=>{

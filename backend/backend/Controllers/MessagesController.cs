@@ -64,30 +64,16 @@ namespace backend.Controllers
                 .Select(ru => ru.Room)
                 .ToListAsync();
 
-            //select last message of each room
-            //select*
-            //from dbo.Messages m
-            //where m.Date = (select max(m2.Date)
-            //                from dbo.Messages m2
-            //                where m.RoomId = m2.RoomId)
-
-            //var latestDateOfAMessageInRoom = from m in _context.Messages
-            //                           where m.Room.Id.ToString() == "roomid"
-            //                           group m by m.Date into g
-            //                           select g.Max(x => x.Date);
-
-
-            //var lastMessages = from m in _context.Messages
-            //                   where m.Date == 
-            //                   select m;
-
-            // get users of the rooms and grouped by room id
             var roomUsers = await _context.RoomUsers
+                .Include(x => x.Room)   
                 .Include(ru => ru.User)
                 .Include(ru => ru.User.Images)
                 .Where(ru => rooms.Contains(ru.Room))
                 .GroupBy(ru => ru.RoomId)
-                .Select(x => new { Id = x.Key, users = _mapper.Map<List<AuthorDto>>(x.Select(y => y.User).ToList()) })
+                .Select(x => new { Id = x.Key, LastUpdate = x.Select(y => y.Room.LastUpdated).First(),
+                    LastMessage = x.Select(y => y.Room.LastMessage).First(),
+                    users = _mapper.Map<List<AuthorDto>>(x.Select(y => y.User).ToList()) })
+                .OrderByDescending(x => x.LastUpdate)
                 .ToListAsync();
             
             return Ok(roomUsers);
@@ -124,6 +110,8 @@ namespace backend.Controllers
                     Content = message.Content,
                     Sender = user
                 };
+                room.LastMessage = message.Content;
+                room.LastUpdated = newMessage.Date;
                 var res = await _context.Messages.AddAsync(newMessage);
                 await _context.SaveChangesAsync();
                 var newMes = _mapper.Map<MessageDto>(res.Entity);
@@ -161,9 +149,6 @@ namespace backend.Controllers
 
             await _context.Rooms.AddAsync(newRoom);
 
-            var roomUser = new { Id = newRoom.Id, users = _mapper.Map<List<AuthorDto>>(new List<AppUser> { user, toUser}) };
-            await _hubContext.Clients.Group(user.Id).SendAsync("ReceiveRoom", roomUser);
-            await _hubContext.Clients.Group(toUser.Id).SendAsync("ReceiveRoom", roomUser);
 
             var newMessage_ = new Message
             {
@@ -171,7 +156,12 @@ namespace backend.Controllers
                 Content = message.Content,
                 Sender = user
             };
+            newRoom.LastMessage = message.Content;
+            newRoom.LastUpdated = newMessage_.Date;
 
+            var roomUser = new { Id = newRoom.Id, users = _mapper.Map<List<AuthorDto>>(new List<AppUser> { user, toUser }) };
+            await _hubContext.Clients.Group(user.Id).SendAsync("ReceiveRoom", roomUser);
+            await _hubContext.Clients.Group(toUser.Id).SendAsync("ReceiveRoom", roomUser);
             var res_ = await _context.Messages.AddAsync(newMessage_);
             await _context.SaveChangesAsync();
             var newMes_ = _mapper.Map<MessageDto>(res_.Entity);

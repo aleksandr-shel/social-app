@@ -6,6 +6,7 @@ import { Room } from '../../app/models/Room';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import styled from 'styled-components';
 import { selectRoom, setPartner } from '../../app/stores/slices/messagesSlice';
+import { formatDistanceToNow } from 'date-fns';
 
 interface Props{
     room:Room
@@ -43,12 +44,14 @@ function RoomComponent({room}:Props) {
                     secondary={
                         <React.Fragment>
                         <Typography
-                            component='span'
-                            sx={{ display: 'inline'}}
+                            component='div'
+                            sx={{ fontSize:'small'}}
                             variant="body2"
                             color="text.primary"
                         >
+                            {formatDistanceToNow(new Date(room.lastUpdate.endsWith('Z') ? room.lastUpdate : room.lastUpdate + 'Z'))} ago
                         </Typography>
+                            {room.lastMessage.length > 10 ? room.lastMessage.slice(0, 10) + '...' : room.lastMessage}
                         </React.Fragment>
                     }
                 />

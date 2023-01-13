@@ -19,20 +19,6 @@ function ImageUploadWidget({setFile}:Props) {
         borderColor: 'lightblue'
     }
 
-    // const onDrop = useCallback((acceptedFiles) => {
-        
-    //     acceptedFiles.forEach((file: File)=>{
-    //         const reader = new FileReader()
-
-    //         reader.onload = ()=>{
-    //             setSrc(reader.result)
-    //             console.log('finished')
-    //         }
-    //         reader.readAsDataURL(file);
-    //         setFiles(file);
-    //     })
-    // }, [setFiles, setSrc])
-
     const onDrop = useCallback((acceptedFiles:any) => {
 
         acceptedFiles.forEach((file: any)=>{
@@ -45,7 +31,7 @@ function ImageUploadWidget({setFile}:Props) {
             setFile(file);
         })
       }, [setSrc, setFile])
-      const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
     return ( 
         <div {...getRootProps()} style={isDragActive ? {...dzStyles, ...dzActive} : dzStyles}>

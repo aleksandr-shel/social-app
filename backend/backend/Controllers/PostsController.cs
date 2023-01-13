@@ -67,8 +67,12 @@ namespace backend.Controllers
                 Author = user,
             };
 
+
             if (post.Files != null)
             {
+                if (post.Files.Length > 10) {
+                    return BadRequest("No more than 10 images");
+                }
                 foreach(var file in post.Files)
                 {
                     (string url, string key) = await _uploadFile.UploadFile(file);

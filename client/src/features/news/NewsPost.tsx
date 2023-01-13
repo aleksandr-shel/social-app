@@ -15,7 +15,6 @@ const StyledPostDiv = styled.div`
     margin-top: 1em;
     border: 0.5px solid  #D3D3D3;
     padding: 1em;
-
     .header-post{
         margin-bottom: 0.5em;
     }
@@ -31,16 +30,30 @@ const StyledPostDiv = styled.div`
     }
 
     .images-container{
+        display: flex;
+        margin-top: 1em;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .image{
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 1em;
+        flex: 1 1 50%;
     }
-
-    .images-container img{
-        width: 90%;
+    .images-container .image img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
     }
+    /* @media only screen and (max-width: 1000px) {
+        .images-container .image img{
+            height: 200px;
+            width: 200px;
+        }
+    } */
 `
 const DotsButton = styled.div`
     cursor:pointer;
@@ -78,7 +91,6 @@ function NewsPost({post}:Props) {
     function deletePostHandler(id:string){
         dispatch(deletePost(id))
     }
-
 
     //edit mode
     const [editMode, setEditMode] = React.useState(false);
@@ -144,7 +156,13 @@ function NewsPost({post}:Props) {
                             post.images.length !== 0
                             &&
                             <div className='images-container'>
-                                <img src={post.images[0].url}/>
+                                {post.images.map(img=>{
+                                    return(
+                                        <div key={img.key} className='image'>
+                                            <img alt={img.key} src={img.url}/>
+                                        </div>
+                                    )
+                                })}
                             </div>
                         }
                     </div>
