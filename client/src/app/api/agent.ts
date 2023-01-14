@@ -56,6 +56,8 @@ const Posts = {
         })
     },
     deletePost:(id:string) => requests.del(`posts/${id}`),
+    toggleFavorite:(id:string)=> requests.post(`favorite/${id}`,{}),
+    favorite:()=>requests.get<Post[]>('favorite'),
 }
 
 const Profiles = {

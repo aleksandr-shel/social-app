@@ -58,6 +58,9 @@ const messagesSlice = createSlice({
         },
         deleteMessage:(state, {payload}:PayloadAction<string>)=>{
             state.messages = state.messages.filter(x=>x.id !== payload);
+        },
+        setRoomLastMessageAndLastUpdate:(state,{payload}:PayloadAction<string>)=>{
+
         }
     }
 })

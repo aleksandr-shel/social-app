@@ -2,8 +2,6 @@ import { Button, ClickAwayListener, Divider, ListItemIcon, ListItemText, MenuIte
 import * as React from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import HelpIcon from '@mui/icons-material/Help';
-import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
@@ -45,7 +43,7 @@ function UserMenu() {
                                 </ListItemIcon>
                                 <ListItemText>Profile</ListItemText>
                             </MenuItem>
-                            <MenuItem component={Link} to='settings'>
+                            {/* <MenuItem component={Link} to='settings'>
                                 <ListItemIcon>
                                     <SettingsIcon/>
                                 </ListItemIcon>
@@ -56,7 +54,7 @@ function UserMenu() {
                                     <HelpIcon/>
                                 </ListItemIcon>
                                 <ListItemText>Help</ListItemText>
-                            </MenuItem>
+                            </MenuItem> */}
                             <Divider />
                             <MenuItem onClick={signOutClick}>
                                 <ListItemIcon>

@@ -2,15 +2,13 @@ import React, { useEffect } from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import NotFound from '../features/errors/NotFound';
+import FavoriteList from '../features/favorite/FavoriteList';
 import Friends from '../features/friends/Friends';
-import Groups from '../features/groups/Groups';
-import Help from '../features/help/Help';
 import Main from '../features/Main';
 import MessagesPanel from '../features/messages/MessagesPanel';
 import News from '../features/news/News';
 import Profile from '../features/profile/Profile';
 import SearchResults from '../features/search/SearchResults';
-import Settings from '../features/settings/Settings';
 import ModalContainer from './common/ModalContainer';
 import Layout from './layout/Layout';
 import { createHubConnection } from './stores/actions/messagesActions';
@@ -46,9 +44,10 @@ function App() {
 					<Route path='profile/:username' element={<Profile/>}/>
 					<Route path='news' element={<News/>}/>
 					<Route path='messages' element={<MessagesPanel/>}/>
-					<Route path='settings' element={<Settings/>}/>
-					<Route path='help' element={<Help/>}/>
+					{/* <Route path='settings' element={<Settings/>}/>
+					<Route path='help' element={<Help/>}/> */}
 					<Route path='friends' element={<Friends/>}/>
+					<Route path='favorite' element={<FavoriteList/>}/>
 					{/* <Route path='groups' element={<Groups/>}/> */}
 					<Route path='search' element={<SearchResults/>}/>
 				</Route>

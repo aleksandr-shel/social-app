@@ -8,6 +8,8 @@ namespace backend.DTOs.Post
         public string Content { get; set; }
         public AuthorDto Author { get; set; }
         public DateTime Date { get; set; }
+        public int Likes { get; set; }
+        public bool Liked { get; set; }
         public ICollection<PostImageDto> Images { get; set; }
     }
 }

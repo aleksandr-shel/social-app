@@ -14,5 +14,6 @@ namespace backend.Models
         public ICollection<Friends> Followers { get; set; }
         public ICollection<Friends> Followings { get; set; }
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+        public ICollection<FavoritePost> FavoritePosts { get; set; }
     }
 }

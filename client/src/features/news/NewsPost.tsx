@@ -8,6 +8,11 @@ import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import { deletePost } from '../../app/stores/actions/postsActions';
 import EditPostNews from './EditPostNews';
 import { Link } from 'react-router-dom';
+import { openModal } from '../../app/stores/slices/modalSlice';
+import { setCurrentImage, setImages } from '../../app/stores/slices/imagesSlices';
+import ImageCarousel from '../images/ImageCarousel';
+import { Image } from '../../app/models/Image';
+import { toggleFavoritePost } from '../../app/stores/actions/messagesActions';
 
 const StyledPostDiv = styled.div`
     border-radius: 15px;
@@ -33,6 +38,25 @@ const StyledPostDiv = styled.div`
         display: flex;
         margin-top: 1em;
         display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .first-image{
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1 0 50%;
+    }
+
+    .images-container .first-image img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .not-first-images{
+        display: flex;
         flex-wrap: wrap;
     }
 
@@ -41,19 +65,40 @@ const StyledPostDiv = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        flex: 1 1 50%;
     }
-    .images-container .image img{
+    .not-first-images .image img{
         height: 100%;
         width: 100%;
         object-fit: cover;
     }
-    /* @media only screen and (max-width: 1000px) {
-        .images-container .image img{
-            height: 200px;
-            width: 200px;
-        }
-    } */
+
+    .image.one{
+        flex: 0 1 100%;
+    }
+    .image.two{
+        flex: 0 0 50%;
+    }
+    .image.three{
+        flex: 0 1 50%;
+    }
+    .image.four{
+        flex: 0 1 50%;
+    }
+    .image.five{
+        flex: 0 1 50%;
+    }
+    .image.six{
+        flex: 0 1 33%;
+    }
+    .image.seven{
+        flex: 0 1 33%;
+    }
+    .image.eight{
+        flex: 0 1 33%;
+    }
+    .image.nine{
+        flex: 0 1 33%;
+    }
 `
 const DotsButton = styled.div`
     cursor:pointer;
@@ -77,6 +122,8 @@ function NewsPost({post}:Props) {
 
     //Dots Popper handler
     const [anchorDotsButton, setAnchorDotsButton] = React.useState<null | HTMLElement>(null);
+    const [needMoreBtn, setMoreBtn] = React.useState(post.content?.length > 100);
+    const [less, setLess] = React.useState(false);
     const handleMouseOverDotsButton = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorDotsButton(event.currentTarget);
     };
@@ -92,8 +139,48 @@ function NewsPost({post}:Props) {
         dispatch(deletePost(id))
     }
 
+    function toggleFavorite(){
+        dispatch(toggleFavoritePost(post.id))
+    }
+
     //edit mode
     const [editMode, setEditMode] = React.useState(false);
+    function toStringNumber(length:number){
+        switch(length){
+            case 1:
+                return 'one';
+            case 2:
+                return 'two';
+            case 3:
+                return 'three';
+            case 4:
+                return 'four';
+            case 5:
+                return 'five';
+            case 6:
+                return 'six';
+            case 7:
+                return 'seven';
+            case 8:
+                return 'eight';
+            case 9:
+                return 'nine';
+        }
+    }
+    function clickMore(){
+        setMoreBtn(false);
+        setLess(true);
+    }
+    function clickLess(){
+        setLess(false);
+        setMoreBtn(true);
+    }
+
+    function handleClickImage(img:Image){
+        dispatch(openModal(<ImageCarousel/>))
+        dispatch(setCurrentImage(img))
+        dispatch(setImages(post.images))
+    }
     return ( 
         <>
             {editMode ?
@@ -114,7 +201,6 @@ function NewsPost({post}:Props) {
                                     {post.author.lastName} 
                                 </Box>
                                 <div className='date-div'>
-                                    {/* {format(new Date(post.date+'Z'), 'dd MMM yyyy h:mm aa')} */}
                                     {formatDistanceToNow(new Date(post.date.endsWith('Z') ? post.date : post.date + 'Z'))} ago
                                 </div>
                             </Grid>
@@ -124,12 +210,7 @@ function NewsPost({post}:Props) {
                                     <Popper open={open} anchorEl={anchorDotsButton} placement='bottom-end'>
                                         <DotsPopper>
                                             <List>
-                                                <ListItem>
-                                                    <ListItemButton>
-                                                        <ListItemText primary="Add to favorites" />
-                                                    </ListItemButton>
-                                                </ListItem>
-                                                {user!.username === post.author.username &&
+                                                {user!.username === post.author.username ?
                                                     <>
                                                         <ListItem>
                                                             <ListItemButton onClick={()=>{setEditMode(true); setAnchorDotsButton(null);}}>
@@ -142,6 +223,14 @@ function NewsPost({post}:Props) {
                                                             </ListItemButton>
                                                         </ListItem>
                                                     </>
+                                                    :
+                                                    <>
+                                                        <ListItem>
+                                                            <ListItemButton onClick={toggleFavorite}>
+                                                                <ListItemText primary={post.liked ? "Remove from favorites":"Add to favorites"} />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                    </>
                                                 }
                                             </List>
                                         </DotsPopper>
@@ -150,19 +239,43 @@ function NewsPost({post}:Props) {
                             </Grid>
                         </Grid>
                         <div className='content-text'>
-                            {post.content}
+                            {
+                                needMoreBtn
+                                ?
+                                <>
+                                    {post.content.slice(0, 100)}
+                                    <span style={{color:'blue', cursor:'pointer'}} onClick={clickMore}>...more</span>
+                                </>
+                                :
+                                <>
+                                    {post.content}
+                                    {
+                                        less 
+                                        &&
+                                        <span style={{color:'blue', cursor:'pointer'}} onClick={clickLess}>
+                                            {' '}show less
+                                        </span>
+                                    }
+                                </>
+                            }
                         </div>
                         {
                             post.images.length !== 0
                             &&
                             <div className='images-container'>
-                                {post.images.map(img=>{
-                                    return(
-                                        <div key={img.key} className='image'>
-                                            <img alt={img.key} src={img.url}/>
-                                        </div>
-                                    )
-                                })}
+                                <div className='first-image'>
+                                    <img alt={post.images[0].key} src={post.images[0].url} onClick={()=>handleClickImage(post.images[0])}/>
+                                </div>
+                                <div className='not-first-images'>
+                                    {post.images.map((img, index)=>{
+                                        if (index === 0) return null;
+                                        return(
+                                            <div key={img.key} className={'image ' + toStringNumber(post.images.length - 1)}>
+                                                <img alt={img.key} src={img.url} onClick={()=>handleClickImage(img)}/>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         }
                     </div>

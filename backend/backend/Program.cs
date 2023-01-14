@@ -66,4 +66,10 @@ app.MapControllers();
 
 app.MapHub<MessagesHub>("/messages");
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+
+app.MapFallbackToController("Index", "Fallback");
+
 app.Run();

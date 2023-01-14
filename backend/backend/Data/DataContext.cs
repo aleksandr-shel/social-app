@@ -17,6 +17,7 @@ namespace backend.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<PostImage> PostImages { get; set; }
         public DbSet<Friends> Friends { get; set; }
+        public DbSet<FavoritePost> FavoritePosts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -46,7 +47,22 @@ namespace backend.Data
                     .HasForeignKey(o => o.TargetId)
                     .OnDelete(DeleteBehavior.NoAction);
             });
-            
+
+            builder.Entity<FavoritePost>()
+                .HasKey(k => new { k.UserId, k.PostId });
+            builder.Entity<FavoritePost>()
+                .HasOne(x => x.AppUser)
+                .WithMany(x => x.FavoritePosts)
+                .HasForeignKey(fp => fp.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<FavoritePost>()
+                .HasOne(x => x.Post)
+                .WithMany(x => x.UserLikes)
+                .HasForeignKey(fp => fp.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

@@ -96,6 +96,21 @@ namespace backend.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("backend.Models.FavoritePost", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "PostId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("FavoritePosts");
+                });
+
             modelBuilder.Entity("backend.Models.Friends", b =>
                 {
                     b.Property<string>("ObserverId")
@@ -399,6 +414,25 @@ namespace backend.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("backend.Models.FavoritePost", b =>
+                {
+                    b.HasOne("backend.Models.Post", "Post")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.AppUser", "AppUser")
+                        .WithMany("FavoritePosts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("backend.Models.Friends", b =>
                 {
                     b.HasOne("backend.Models.AppUser", "Observer")
@@ -537,6 +571,8 @@ namespace backend.Data.Migrations
 
             modelBuilder.Entity("backend.Models.AppUser", b =>
                 {
+                    b.Navigation("FavoritePosts");
+
                     b.Navigation("Followers");
 
                     b.Navigation("Followings");
@@ -553,6 +589,8 @@ namespace backend.Data.Migrations
             modelBuilder.Entity("backend.Models.Post", b =>
                 {
                     b.Navigation("Images");
+
+                    b.Navigation("UserLikes");
                 });
 
             modelBuilder.Entity("backend.Models.Room", b =>

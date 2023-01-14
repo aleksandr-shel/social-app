@@ -38,9 +38,10 @@ namespace backend.Controllers
                 .Include(x => x.Author)
                 .Include(a => a.Author.Images)
                 .OrderByDescending(x => x.Date)
+                .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
                 .ToListAsync();
-            var _posts = _mapper.Map<List<PostDto>>(posts);
-            return Ok(_posts);
+            //var _posts = _mapper.Map<List<PostDto>>(posts);
+            return Ok(posts);
         }
 
         [HttpGet("{id}")]
@@ -103,6 +104,7 @@ namespace backend.Controllers
                 .Include(x => x.Images)
                 .Include(_x => _x.Author)
                 .Include(a => a.Author.Images)
+                .Include(x => x.UserLikes)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (post.Author.Id != User.FindFirstValue(ClaimTypes.NameIdentifier))

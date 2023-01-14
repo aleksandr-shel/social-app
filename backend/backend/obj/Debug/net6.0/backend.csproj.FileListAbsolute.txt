@@ -69,3 +69,4 @@ C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Microsoft.AspNetC
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\AutoMapper.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\AWSSDK.Core.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\AWSSDK.S3.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\backend.staticwebassets.runtime.json

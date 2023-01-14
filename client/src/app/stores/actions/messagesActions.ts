@@ -6,6 +6,7 @@ import { Message, PostMessage } from "../../models/Message";
 import { Room } from "../../models/Room";
 import { addMessage, addRoom, deleteMessage, setHubConnection, setLoading, setMessages, setRooms } from "../slices/messagesSlice";
 import { closeModal } from "../slices/modalSlice";
+import { toggleFavorite } from "../slices/postsSlice";
 import { RootState } from "../store";
 
 
@@ -103,6 +104,18 @@ export const disconnectFromRoom = (roomId:string):ThunkAction<void, RootState, u
     return async (dispatch,getState)=>{
         try{
             await getState().messagesReducer.hubConnection?.invoke("DisconnectFromRoom", roomId)
+        }catch(error){
+            console.log(error);
+        }
+    }
+}
+
+export const toggleFavoritePost = (id:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async(dispatch)=>{
+        try{
+            agent.Posts.toggleFavorite(id).then(()=>{
+                dispatch(toggleFavorite(id));
+            })
         }catch(error){
             console.log(error);
         }

@@ -7,6 +7,8 @@ export interface Post{
     author:Author,
     date:string,
     images: Image[],
+    likes:number,
+    liked:boolean,
 }
 
 

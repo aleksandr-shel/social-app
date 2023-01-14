@@ -12,7 +12,9 @@ namespace backend.Core
         public MappingProfile()
         {
             string currentUsername = null;
-            CreateMap<Post, PostDto>();
+            CreateMap<Post, PostDto>()
+                .ForMember(x => x.Likes, p => p.MapFrom(x => x.UserLikes.Count()))
+                .ForMember(x => x.Liked, p => p.MapFrom(x => x.UserLikes.Any(x => x.AppUser.UserName == currentUsername)));
             CreateMap<AppUser, AuthorDto>()
                 .ForMember(x => x.ImageUrl, p => p.MapFrom(x => x.Images.FirstOrDefault(i => i.IsMain).Url));
             CreateMap<AppUser, ProfileDto>()

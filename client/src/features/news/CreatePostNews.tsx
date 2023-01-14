@@ -26,13 +26,13 @@ function CreatePostNews() {
     const [files, setFiles] = React.useState<File[]>([]);
     const [srcs, setSrcs] = React.useState<string[]>([]);
 
-    React.useEffect(()=>{
-        console.log(files);
-    },[files])
+    // React.useEffect(()=>{
+    //     console.log(files);
+    // },[files])
 
-    React.useEffect(()=>{
-        console.log(srcs);
-    },[srcs])
+    // React.useEffect(()=>{
+    //     console.log(srcs);
+    // },[srcs])
 
     function handleSubmit(){
         dispatch(createPost({content, files}));

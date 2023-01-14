@@ -1,13 +1,12 @@
 import * as React from 'react';
 import {Grid, List, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import EmailIcon from '@mui/icons-material/Email';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {Link} from 'react-router-dom';
 import { useAppSelector } from '../../app/stores/store';
-
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 function LeftSide() {
 
@@ -43,6 +42,12 @@ function LeftSide() {
                             <PeopleAltIcon fontSize='large'/>
                         </ListItemIcon>
                         <ListItemText primary="Friends" />
+                    </ListItemButton>
+                    <ListItemButton component={Link} to='/favorite'>
+                        <ListItemIcon>  
+                            <BookmarkBorderIcon fontSize='large'/>
+                        </ListItemIcon>
+                        <ListItemText primary="Favorite" />
                     </ListItemButton>
                     {/* <ListItemButton component={Link} to='/groups'>
                         <ListItemIcon>  

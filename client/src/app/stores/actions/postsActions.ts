@@ -1,7 +1,7 @@
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit"
 import agent from "../../api/agent"
 import { PostCreate, PostUpdate } from "../../models/Post"
-import { addPost, deletePostAction, setPosts, updatePost } from "../slices/postsSlice"
+import { addPost, deletePostAction, setFavoritePosts, setPosts, updatePost } from "../slices/postsSlice"
 import { setLoading } from "../slices/userSlice"
 import { RootState } from "../store"
 
@@ -53,6 +53,21 @@ export const editPost = (id:string, updateCreate:PostUpdate):ThunkAction<void, R
             })
         } catch(error){
             console.log(error);
+        }
+    }
+}
+
+
+export const getFavoritePosts = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async(dispatch)=>{
+        dispatch(setLoading(true))
+        try{
+            const posts = await agent.Posts.favorite();
+            dispatch(setFavoritePosts(posts));
+            dispatch(setLoading(false))
+        }catch(error){
+            console.log(error);
+            dispatch(setLoading(false))
         }
     }
 }

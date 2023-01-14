@@ -4,11 +4,13 @@ import { Post } from "../../models/Post";
 interface PostsState{
     posts: Post[] | null,
     loading: boolean,
+    favoritePosts: Post[] | null,
 }
 
 const initialState : PostsState = {
     loading: false,
-    posts: []
+    posts: [],
+    favoritePosts:[]
 }
 
 const postsSlice = createSlice({
@@ -33,10 +35,26 @@ const postsSlice = createSlice({
             state.posts = state.posts!.map(post => {
                 return post.id === payload.id ? payload : post
             })
-        }
+        },
+        toggleFavorite:(state, {payload}:PayloadAction<string>)=>{
+            state.posts = state.posts!.map(post => {
+                if (post.id === payload){
+                    post.liked = !post.liked;
+                    if (post.liked){
+                        post.likes++;
+                    } else {
+                        post.likes--;
+                    }
+                }
+                return post;
+            })
+        },
+        setFavoritePosts:(state, {payload}:PayloadAction<Post[] | null>)=>{
+            state.favoritePosts = payload
+        },
     }
 })
 
-export const {setPosts, deletePostAction, setLoading, addPost, updatePost} = postsSlice.actions
+export const {setPosts, deletePostAction, setLoading, addPost, updatePost, toggleFavorite, setFavoritePosts} = postsSlice.actions
 
 export default postsSlice

@@ -9,6 +9,7 @@ namespace backend.Models
         public AppUser Author { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public ICollection<PostImage> Images { get; set; } = new List<PostImage>();
+        public ICollection<FavoritePost> UserLikes { get; set; }
 
     }
 }
