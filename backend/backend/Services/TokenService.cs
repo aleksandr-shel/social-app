@@ -26,6 +26,7 @@ namespace backend.Services
                 new Claim(ClaimTypes.NameIdentifier, user.FirstName + " " + user.LastName)
             };
 
+            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Helper.Helper.GetTokenKey()));
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

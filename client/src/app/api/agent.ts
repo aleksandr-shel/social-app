@@ -7,7 +7,7 @@ import {Profile, ProfileUpdateValues, User,UserFormValues } from "../models/User
 import { FriendsState } from "../stores/slices/friendsSlice";
 import store from "../stores/store";
 
-axios.defaults.baseURL = 'https://localhost:5001/api/';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(config =>{
     const token = store.getState().userReducer.token;

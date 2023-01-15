@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "backend", "backend\backend.csproj", "{A05AFF4A-A06D-46FB-8D1F-1C8DB9196C22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUpload", "FileUpload\FileUpload.csproj", "{A836177A-F05D-44BB-B1F8-0B58E388725A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{A05AFF4A-A06D-46FB-8D1F-1C8DB9196C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A05AFF4A-A06D-46FB-8D1F-1C8DB9196C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A05AFF4A-A06D-46FB-8D1F-1C8DB9196C22}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A836177A-F05D-44BB-B1F8-0B58E388725A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A836177A-F05D-44BB-B1F8-0B58E388725A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A836177A-F05D-44BB-B1F8-0B58E388725A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A836177A-F05D-44BB-B1F8-0B58E388725A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

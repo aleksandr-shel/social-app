@@ -216,21 +216,11 @@ namespace backend.Controllers
             return Ok(images);
         }
 
-        //[HttpGet("test")]
-        //public async Task<IActionResult> test()
-        //{
-        //    var users = await _context.Users
-        //        .Where(x => x.Email != User.FindFirstValue(ClaimTypes.Email))
-        //        .ToListAsync();
-
-        //    foreach(var user in users)
-        //    {
-        //        user.UserName = UsernameGenerator.Generate();
-        //    }
-
-        //    await _context.SaveChangesAsync();
-        //    return Ok(users);
-        //}
+        [HttpGet("test")]
+        public async Task<IActionResult> test()
+        {
+            return Ok("api works");
+        }
 
     }
 

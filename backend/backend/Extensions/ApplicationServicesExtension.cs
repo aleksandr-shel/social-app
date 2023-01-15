@@ -14,7 +14,9 @@ namespace backend.Extensions
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                //opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                opt.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection")));
+                //opt.UseMySql(Helper.Helper.GetRDSConnectionString(), ServerVersion.AutoDetect(Helper.Helper.GetRDSConnectionString()));
             });
 
             services.AddCors(opt =>
@@ -25,7 +27,7 @@ namespace backend.Extensions
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
-                        .WithOrigins("http://localhost:3000");
+                        .WithOrigins("/");
                 });
             });
 
@@ -37,7 +39,8 @@ namespace backend.Extensions
 
             services.AddSignalR();
 
-            services.AddSingleton<IAmazonS3>(_=> new AmazonS3Client(config.GetValue<string>("AWSCredentials:AccessKeyID"), config.GetValue<string>("AWSCredentials:SecretAccessKey"), RegionEndpoint.CACentral1));
+            //services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(Helper.Helper.GetAWSAccessKey(), Helper.Helper.GetAWSSecretKey(), RegionEndpoint.CACentral1));
+            services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(config.GetValue<string>("AWSCredentials:AccessKeyID"), config.GetValue<string>("AWSCredentials:SecretAccessKey"), RegionEndpoint.CACentral1));
 
             services.AddSingleton<IUploadFile>(provider=> new S3BucketService(provider.GetRequiredService<IAmazonS3>(), provider.GetRequiredService<ILogger<S3BucketService>>()));
 

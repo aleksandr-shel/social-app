@@ -37,7 +37,10 @@ namespace backend.RealTime.Messages
             var httpContext = Context.GetHttpContext();
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == httpContext.User.FindFirstValue(ClaimTypes.Email));
             string roomId = httpContext.Request.Query["roomId"];
-            await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
+            if (user != null)
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
+            }
         }
 
         //public async Task SendComment(CommentDto commentDto)
