@@ -33,10 +33,15 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
+            var followings = await _context.Friends
+                .Where(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name))
+                .Select(x => x.Target)
+                .ToListAsync();
             var posts = await _context.Posts
                 .Include(x => x.Images)
                 .Include(x => x.Author)
                 .Include(a => a.Author.Images)
+                .Where(x => followings.Contains(x.Author))
                 .OrderByDescending(x => x.Date)
                 .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
                 .ToListAsync();
