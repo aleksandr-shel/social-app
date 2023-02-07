@@ -31,7 +31,7 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> List()
+        public async Task<ActionResult> List()
         {
             var followings = await _context.Friends
                 .Where(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name))

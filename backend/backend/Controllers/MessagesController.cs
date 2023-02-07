@@ -159,7 +159,7 @@ namespace backend.Controllers
             newRoom.LastMessage = message.Content;
             newRoom.LastUpdated = newMessage_.Date;
 
-            var roomUser = new { Id = newRoom.Id, users = _mapper.Map<List<AuthorDto>>(new List<AppUser> { user, toUser }) };
+            var roomUser = new { Id = newRoom.Id, users = _mapper.Map<List<AuthorDto>>(new List<AppUser> { user, toUser }), LastUpdate = DateTime.UtcNow, LastMessage = newMessage_.Content};
             await _hubContext.Clients.Group(user.Id).SendAsync("ReceiveRoom", roomUser);
             await _hubContext.Clients.Group(toUser.Id).SendAsync("ReceiveRoom", roomUser);
             var res_ = await _context.Messages.AddAsync(newMessage_);

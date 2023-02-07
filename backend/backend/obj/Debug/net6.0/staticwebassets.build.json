@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Forkgqo1KJnG4+4RJco8plb9IuC7XCbB64Uoeq940n0=",
+  "Hash": "ZbUD3td/m7uohCzleHPl+5MQjJmSCus04NfK56+xvVw=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -153,6 +153,23 @@
       "OriginalItemSpec": "wwwroot\\robots.txt"
     },
     {
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\social-media-name.png",
+      "SourceId": "backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "RelativePath": "social-media-name.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\social-media-name.png"
+    },
+    {
       "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\css\\main.51e5cc13.css",
       "SourceId": "backend",
       "SourceType": "Discovered",
@@ -221,12 +238,12 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\787.c4e7f8f9.chunk.js.map"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.1dccbc79.js",
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.45987a66.js",
       "SourceId": "backend",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
-      "RelativePath": "static/js/main.1dccbc79.js",
+      "RelativePath": "static/js/main.45987a66.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -235,15 +252,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.1dccbc79.js"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.45987a66.js"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.1dccbc79.js.LICENSE.txt",
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.45987a66.js.LICENSE.txt",
       "SourceId": "backend",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
-      "RelativePath": "static/js/main.1dccbc79.js.LICENSE.txt",
+      "RelativePath": "static/js/main.45987a66.js.LICENSE.txt",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -252,15 +269,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.1dccbc79.js.LICENSE.txt"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.45987a66.js.LICENSE.txt"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.1dccbc79.js.map",
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.45987a66.js.map",
       "SourceId": "backend",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
-      "RelativePath": "static/js/main.1dccbc79.js.map",
+      "RelativePath": "static/js/main.45987a66.js.map",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -269,7 +286,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.1dccbc79.js.map"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.45987a66.js.map"
     },
     {
       "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\User.jpg",

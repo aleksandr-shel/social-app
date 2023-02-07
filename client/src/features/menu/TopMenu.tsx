@@ -25,7 +25,7 @@ function TopMenu() {
                         <ListItemIcon>
                             <Diversity2Icon fontSize='large' color='primary' />
                         </ListItemIcon>
-                        <ListItemText />
+                        <ListItemText primary='NetVerse' style={{color:'#01579b', fontWeight:'bolder'}}/>
                     </ListItemButton>
                 </Grid>
                 <Grid item xs={3}>

@@ -16,6 +16,10 @@ namespace backend.Extensions
                 .AddIdentityCore<AppUser>(opt =>
                 {
                     opt.Password.RequireNonAlphanumeric = false;
+                    opt.Password.RequiredUniqueChars = 0;
+                    opt.Password.RequireLowercase = false;
+                    opt.Password.RequireUppercase = false;
+                    opt.Password.RequireDigit = false;
                 })
                 .AddEntityFrameworkStores<DataContext>()
                 .AddSignInManager<SignInManager<AppUser>>();

@@ -26,6 +26,9 @@ export default function Register(){
             {
                 (formik)=>(
                     <Form autoComplete="off" onSubmit={formik.handleSubmit}>
+                        <div style={{overflow:'hidden', display:'flex', justifyContent:'center', alignItems:'center', width:'100%', height:'100px'}}>
+                            <img src="/social-media-name.png" alt="NetVerse" width='100%' height='100%' style={{objectFit:'cover'}}/>
+                        </div>
                         <h3 className='text-center'>Register</h3>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Email:</Form.Label>

@@ -27,7 +27,7 @@ namespace backend.Extensions
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
-                        .WithOrigins("/");
+                        .WithOrigins("http://localhost:3000");
                 });
             });
 
@@ -38,7 +38,7 @@ namespace backend.Extensions
             services.AddSingleton(mapper);
 
             services.AddSignalR();
-
+            services.AddScoped<EmailSender>();
             //services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(Helper.Helper.GetAWSAccessKey(), Helper.Helper.GetAWSSecretKey(), RegionEndpoint.CACentral1));
             services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(config.GetValue<string>("AWSCredentials:AccessKeyID"), config.GetValue<string>("AWSCredentials:SecretAccessKey"), RegionEndpoint.CACentral1));
 

@@ -1,0 +1,13 @@
+
+{
+    "region" : "ca-central-1",
+    "configuration" : "Debug",
+    "framework"     : "net6.0",
+    "self-contained" : false,
+    "application"    : "backend",
+    "environment"    : "Backend-prod",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "",
+    "proxy-server"         : "nginx"
+}
