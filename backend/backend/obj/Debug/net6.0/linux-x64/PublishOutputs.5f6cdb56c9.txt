@@ -30,7 +30,10 @@ C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Microsoft
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Microsoft.OpenApi.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Microsoft.Win32.SystemEvents.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\MySqlConnector.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Newtonsoft.Json.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\SendGrid.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\StarkbankEcdsa.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Swashbuckle.AspNetCore.Swagger.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll

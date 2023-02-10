@@ -46,7 +46,20 @@ namespace backend.Controllers
                 .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
                 .ToListAsync();
             //var _posts = _mapper.Map<List<PostDto>>(posts);
-            return Ok(posts);
+
+            if (posts.Count > 0)
+            {
+                return Ok(posts);
+            }
+
+            var posts_ = await _context.Posts
+                .Include(x => x.Images)
+                .Include(x => x.Author)
+                .Include(a => a.Author.Images)
+                .OrderByDescending(x => x.Date)
+                .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
+                .ToListAsync();
+            return Ok(posts_);
         }
 
         [HttpGet("{id}")]

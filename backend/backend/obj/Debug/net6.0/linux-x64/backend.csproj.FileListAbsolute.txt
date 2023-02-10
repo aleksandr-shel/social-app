@@ -61,3 +61,6 @@ C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\linux-x64\backend
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\linux-x64\backend.genruntimeconfig.cache
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\linux-x64\ref\backend.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\linux-x64\aws-beanstalk-tools-defaults.json
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\linux-x64\Newtonsoft.Json.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\linux-x64\SendGrid.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\linux-x64\StarkbankEcdsa.dll
