@@ -74,7 +74,7 @@ function PostImagesUploadComponent({setFiles,srcs, setSrcs}:Props) {
             setFiles((files:any)=>[...files,file])
             reader.readAsDataURL(file);
         })
-      }, [setSrcs, srcs])
+      }, [setSrcs, srcs, setFiles])
 
     const {getRootProps, getInputProps} = useDropzone({onDrop})
     return ( 

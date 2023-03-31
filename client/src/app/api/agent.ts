@@ -1,10 +1,12 @@
 import axios, { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 import { Image } from "../models/Image";
 import { Message, PostMessage } from "../models/Message";
 import { Post, PostCreate, PostUpdate } from "../models/Post";
 import { Room } from "../models/Room";
 import {Profile, ProfileUpdateValues, User,UserFormValues } from "../models/User";
 import { FriendsState } from "../stores/slices/friendsSlice";
+import { logout } from "../stores/slices/userSlice";
 import store from "../stores/store";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -15,6 +17,44 @@ axios.interceptors.request.use(config =>{
     return config;
 })
 
+
+axios.interceptors.response.use(async response=>{
+    return response;
+}, (error:any)=>{
+    const {data, status, headers} = error.response!;
+    console.log(error)
+    switch(status){
+        case 400:
+            if (typeof data === 'string'){
+                toast.error(data);
+            }
+            if (data.errors){
+                let message = '';
+                for (const key in data.errors){
+                    if (data.errors[key]){
+                        message += data.errors[key] + '\n';
+                    }
+                }
+                toast.error(message);
+            }
+            break;
+        case 401:
+            if (status === 401 && headers['www-authenticate']?.startsWith('Bearer error="invalid_token"')){
+                toast.error('Session expired - please login again');
+            } else {
+                toast.error('Unauthorised\n' + data);
+                store.dispatch(logout())
+            }
+            break;
+        case 404:
+            toast.error('not found')
+            break;
+        case 500:
+            toast.error('server-error')
+            break;
+    }
+    return Promise.reject(error);
+})
 
 const responseBody = <T>(response:AxiosResponse<T>)=>{
     return response.data;

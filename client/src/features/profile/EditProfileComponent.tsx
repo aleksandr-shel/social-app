@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { Form } from 'react-bootstrap';
 import styled from 'styled-components';
-import ImageUploadWidget from '../../app/common/ImageUploadWidget';
 import { ProfileUpdateValues } from '../../app/models/User';
 import { updateProfileAct } from '../../app/stores/actions/profileActions';
 import { openModal } from '../../app/stores/slices/modalSlice';

@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Extensions;
+using backend.Middleware;
 using backend.Models;
 using backend.RealTime.Messages;
 using Microsoft.AspNetCore.Authorization;
@@ -51,6 +52,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

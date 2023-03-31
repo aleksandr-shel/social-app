@@ -36,7 +36,7 @@ namespace backend.Controllers
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null)
             {
-                return Unauthorized();
+                return Unauthorized("Invalid Email");
             }
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (result.Succeeded)
@@ -44,7 +44,7 @@ namespace backend.Controllers
                 //await SetRefreshToken(user);
                 return Ok(CreateUserDto(user));
             }
-            return Unauthorized();
+            return Unauthorized("Invalid password");
         }
 
         [AllowAnonymous]
@@ -74,7 +74,7 @@ namespace backend.Controllers
                 return Ok(CreateUserDto(user));
             }
 
-            return BadRequest(result);
+            return BadRequest("Problem registering user");
         }
 
         [HttpGet("current")]

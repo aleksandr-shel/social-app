@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "a6dsPe8KnzKG+XetTsDmdLN6RSBCuGMw9LaJxpjZqnXqNzohLKGMrKpQkrf+nEKRnFG85Gr4YZsu+bf5UlrKxw==",
+  "dgSpecHash": "lScdvcYnYaGXVJ7ItO4Ec8Ybu7wdbkH6i06a/6d42fw5pqozBzr4mNNkcP2tsXNFZ996m6OIjM1CQN5T7fLX5g==",
   "success": true,
   "projectFilePath": "C:\\Web Development\\Social-App\\backend\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -66,8 +66,7 @@
     "C:\\Users\\Owner\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\system.text.encoding.codepages\\4.7.0\\system.text.encoding.codepages.4.7.0.nupkg.sha512",
-    "C:\\Users\\Owner\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
-    "C:\\Users\\Owner\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\6.0.9\\microsoft.netcore.app.host.linux-x64.6.0.9.nupkg.sha512"
+    "C:\\Users\\Owner\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

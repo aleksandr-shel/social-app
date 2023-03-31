@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box} from '@mui/material';
 import * as React from 'react';
 import { getFavoritePosts } from '../../app/stores/actions/postsActions';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';

@@ -6,7 +6,7 @@ function ImageComponent() {
     const {currentImage} = useAppSelector(state=>state.imagesReducer);
     return ( 
         <div style={{overflow:'hidden', display:'flex', justifyContent:'center'}}>
-            <img alt={currentImage?.key} src={currentImage?.url} key={currentImage?.key} height={400}/>
+            <img alt={currentImage?.key} src={currentImage?.url} key={currentImage?.key} style={{height:'80vh', width:'100vw'}}/>
         </div>
      );
 }

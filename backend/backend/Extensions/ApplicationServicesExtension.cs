@@ -14,8 +14,8 @@ namespace backend.Extensions
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                //opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-                opt.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection")));
+                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                //opt.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection")));
                 //opt.UseMySql(Helper.Helper.GetRDSConnectionString(), ServerVersion.AutoDetect(Helper.Helper.GetRDSConnectionString()));
             });
 
