@@ -15,7 +15,7 @@ export const login = (user: UserFormValues):ThunkAction<void, RootState, unknown
             dispatch(userActions.setUser(response));
             dispatch(userActions.setToken(response.token));
             dispatch(startRefreshTokenTimer(response))
-            window.localStorage.setItem('ridiculum-token', response.token)
+            window.localStorage.setItem('netverse-token', response.token)
             dispatch(userActions.setLoading(false))
         }catch(error){
             console.log(error);
@@ -32,7 +32,7 @@ export const register = (user: UserFormValues):ThunkAction<void, RootState, unkn
             dispatch(userActions.setUser(response))
             dispatch(userActions.setToken(response.token))
             dispatch(startRefreshTokenTimer(response))
-            window.localStorage.setItem('ridiculum-token', response.token)
+            window.localStorage.setItem('netverse-token', response.token)
             dispatch(userActions.setLoading(false))
         }catch(error){
             console.log(error);
@@ -49,7 +49,7 @@ export const current = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
             dispatch(userActions.setUser(response))
             dispatch(userActions.setToken(response.token))
             dispatch(startRefreshTokenTimer(response))
-            window.localStorage.setItem('ridiculum-token', response.token)
+            window.localStorage.setItem('netverse-token', response.token)
         }catch(error){
             console.log(error);
         }
@@ -65,7 +65,7 @@ export const refreshToken = ():ThunkAction<void, RootState, unknown, AnyAction>=
             dispatch(userActions.setToken(response.token))
             dispatch(startRefreshTokenTimer(response))
             console.log('refreshed token');
-            window.localStorage.setItem('ridiculum-token', response.token)
+            window.localStorage.setItem('netverse-token', response.token)
         }catch(error){
             console.log(error);
         }

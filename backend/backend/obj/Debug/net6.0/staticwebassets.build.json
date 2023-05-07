@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZbUD3td/m7uohCzleHPl+5MQjJmSCus04NfK56+xvVw=",
+  "Hash": "82vQOJuN1CQBkw8G0jmqxXbDkH3LKs3nLHmI9CbTiL4=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -287,6 +287,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\static\\js\\main.45987a66.js.map"
+    },
+    {
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\test.txt",
+      "SourceId": "backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "BasePath": "_content/backend",
+      "RelativePath": "test.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\test.txt"
     },
     {
       "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\User.jpg",

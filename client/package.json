@@ -20,6 +20,7 @@
     "bootstrap": "^5.2.3",
     "date-fns": "^2.29.3",
     "formik": "^2.2.9",
+    "history": "^5.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
@@ -36,7 +37,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild":"move build ../backend/backend/wwwroot",
+    "postbuild": "move build ../backend/backend/wwwroot",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

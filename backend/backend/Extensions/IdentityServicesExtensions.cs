@@ -27,6 +27,7 @@ namespace backend.Extensions
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
             //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Helper.Helper.GetTokenKey()));
 
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {

@@ -5,18 +5,19 @@ import './app/styles.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router} from 'react-router-dom'
 import { Provider } from 'react-redux';
 import store from './app/stores/store';
+import CustomRouter from './app/customRoutes/CustomRoutes';
+import history from './app/customRoutes/history';
 
 const root = ReactDOM.createRoot(
   	document.getElementById('root') as HTMLElement
 );
 root.render(
 	<Provider store={store}>
-		<Router>
+		<CustomRouter history={history}>
 			<App />
-		</Router>
+		</CustomRouter>
 	</Provider>
 );
 

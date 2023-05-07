@@ -76,3 +76,7 @@ C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\runtimes\win\lib\
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\SendGrid.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\StarkbankEcdsa.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Google.Apis.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Google.Apis.Auth.dll
+C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Google.Apis.Core.dll

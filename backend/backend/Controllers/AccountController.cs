@@ -2,6 +2,7 @@
 using backend.Helper;
 using backend.Models;
 using backend.Services;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,17 +17,20 @@ namespace backend.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly IConfiguration _conf;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly TokenService _tokenService;
         private readonly ILogger<AccountController> _logger;
-
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService, ILogger<AccountController> logger)
+        private readonly IConfigurationSection _googleAuthNSection;
+        public AccountController(IConfiguration conf, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, TokenService tokenService, ILogger<AccountController> logger)
         {
+            _conf = conf;
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _logger = logger;
+            _googleAuthNSection = _conf.GetSection("Authentication:Google");
         }
         [AllowAnonymous]
         [HttpPost("login")]
@@ -46,6 +50,7 @@ namespace backend.Controllers
             }
             return Unauthorized("Invalid password");
         }
+
 
         [AllowAnonymous]
         [HttpPost("register")]
@@ -71,6 +76,55 @@ namespace backend.Controllers
             if (result.Succeeded)
             {
                 //await SetRefreshToken(user);
+                return Ok(CreateUserDto(user));
+            }
+
+            return BadRequest("Problem registering user");
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login-google")]
+        public async Task<IActionResult> LoginGoogle([FromBody] ExternalAuthDto externalAuth)
+        {
+            var payload = await VerifyGoogleToken(externalAuth);
+            if (payload == null)
+                return BadRequest("Invalid External Authentication.");
+
+            var user = await _userManager.FindByEmailAsync(payload.Email);
+
+            if (user != null)
+            {
+                return Ok(CreateUserDto(user));
+            } else
+            {
+                return BadRequest("Not registered");
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost("register-google")]
+        public async Task<IActionResult> RegisterGoogle([FromBody] ExternalAuthDto externalAuth)
+        {
+            var payload = await VerifyGoogleToken(externalAuth);
+            if (payload == null)
+                return BadRequest("Invalid External Authentication.");
+
+            if (await _userManager.FindByEmailAsync(payload.Email) != null)
+            {
+                ModelState.AddModelError("Email", "This email is already registered");
+                return ValidationProblem();
+            }
+            var user = new AppUser
+            {
+                Email = payload.Email,
+                UserName = UsernameGenerator.Generate(),
+                FirstName = payload.GivenName,
+                LastName = payload.FamilyName,
+                About = $"We don't know much about {payload.GivenName}, but we're sure {payload.GivenName} is great."
+            };
+            var result = await _userManager.CreateAsync(user);
+
+            if (result.Succeeded)
+            {
                 return Ok(CreateUserDto(user));
             }
 
@@ -125,6 +179,25 @@ namespace backend.Controllers
                 Expires = DateTime.UtcNow.AddSeconds(30),
             };
             Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
+        }
+
+        public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(ExternalAuthDto externalAuth)
+        {
+            try
+            {
+                var settings = new GoogleJsonWebSignature.ValidationSettings()
+                {
+                    Audience = new List<string>() { _googleAuthNSection["ClientId"] }
+                };
+                var payload = await GoogleJsonWebSignature.ValidateAsync(externalAuth.IdToken, settings);
+                return payload;
+            }
+            catch (Exception ex)
+            {
+                //log an exception
+                _logger.LogError(ex.Message);
+                return null;
+            }
         }
     }
 }

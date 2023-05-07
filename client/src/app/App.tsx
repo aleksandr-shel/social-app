@@ -21,7 +21,7 @@ function App() {
 	const dispatch = useAppDispatch();
 	const {user} = useAppSelector(state => state.userReducer);
 	useEffect(()=>{
-		const savedToken = window.localStorage.getItem('ridiculum-token');
+		const savedToken = window.localStorage.getItem('netverse-token');
 		if (savedToken){
 			dispatch(setToken(savedToken));
 			dispatch(current())
