@@ -1,4 +1,5 @@
 backend/backend/appsettings.json
 backend/backend/bin/Debug/net6.0/appsettings.json
+backend/Testing/bin/Debug/net6.0/appsettings.json
 .env.development
 .env.production
