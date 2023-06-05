@@ -1,40 +1,63 @@
-import { Box } from '@mui/material';
+import { Box, CircularProgress} from '@mui/material';
 import * as React from 'react';
 import { Post } from '../../app/models/Post';
-import { getPosts } from '../../app/stores/actions/postsActions';
-import { setPosts } from '../../app/stores/slices/postsSlice';
+import { getNextPosts, getPosts } from '../../app/stores/actions/postsActions';
+import { setPageNumber } from '../../app/stores/slices/postsSlice';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import CreatePostNews from './CreatePostNews';
 import NewsPost from './NewsPost';
+import InfiniteScrollCustom from '../../app/common/InfiniteScrollCustom';
 
 interface Props{
     profilePosts?:Post[],
     username?:string
 }
 
-function NewsList({profilePosts, username}:Props) {
-    const {posts} = useAppSelector(state => state.postsReducer)
+function NewsList({username}:Props) {
+    const {posts, loading} = useAppSelector(state => state.postsReducer)
     const {user} = useAppSelector(state => state.userReducer)
     const dispatch = useAppDispatch();
     React.useEffect(()=>{
-        if (profilePosts !== undefined){
-            dispatch(setPosts(profilePosts))
-        } else {
-            document.title = 'News'
-            dispatch(getPosts())
-        }
-    },[dispatch, profilePosts])
+        document.title = 'News'
+        dispatch(setPageNumber(1))
+        dispatch(getPosts())
+        
+    },[dispatch])
+
+    function handleGetNext(){
+        dispatch(getNextPosts())
+    }
+
+    
     return ( 
-        <Box>
+        <div>
+            <InfiniteScrollCustom loadMore={()=>handleGetNext()}>
+                <Box>
+                    {
+                        (username === undefined || user?.username === username)
+                        &&
+                        <CreatePostNews/>
+                    }
+                    {
+                        posts?.length !== 0 ? 
+                        posts?.map((post) => (
+                            <NewsPost key={post.id} post={post}/>
+                        ))
+                    :
+                        <div className='text-center'>
+                            No news yet.
+                        </div>
+                    }
+                </Box>
+            </InfiniteScrollCustom>
             {
-                (username === undefined || user?.username === username)
+                loading
                 &&
-                <CreatePostNews/>
+                <>
+                    <CircularProgress/>
+                </>
             }
-            {posts?.map((post) => (
-                <NewsPost key={post.id} post={post}/>
-            ))}
-        </Box>
+        </div>
      );
 }
 

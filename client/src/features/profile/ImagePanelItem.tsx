@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { useAppDispatch } from '../../app/stores/store';
 import { deleteImageAct, setMainImageAct } from '../../app/stores/actions/profileActions';
-import { openModal } from '../../app/stores/slices/modalSlice';
 import ImageCarousel from '../images/ImageCarousel';
 import { setCurrentImage, setImages } from '../../app/stores/slices/imagesSlices';
+import { openModal } from '../../app/stores/slices/imageModalSlice';
 const ImageDiv = styled.div`
     flex: 0 0 33.3%;
     overflow: hidden;

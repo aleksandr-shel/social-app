@@ -7,7 +7,7 @@ function News() {
 
     return ( 
         <Grid container>
-            <Grid item xs={7}>
+            <Grid style={{marginBottom:'1em'}} item xs={7}>
                 <NewsList/>
             </Grid>
         </Grid>

@@ -5,12 +5,14 @@ import { getProfile } from '../../app/stores/actions/profileActions';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import {Grid} from '@mui/material';
 import { toggleFriend } from '../../app/stores/actions/friendsActions';
-import { openModal } from '../../app/stores/slices/modalSlice';
 import MessageForm from '../messages/MessageForm';
 import EditProfileComponent from './EditProfileComponent';
 import ImagesPanel from './ImagesPanel';
-import NewsList from '../news/NewsList';
-
+import ProfileNewsList from './ProfileNewsList';
+import ImageCarousel from '../images/ImageCarousel';
+import { Image } from '../../app/models/Image';
+import { setCurrentImage, setImages } from '../../app/stores/slices/imagesSlices';
+import { openModal } from '../../app/stores/slices/imageModalSlice';
 function Profile() {
 
     const {username} = useParams();
@@ -31,6 +33,12 @@ function Profile() {
         dispatch(toggleFriend(profile!))
     }
 
+
+    function handleClickImage(img:Image){
+        dispatch(openModal(<ImageCarousel/>))
+        dispatch(setCurrentImage(img))
+        dispatch(setImages(profile!.images))
+    }
     if (!profile) return null
 
     return ( 
@@ -42,7 +50,7 @@ function Profile() {
                         <EditProfileComponent setEditMode={setEditMode}/>
                         :
                         <>
-                            <div>
+                            <div onClick={()=>handleClickImage(profile.images.filter(x => x.isMain)[0])}>
                                 <Avatar sx={{width:"150px", height:'150px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}
                                     src={profile?.imageUrl}
                                     >
@@ -109,7 +117,7 @@ function Profile() {
                     {
                         profile?.posts 
                         &&
-                        <NewsList profilePosts={profile.posts} username={username}/>
+                        <ProfileNewsList profilePosts={profile.posts} username={username}/>
                     }
                 </Grid>
             </Grid>

@@ -1,16 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post } from "../../models/Post";
+import { Pagination } from "../../models/pagination";
 
 interface PostsState{
     posts: Post[] | null,
     loading: boolean,
     favoritePosts: Post[] | null,
+    pagination: Pagination | null,
+    pagingParam: {
+        pageNumber:number,
+        pageSize:number
+    }
 }
 
 const initialState : PostsState = {
     loading: false,
     posts: [],
-    favoritePosts:[]
+    favoritePosts:[],
+    pagination: null,
+    pagingParam: {
+        pageNumber: 1,
+        pageSize: 5
+    }
 }
 
 const postsSlice = createSlice({
@@ -52,9 +63,20 @@ const postsSlice = createSlice({
         setFavoritePosts:(state, {payload}:PayloadAction<Post[] | null>)=>{
             state.favoritePosts = payload
         },
+        addPosts:(state, {payload}: PayloadAction<Post[]>)=>{
+            payload.forEach(post=>{
+                state.posts?.push(post);
+            })
+        },
+        setPagination: (state, action: PayloadAction<Pagination>)=>{
+            state.pagination = action.payload;
+        },
+        setPageNumber: (state, action: PayloadAction<number>) =>{
+            state.pagingParam.pageNumber = action.payload
+        },
     }
 })
 
-export const {setPosts, deletePostAction, setLoading, addPost, updatePost, toggleFavorite, setFavoritePosts} = postsSlice.actions
+export const {addPosts, setPosts, deletePostAction, setLoading, addPost, updatePost, toggleFavorite, setFavoritePosts, setPageNumber, setPagination} = postsSlice.actions
 
 export default postsSlice

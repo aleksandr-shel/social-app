@@ -13,6 +13,12 @@ function FavoriteList() {
     },[dispatch])
     return ( 
         <Box style={{display:'flex', flexWrap:'wrap'}}>
+            {
+                favoritePosts?.length === 0 && 
+                <>
+                    No favorites yet 
+                </>
+            }
             {favoritePosts?.map((post) => (
                 <div style={{flex:'0 0 30%'}}>
                     <NewsPost key={post.id} post={post}/>

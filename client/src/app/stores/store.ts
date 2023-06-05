@@ -9,6 +9,7 @@ import postsSlice from "./slices/postsSlice";
 import profileSlice from "./slices/profileSlice";
 import searchSlice from "./slices/searchSlice";
 import userSlice from "./slices/userSlice";
+import imageModalSlice from "./slices/imageModalSlice";
 
 const store = configureStore({
     reducer:{
@@ -21,6 +22,7 @@ const store = configureStore({
         friendsReducer: friendsSlice.reducer,
         modalReducer: modalSlice.reducer,
         imagesReducer: imagesSlice.reducer,
+        imageModalReducer: imageModalSlice.reducer,
     },
     middleware:(getDefaultMiddleware)=> getDefaultMiddleware({
         serializableCheck: false

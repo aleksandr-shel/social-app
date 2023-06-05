@@ -1,19 +1,48 @@
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit"
 import agent from "../../api/agent"
 import { PostCreate, PostUpdate } from "../../models/Post"
-import { addPost, deletePostAction, setFavoritePosts, setPosts, updatePost } from "../slices/postsSlice"
+import { addPost, addPosts, deletePostAction, setFavoritePosts, setPageNumber, setPagination, setPosts, updatePost } from "../slices/postsSlice"
 import { setLoading } from "../slices/userSlice"
 import { RootState } from "../store"
 
 
 
 export const getPosts = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
-    return async(dispatch)=>{
+    return async(dispatch, getState)=>{
+        // console.log('getting posts');
         dispatch(setLoading(true))
         try{
-            const posts = await agent.Posts.getPosts();
-            dispatch(setPosts(posts));
+            const params = new URLSearchParams();
+            const {pagingParam} = getState().postsReducer
+            params.append('pageNumber', pagingParam.pageNumber.toString());
+            params.append('pageSize', pagingParam.pageSize.toString())
+            const result = await agent.Posts.getPosts(params);
+            dispatch(setPosts(result.data));
+            dispatch(setPagination(result.pagination));
             dispatch(setLoading(false))
+        }catch(error){
+            console.log(error);
+            dispatch(setLoading(false))
+        }
+    }
+}
+
+export const getNextPosts = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async(dispatch, getState)=>{
+        dispatch(setLoading(true))
+        // console.log('getting next');
+        try{
+            if (!getState().postsReducer.loading && !!getState().postsReducer.pagination && getState().postsReducer.pagination!.currentPage < getState().postsReducer.pagination!.totalPages){
+                dispatch(setPageNumber(getState().postsReducer.pagination?.currentPage! + 1))
+                const params = new URLSearchParams();
+                const {pagingParam} = getState().postsReducer
+                params.append('pageNumber', pagingParam.pageNumber.toString());
+                params.append('pageSize', pagingParam.pageSize.toString())
+                const result = await agent.Posts.getPosts(params);
+                dispatch(addPosts(result.data));
+                dispatch(setPagination(result.pagination));
+                dispatch(setLoading(false))
+            }
         }catch(error){
             console.log(error);
             dispatch(setLoading(false))

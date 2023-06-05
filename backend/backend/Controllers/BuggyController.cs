@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace backend.Controllers
 {
@@ -30,6 +31,25 @@ namespace backend.Controllers
         public ActionResult GetUnauthorised()
         {
             return Unauthorized();
+        }
+
+        [HttpGet("test")]
+        public ActionResult Test()
+        {
+            var list = new[]
+            {
+                new {Name="Alex", Age=25 },
+                new {Name="test", Age=23 }
+            };
+            var obj = new
+            {
+                list,
+                param = new
+                {
+                    boom = "dsdsds"
+                },
+            };
+            return Ok(obj);
         }
     }
 }

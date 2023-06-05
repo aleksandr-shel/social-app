@@ -16,6 +16,7 @@ import { current } from './stores/actions/userActions';
 import { stopHubConnection } from './stores/slices/messagesSlice';
 import { setToken } from './stores/slices/userSlice';
 import { useAppDispatch, useAppSelector } from './stores/store';
+import ImageModalContainer from './common/ImageModalContainer';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -37,6 +38,7 @@ function App() {
 		<>
 			<ToastContainer autoClose={8000} hideProgressBar position='bottom-right'/>
 			<ModalContainer/>
+			<ImageModalContainer/>
 			<Routes>
 				<Route path='/' element={user !== null ? <Layout/> : <Main/>}>
 					<Route path='*' element={<NotFound/>}/>

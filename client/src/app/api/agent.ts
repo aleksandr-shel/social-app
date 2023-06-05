@@ -8,8 +8,15 @@ import {Profile, ProfileUpdateValues, User,UserFormValues } from "../models/User
 import { FriendsState } from "../stores/slices/friendsSlice";
 import { logout } from "../stores/slices/userSlice";
 import store from "../stores/store";
+import { PaginatedResult } from "../models/pagination";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
+const sleep = (delay: number)=>{
+    return new Promise(resolve =>{
+        setTimeout(resolve, delay);
+    })
+}
 
 axios.interceptors.request.use(config =>{
     const token = store.getState().userReducer.token;
@@ -19,6 +26,12 @@ axios.interceptors.request.use(config =>{
 
 
 axios.interceptors.response.use(async response=>{
+    // await sleep(1000);
+    const pagination = response.headers['pagination'];
+    if (pagination){
+        response.data = new PaginatedResult(response.data, JSON.parse(pagination));
+        return response as AxiosResponse<PaginatedResult<any>>
+    }
     return response;
 }, (error:any)=>{
     const {data, status, headers} = error.response!;
@@ -77,7 +90,7 @@ const Account = {
 }
 
 const Posts = {
-    getPosts: ()=>requests.get<Post[]>('posts'),
+    getPosts: (params: URLSearchParams)=>axios.get<PaginatedResult<Post[]>>('posts', {params}).then(responseBody),
     getPost: (id:string)=> requests.get<Post>(`posts/${id}`),
     updatePost:(id:string, updatePost: PostUpdate) => requests.put<Post>(`posts/${id}`, updatePost),
     createPost:(newPost:PostCreate) => {

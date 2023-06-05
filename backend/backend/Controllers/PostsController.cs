@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using backend.Core;
 using backend.Data;
 using backend.DTOs.Post;
 using backend.Models;
@@ -15,7 +16,7 @@ namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostsController : ControllerBase
+    public class PostsController : BaseApiController
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
@@ -31,35 +32,33 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> List()
+        public async Task<ActionResult> List([FromQuery] PagingParams param)
         {
             var followings = await _context.Friends
                 .Where(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name))
                 .Select(x => x.Target)
                 .ToListAsync();
-            var posts = await _context.Posts
+            // posts query of people which user follows
+            var postsQuery = _context.Posts
                 .Include(x => x.Images)
                 .Include(x => x.Author)
                 .Include(a => a.Author.Images)
                 .Where(x => followings.Contains(x.Author))
                 .OrderByDescending(x => x.Date)
-                .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
-                .ToListAsync();
+                .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) });
             //var _posts = _mapper.Map<List<PostDto>>(posts);
 
-            if (posts.Count > 0)
-            {
-                return Ok(posts);
-            }
+            return await HandlePagedList(postsQuery, param);
 
-            var posts_ = await _context.Posts
-                .Include(x => x.Images)
-                .Include(x => x.Author)
-                .Include(a => a.Author.Images)
-                .OrderByDescending(x => x.Date)
-                .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
-                .ToListAsync();
-            return Ok(posts_);
+            // posts of every people in app
+            //var posts_ = await _context.Posts
+            //    .Include(x => x.Images)
+            //    .Include(x => x.Author)
+            //    .Include(a => a.Author.Images)
+            //    .OrderByDescending(x => x.Date)
+            //    .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
+            //    .ToListAsync();
+            //return Ok(posts_);
         }
 
         [HttpGet("{id}")]
@@ -76,6 +75,7 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm]PostCreateDto post)
         {
+            
             var user = await _context.Users
                 .Include(x => x.Images)
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));

@@ -1,0 +1,6 @@
+1) make pagination done
+2) make a like button done
+3) make a better photo carousel done
+4) make groups
+5) make file uploads to posts
+6) make article creation 

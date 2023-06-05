@@ -8,11 +8,13 @@ import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import { deletePost } from '../../app/stores/actions/postsActions';
 import EditPostNews from './EditPostNews';
 import { Link } from 'react-router-dom';
-import { openModal } from '../../app/stores/slices/modalSlice';
 import { setCurrentImage, setImages } from '../../app/stores/slices/imagesSlices';
 import ImageCarousel from '../images/ImageCarousel';
 import { Image } from '../../app/models/Image';
 import { toggleFavoritePost } from '../../app/stores/actions/messagesActions';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { openModal } from '../../app/stores/slices/imageModalSlice';
 
 const StyledPostDiv = styled.div`
     border-radius: 15px;
@@ -33,7 +35,7 @@ const StyledPostDiv = styled.div`
         border-top: 0.5px solid #D3D3D3;
         white-space: pre-wrap;
     }
-
+    /* images styles */
     .images-container{
         display: flex;
         margin-top: 1em;
@@ -99,6 +101,45 @@ const StyledPostDiv = styled.div`
     .image.nine{
         flex: 0 1 33%;
     }
+
+    /* like button styles */
+    .like-btn{
+        border-radius: 20px;
+        background-color: #e3e3e3;
+        padding: 0.5em;
+        margin-top: 0.2em;
+    }
+    .like-btn:hover{
+        cursor: pointer;
+    }
+    .like-btn.animation{
+        animation: explode 0.5s infinite linear;
+    }
+
+    @keyframes clippath {
+        0%,
+        100% {
+            clip-path: inset(0 0 95% 0);
+        }
+        25% {
+            clip-path: inset(0 95% 0 0);
+        }
+        50% {
+            clip-path: inset(95% 0 0 0);
+        }
+        75% {
+            clip-path: inset(0 0 0 95%);
+        }
+    }
+
+    @keyframes explode {
+        from {
+            transform: scale(0.95);
+        }
+        to{
+            transform: scale(1.05);
+        }
+    }
 `
 const DotsButton = styled.div`
     cursor:pointer;
@@ -119,6 +160,9 @@ interface Props{
 }
 
 function NewsPost({post}:Props) {
+
+    //like-btn
+    const [animation,setAnimation] = React.useState(false);
 
     //Dots Popper handler
     const [anchorDotsButton, setAnchorDotsButton] = React.useState<null | HTMLElement>(null);
@@ -141,6 +185,8 @@ function NewsPost({post}:Props) {
 
     function toggleFavorite(){
         dispatch(toggleFavoritePost(post.id))
+        setAnimation(true);
+        setTimeout(() => setAnimation(false), 500);
     }
 
     //edit mode
@@ -205,12 +251,12 @@ function NewsPost({post}:Props) {
                                 </div>
                             </Grid>
                             <Grid item xs={0.5}>
-                                <DotsButton onMouseOver={handleMouseOverDotsButton} onMouseLeave={handleMouseLeaveDotsButton}>
-                                    <MoreHorizIcon/>
-                                    <Popper open={open} anchorEl={anchorDotsButton} placement='bottom-end'>
-                                        <DotsPopper>
-                                            <List>
-                                                {user!.username === post.author.username ?
+                                {user!.username === post.author.username &&
+                                    <DotsButton onMouseOver={handleMouseOverDotsButton} onMouseLeave={handleMouseLeaveDotsButton}>
+                                        <MoreHorizIcon/>
+                                        <Popper open={open} anchorEl={anchorDotsButton} placement='bottom-end'>
+                                            <DotsPopper>
+                                                <List>
                                                     <>
                                                         <ListItem>
                                                             <ListItemButton onClick={()=>{setEditMode(true); setAnchorDotsButton(null);}}>
@@ -223,19 +269,11 @@ function NewsPost({post}:Props) {
                                                             </ListItemButton>
                                                         </ListItem>
                                                     </>
-                                                    :
-                                                    <>
-                                                        <ListItem>
-                                                            <ListItemButton onClick={toggleFavorite}>
-                                                                <ListItemText primary={post.liked ? "Remove from favorites":"Add to favorites"} />
-                                                            </ListItemButton>
-                                                        </ListItem>
-                                                    </>
-                                                }
-                                            </List>
-                                        </DotsPopper>
-                                    </Popper>
-                                </DotsButton>
+                                                </List>
+                                            </DotsPopper>
+                                        </Popper>
+                                    </DotsButton>
+                                }
                             </Grid>
                         </Grid>
                         <div className='content-text'>
@@ -278,6 +316,20 @@ function NewsPost({post}:Props) {
                                 </div>
                             </div>
                         }
+
+                        <div>
+                            <div className={`like-btn ${animation ? 'animation':''}`} style={{width:'fit-content'}} onClick={toggleFavorite}>
+                                {
+                                    post.liked ?
+                                    <FavoriteIcon style={{color:'red'}}/>
+                                    :
+                                    <>
+                                        <FavoriteBorderIcon/>
+                                    </>
+                                }
+                                {post.likes}
+                            </div>
+                        </div>
                     </div>
                 </StyledPostDiv>
             }
