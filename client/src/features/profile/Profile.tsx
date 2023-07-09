@@ -13,6 +13,62 @@ import ImageCarousel from '../images/ImageCarousel';
 import { Image } from '../../app/models/Image';
 import { setCurrentImage, setImages } from '../../app/stores/slices/imagesSlices';
 import { openModal } from '../../app/stores/slices/imageModalSlice';
+import { openModal as openGeneralModal } from '../../app/stores/slices/modalSlice';
+import styled from 'styled-components';
+
+const CustomBtn = styled.button`
+    cursor: pointer;
+    background-color: #0072b1;
+    border:0;
+    border-radius: 20px;
+    color:white;
+    padding: 0.5em 0.5em;
+    margin: 0.5em;
+    font-weight: bold;
+    position: relative;
+    min-width: 180px;
+    white-space: nowrap;
+
+    &:hover{
+        box-shadow: 0 0 10px #0072b1;
+    }
+
+    &:active{
+        box-shadow: 0 0 30px #0072b1;
+    }
+`
+
+const ProfileDiv = styled.div`
+    margin-top:0.5em;
+    .cover-section img{
+        max-width: 100%;
+        max-height: 100%;
+        display: block;
+        border-radius: 10px;
+    }
+
+    .about-section{
+        display: flex;
+    }
+
+    .avatar-div{
+        position: relative;
+        top: -100px;
+    }
+
+    .avatar-div div{
+        border-radius: 50%;
+        border: 5px solid white;
+    }
+
+    .info{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-left: 1em;
+    }
+`
+
 function Profile() {
 
     const {username} = useParams();
@@ -44,76 +100,82 @@ function Profile() {
     return ( 
         <>
             <Grid container>
-                <Grid item xs={7} style={{display:'flex'}}>
+                <Grid item xs={8} style={{display:'flex'}}>
                     {
                         editMode ?
                         <EditProfileComponent setEditMode={setEditMode}/>
                         :
-                        <>
-                            <div onClick={()=>handleClickImage(profile.images.filter(x => x.isMain)[0])}>
-                                <Avatar sx={{width:"150px", height:'150px', fontSize:'10em', marginTop:'10px', marginLeft:'5px'}}
-                                    src={profile?.imageUrl}
-                                    >
-                                    {profile.lastName.slice(0,1)}
-                                </Avatar>
+                        <ProfileDiv>
+                            <div className='cover-section'>
+                                <img src='/cover.jpg' alt='cover'/>
                             </div>
-                            <div style={{display:'flex', flexDirection:'column', justifyContent:'space-between', marginLeft: '1em'}}>
-                                <span style={{color:'#01579b', fontSize:'large', fontWeight:'bold'}}>
-                                    {profile.firstName} 
-                                    {' '}
-                                    {profile.lastName} 
-                                </span>
-                                <span style={{whiteSpace:'pre-wrap'}}>
-                                    {profile.about}
-                                </span>
-                                {
-                                    user?.username !== profile.username
-                                    ?
-                                    <div style={{ marginTop:'1em'}}>
-                                        <Button onClick={()=>dispatch(openModal(<MessageForm/>))}>
-                                            Message
-                                        </Button>
-                                        <Button onClick={handleToggleFriend}>
-                                            {
-                                                profile.following ?
-                                                'unfollow'
-                                                :
-                                                'follow'
-                                            }
-                                        </Button>
-                                    </div>
-                                    :
-                                    <div>
-                                        <Button onClick={()=>setEditMode(true)}>
-                                            Edit
-                                        </Button>
-                                    </div>
-                                }
-                                <div style={{display:'flex', color:'gray',fontWeight:'bold'}}>
-                                    <div style={{marginRight:'1em'}}>
-                                        <span style={{color:'#01579b'}}>
-                                            {profile.followers}
-                                        </span>
+                            <div className='about-section'>
+                                <div className='avatar-div' onClick={()=>handleClickImage(profile.images.filter(x => x.isMain)[0])}>
+                                    <Avatar sx={{width:"200px", height:'200px', fontSize:'10em'}}
+                                        src={profile?.imageUrl}
+                                        >
+                                        {profile.lastName.slice(0,1)}
+                                    </Avatar>
+                                </div>
+                                <div className='info'>
+                                    <span style={{color:'#01579b', fontSize:'large', fontWeight:'bold'}}>
+                                        {profile.firstName} 
                                         {' '}
-                                        followers
-                                    </div>
+                                        {profile.lastName} 
+                                    </span>
+                                    <span style={{whiteSpace:'pre-wrap'}}>
+                                        {profile.about}
+                                    </span>
                                     {
-                                        '|'
+                                        user &&(
+                                        user?.username !== profile.username
+                                        ?
+                                        <div style={{ marginTop:'1em'}}>
+                                            <CustomBtn onClick={()=>dispatch(openGeneralModal(<MessageForm/>))}>
+                                                Message
+                                            </CustomBtn>
+                                            <CustomBtn onClick={handleToggleFriend}>
+                                                {
+                                                    profile.following ?
+                                                    'unfollow'
+                                                    :
+                                                    'follow'
+                                                }
+                                            </CustomBtn>
+                                        </div>
+                                        :
+                                        <div>
+                                            <Button onClick={()=>setEditMode(true)}>
+                                                Edit
+                                            </Button>
+                                        </div>)
                                     }
-                                    <div style={{marginLeft:'1em'}}>
-                                        <span style={{color:'#01579b'}}>
-                                            {profile.followings}
-                                        </span>
-                                        {' '}
-                                        followings
+                                    <div style={{display:'flex', color:'gray',fontWeight:'bold'}}>
+                                        <div style={{marginRight:'1em'}}>
+                                            <span style={{color:'#01579b'}}>
+                                                {profile.followers}
+                                            </span>
+                                            {' '}
+                                            followers
+                                        </div>
+                                        {
+                                            '|'
+                                        }
+                                        <div style={{marginLeft:'1em'}}>
+                                            <span style={{color:'#01579b'}}>
+                                                {profile.followings}
+                                            </span>
+                                            {' '}
+                                            followings
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </>
+                        </ProfileDiv>
                     }
                 </Grid>
                 <Grid item xs={7}>
-                    <ImagesPanel owner={user?.username === profile.username} images={profile.images}/>
+                    <ImagesPanel owner={user !== null && user?.username === profile.username} images={profile.images}/>
                     {
                         profile?.posts 
                         &&

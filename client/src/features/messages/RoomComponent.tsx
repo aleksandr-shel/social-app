@@ -44,8 +44,8 @@ function RoomComponent({room}:Props) {
                     secondary={
                         <React.Fragment>
                         <Typography
-                            component='div'
-                            sx={{ fontSize:'small'}}
+                            component='span'
+                            sx={{ fontSize:'small', display:'block'}}
                             variant="body2"
                             color="text.primary"
                         >

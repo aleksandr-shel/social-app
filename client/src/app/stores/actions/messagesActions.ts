@@ -22,15 +22,25 @@ export const createHubConnection = ():ThunkAction<void, RootState, unknown, AnyA
             .withAutomaticReconnect()
             .configureLogging(LogLevel.Information)
             .build();
-        hubConnection.start().catch(error => console.log('Error establishing the connection', error))
+        hubConnection.start()
+        .then(()=>{
+            if (getState().userReducer.token)
+                console.log('connected')
+        })
+        .catch(error => console.log('Error establishing the connection', error))
 
-
+        
         hubConnection.on('LoadMessages', (messages:Message[])=>{
             dispatch(setMessages(messages))
         })
 
         hubConnection.on('ReceiveMessage',(message:Message)=>{
             //toast only when not in messages location
+            if (window.location.href.split('/').at(-1) !== 'messages' && message.sender.username !== getState().userReducer.user?.username){
+                // const messageToast = `${message.sender.firstName} ${message.sender.lastName} \n ${message.content}`
+                let messageToast = message.sender.firstName + ' ' +message.sender.lastName + ' sent a message'
+                toast.success(messageToast);
+            }
             dispatch(addMessage(message))
         })
 
@@ -40,8 +50,6 @@ export const createHubConnection = ():ThunkAction<void, RootState, unknown, AnyA
 
         hubConnection.on('ReceiveRoom', (room:Room)=>{
             dispatch(addRoom(room))
-            // toast if new room for a receiver
-            // toast.success('New message :)')
         })
 
         dispatch(setHubConnection(hubConnection));

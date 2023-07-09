@@ -6,6 +6,7 @@ using backend.DTOs.Profile;
 using backend.Helper;
 using backend.Models;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,7 @@ namespace backend.Controllers
         }
 
         [HttpGet("{username}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetProfile(string username)
         {
             //var profile = _mapper.Map<ProfileDto>(await _context.Users

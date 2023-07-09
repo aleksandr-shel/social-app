@@ -18,6 +18,13 @@ namespace backend.Data
         public DbSet<PostImage> PostImages { get; set; }
         public DbSet<Friends> Friends { get; set; }
         public DbSet<FavoritePost> FavoritePosts { get; set; }
+
+
+        //Group sets
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupFollower> GroupFollowers { get; set; }
+        public DbSet<GroupPost> GroupPosts { get; set; }
+        public DbSet<GroupAdmin> GroupAdmins { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -61,6 +68,33 @@ namespace backend.Data
                 .WithMany(x => x.UserLikes)
                 .HasForeignKey(fp => fp.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<GroupFollower>()
+                .HasKey(x => new { x.GroupId, x.FollowerId });
+            builder.Entity<GroupFollower>()
+                .HasOne(x => x.Group)
+                .WithMany(x => x.Followers)
+                .HasForeignKey(x => x.GroupId);
+
+            builder.Entity<GroupFollower>()
+                .HasOne(x => x.Follower)
+                .WithMany(x => x.Groups)
+                .HasForeignKey(x => x.FollowerId);
+
+
+            builder.Entity<GroupAdmin>()
+                .HasKey(x => new { x.GroupId, x.UserId });
+            builder.Entity<GroupAdmin>()
+                .HasOne(x => x.Group)
+                .WithMany(x => x.Admins)
+                .HasForeignKey(x => x.GroupId);
+            builder.Entity<GroupAdmin>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.GroupAdmins)
+                .HasForeignKey(x => x.UserId);
+            
+
+
 
 
         }

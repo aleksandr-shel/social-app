@@ -93,7 +93,7 @@ namespace backend.Controllers
                 .Select(ru => ru.Room)
                 .ToListAsync();
 
-            //get rooms that we are in
+            //get rooms that receiver is in
             var rooms_user = await _context.RoomUsers
                 .Where(ru => ru.User.UserName == username)
                 .Select(ru => ru.Room)
@@ -101,7 +101,8 @@ namespace backend.Controllers
 
             var intersectRooms = rooms.Intersect(rooms_user);
             var room = intersectRooms.FirstOrDefault();
-
+            var toUser = await _context.Users
+                .FirstOrDefaultAsync(x => x.UserName == username);
             if (room != null)
             {
                 var newMessage = new Message
@@ -115,12 +116,11 @@ namespace backend.Controllers
                 var res = await _context.Messages.AddAsync(newMessage);
                 await _context.SaveChangesAsync();
                 var newMes = _mapper.Map<MessageDto>(res.Entity);
-                await _hubContext.Clients.Group(room.Id.ToString()).SendAsync("ReceiveMessage", newMes);
+                //await _hubContext.Clients.Group(room.Id.ToString()).SendAsync("ReceiveMessage", newMes);
+                await _hubContext.Clients.Group(user.Id).SendAsync("ReceiveMessage", newMes);
+                await _hubContext.Clients.Group(toUser.Id).SendAsync("ReceiveMessage", newMes);
                 return Ok(newMes);
             }
-
-            var toUser = await _context.Users
-                .FirstOrDefaultAsync(x => x.UserName == username);
 
             var newRoom = new Room
             {
@@ -165,7 +165,9 @@ namespace backend.Controllers
             var res_ = await _context.Messages.AddAsync(newMessage_);
             await _context.SaveChangesAsync();
             var newMes_ = _mapper.Map<MessageDto>(res_.Entity);
-            await _hubContext.Clients.Group(newRoom.Id.ToString()).SendAsync("ReceiveMessage", newMes_);
+            //await _hubContext.Clients.Group(newRoom.Id.ToString()).SendAsync("ReceiveMessage", newMes_);
+            await _hubContext.Clients.Group(user.Id).SendAsync("ReceiveMessage", newMes_);
+            await _hubContext.Clients.Group(toUser.Id).SendAsync("ReceiveMessage", newMes_);
             return Ok(newMes_);
         }
 

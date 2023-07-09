@@ -126,6 +126,66 @@ namespace backend.Data.Migrations
                     b.ToTable("Friends");
                 });
 
+            modelBuilder.Entity("backend.Models.Group", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("GroupBackGroundImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("GroupImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupBackGroundImageId");
+
+                    b.HasIndex("GroupImageId");
+
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupAdmin", b =>
+                {
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("GroupId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GroupAdmins");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupFollower", b =>
+                {
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FollowerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("GroupId", "FollowerId");
+
+                    b.HasIndex("FollowerId");
+
+                    b.ToTable("GroupFollowers");
+                });
+
             modelBuilder.Entity("backend.Models.Image", b =>
                 {
                     b.Property<Guid>("Id")
@@ -193,11 +253,17 @@ namespace backend.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Posts");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Post");
                 });
 
             modelBuilder.Entity("backend.Models.PostImage", b =>
@@ -414,6 +480,18 @@ namespace backend.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("backend.Models.GroupPost", b =>
+                {
+                    b.HasBaseType("backend.Models.Post");
+
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasDiscriminator().HasValue("GroupPost");
+                });
+
             modelBuilder.Entity("backend.Models.FavoritePost", b =>
                 {
                     b.HasOne("backend.Models.Post", "Post")
@@ -450,6 +528,59 @@ namespace backend.Data.Migrations
                     b.Navigation("Observer");
 
                     b.Navigation("Target");
+                });
+
+            modelBuilder.Entity("backend.Models.Group", b =>
+                {
+                    b.HasOne("backend.Models.Image", "GroupBackGroundImage")
+                        .WithMany()
+                        .HasForeignKey("GroupBackGroundImageId");
+
+                    b.HasOne("backend.Models.Image", "GroupImage")
+                        .WithMany()
+                        .HasForeignKey("GroupImageId");
+
+                    b.Navigation("GroupBackGroundImage");
+
+                    b.Navigation("GroupImage");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupAdmin", b =>
+                {
+                    b.HasOne("backend.Models.Group", "Group")
+                        .WithMany("Admins")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.AppUser", "User")
+                        .WithMany("GroupAdmins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupFollower", b =>
+                {
+                    b.HasOne("backend.Models.AppUser", "Follower")
+                        .WithMany("Groups")
+                        .HasForeignKey("FollowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Group", "Group")
+                        .WithMany("Followers")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("backend.Models.Image", b =>
@@ -569,6 +700,15 @@ namespace backend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("backend.Models.GroupPost", b =>
+                {
+                    b.HasOne("backend.Models.Group", "Group")
+                        .WithMany("Posts")
+                        .HasForeignKey("GroupId");
+
+                    b.Navigation("Group");
+                });
+
             modelBuilder.Entity("backend.Models.AppUser", b =>
                 {
                     b.Navigation("FavoritePosts");
@@ -577,6 +717,10 @@ namespace backend.Data.Migrations
 
                     b.Navigation("Followings");
 
+                    b.Navigation("GroupAdmins");
+
+                    b.Navigation("Groups");
+
                     b.Navigation("Images");
 
                     b.Navigation("Posts");
@@ -584,6 +728,15 @@ namespace backend.Data.Migrations
                     b.Navigation("RefreshTokens");
 
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("backend.Models.Group", b =>
+                {
+                    b.Navigation("Admins");
+
+                    b.Navigation("Followers");
+
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("backend.Models.Post", b =>

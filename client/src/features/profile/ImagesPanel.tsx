@@ -60,11 +60,11 @@ const ImagesPanelDiv = styled.div`
 function ImagesPanel({images, owner}:Props) {
     const pageSize = 3;
     const [current, setCurrent] = React.useState(1);
-    const [pages, setPages] = React.useState((images.length+(pageSize-1)) / pageSize);
+    const [pages, setPages] = React.useState<number>(0);
 
     React.useEffect(()=>{
         setCurrent(1);
-        setPages((images.length+2) / pageSize)
+        setPages(Math.ceil((images.length) / pageSize))
     },[images])
     function handleLeftBtn(){
         if (current - 1 > 0){

@@ -23,7 +23,8 @@ namespace backend.Controllers
         private readonly ILogger<PostsController> _logger;
         private readonly IUploadFile _uploadFile;
 
-        public PostsController(DataContext context, IMapper mapper, ILogger<PostsController> logger, IUploadFile uploadFile)
+        public PostsController(DataContext context, IMapper mapper, 
+            ILogger<PostsController> logger, IUploadFile uploadFile)
         {
             _context = context;
             _mapper = mapper;

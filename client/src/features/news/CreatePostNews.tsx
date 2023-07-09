@@ -63,7 +63,7 @@ function CreatePostNews() {
                     onChange={(e)=>setContent(e.target.value)}
                     />
             </FormControl>
-            <PostImagesUploadComponent srcs={srcs} setSrcs={setSrcs} setFiles={setFiles}/>
+            <PostImagesUploadComponent srcs={srcs} setSrcs={setSrcs} files={files} setFiles={setFiles}/>
             
             <Button className='btn btn-primary' type='submit' variant='outlined'>
                 Post

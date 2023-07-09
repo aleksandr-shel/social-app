@@ -32,10 +32,11 @@ interface Props{
     setFiles:(files:any)=>void,
     srcs:string[],
     setSrcs: React.Dispatch<React.SetStateAction<string[]>>,
+    files: File[],
 }
 
 
-function PostImagesUploadComponent({setFiles,srcs, setSrcs}:Props) {
+function PostImagesUploadComponent({setFiles,srcs, setSrcs, files}:Props) {
 
     const [hitMaxImages, setHitMaxImages] = React.useState(false);
 
@@ -47,6 +48,8 @@ function PostImagesUploadComponent({setFiles,srcs, setSrcs}:Props) {
 
     function handleDeleteImageToUpload(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index:number){
         e.stopPropagation();
+        // console.log('files: ', files);
+        // console.log('srcs: ', srcs);
         setSrcs((srcs:string[])=>{
             let newSrcs = srcs.filter((src, i)=>{
                 return index !== i;
@@ -69,9 +72,12 @@ function PostImagesUploadComponent({setFiles,srcs, setSrcs}:Props) {
         acceptedFiles.forEach((file: any)=>{
             const reader = new FileReader()
             reader.onload = ()=>{
-                setSrcs((srcs:any)=>[...srcs!, reader.result])
+                setSrcs((srcs:any)=>{
+                    setFiles((files:any)=>[...files,file])
+                    return [...srcs!, reader.result]
+                })
+
             }
-            setFiles((files:any)=>[...files,file])
             reader.readAsDataURL(file);
         })
       }, [setSrcs, srcs, setFiles])

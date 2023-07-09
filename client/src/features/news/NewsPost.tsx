@@ -251,7 +251,7 @@ function NewsPost({post}:Props) {
                                 </div>
                             </Grid>
                             <Grid item xs={0.5}>
-                                {user!.username === post.author.username &&
+                                {user !== null && user!.username === post.author.username &&
                                     <DotsButton onMouseOver={handleMouseOverDotsButton} onMouseLeave={handleMouseLeaveDotsButton}>
                                         <MoreHorizIcon/>
                                         <Popper open={open} anchorEl={anchorDotsButton} placement='bottom-end'>
@@ -316,7 +316,6 @@ function NewsPost({post}:Props) {
                                 </div>
                             </div>
                         }
-
                         <div>
                             <div className={`like-btn ${animation ? 'animation':''}`} style={{width:'fit-content'}} onClick={toggleFavorite}>
                                 {

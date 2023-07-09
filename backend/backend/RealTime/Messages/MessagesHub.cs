@@ -42,34 +42,5 @@ namespace backend.RealTime.Messages
                 await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
             }
         }
-
-        //public async Task SendComment(CommentDto commentDto)
-        //{
-        //    var comment = await _dynamoDbService.AddComment(commentDto);
-        //    await Clients.Group(commentDto.VideoId)
-        //        .SendAsync("ReceiveComment", comment);
-        //}
-
-        //public async Task DeleteComment(string videoId, string commentId)
-        //{
-        //    var result = await _dynamoDbService.DeleteCommentInVideo(videoId, commentId);
-        //    if (result)
-        //    {
-        //        await Clients.Group(videoId)
-        //            .SendAsync("DeleteComment", commentId);
-        //    }
-        //}
-
-        //public override async Task OnConnectedAsync()
-        //{
-        //    var httpContext = Context.GetHttpContext();
-        //    var videoid = httpContext.Request.Query["videoId"];
-        //    await Groups.AddToGroupAsync(Context.ConnectionId, videoid);
-        //    var result = await _dynamoDbService.GetVideoDynamoDb(videoid);
-        //    if (result != null)
-        //    {
-        //        await Clients.Caller.SendAsync("LoadComments", result);
-        //    }
-        //}
     }
 }

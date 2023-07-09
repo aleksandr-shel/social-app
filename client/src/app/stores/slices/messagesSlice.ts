@@ -11,6 +11,7 @@ interface MessagesState{
     loadingMessages: boolean,
     partner: Author | null,
     selectedRoom: Room | null,
+    connected: boolean,
 }
 
 const initialState : MessagesState = {
@@ -20,6 +21,7 @@ const initialState : MessagesState = {
     loadingMessages: false,
     partner: null,
     selectedRoom: null,
+    connected: false,
 }
 
 const messagesSlice = createSlice({
@@ -45,7 +47,16 @@ const messagesSlice = createSlice({
             state.loadingMessages = payload;
         },
         addMessage: (state, {payload}:PayloadAction<Message>)=>{
-            state.messages.unshift(payload);
+
+            if (state.selectedRoom?.id === payload.roomId){
+                state.messages.unshift(payload);
+            }
+
+            state.rooms = state.rooms.map(x => x.id === payload.roomId ? {...x, lastMessage: payload.content, lastUpdate:payload.date} : x);
+
+            state.rooms = state.rooms.sort((a,b)=>{
+                return new Date(b.lastUpdate).valueOf() - new Date(a.lastUpdate).valueOf();
+            })
         },
         setPartner: (state, {payload}:PayloadAction<Author>)=>{
             state.partner = payload;
@@ -61,10 +72,13 @@ const messagesSlice = createSlice({
         },
         setRoomLastMessageAndLastUpdate:(state,{payload}:PayloadAction<string>)=>{
 
+        },
+        setConnected: (state,{payload}:PayloadAction<boolean>)=>{
+            state.connected = payload;
         }
     }
 })
 
-export const {setHubConnection, stopHubConnection, setRooms, setMessages, setLoading, addMessage, setPartner, selectRoom, addRoom, deleteMessage} = messagesSlice.actions;
+export const {setHubConnection, stopHubConnection, setRooms, setMessages, setLoading, addMessage, setPartner, selectRoom, addRoom, deleteMessage, setConnected} = messagesSlice.actions;
 
 export default messagesSlice;

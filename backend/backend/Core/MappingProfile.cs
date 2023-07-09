@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend.DTOs.Group;
 using backend.DTOs.Messages;
 using backend.DTOs.Post;
 using backend.DTOs.Profile;
@@ -30,7 +31,11 @@ namespace backend.Core
 
             CreateMap<PostImage, PostImageDto>();
 
-
+            CreateMap<Group, GroupDto>()
+                .ForMember(x => x.Followers, p => p.MapFrom(x => x.Followers.Count()))
+                .ForMember(x => x.IsAdmin, p => p.MapFrom(x => x.Admins.Any(x=>x.User.UserName == currentUsername)));
+        
+            
         }
     }
 }
