@@ -15,7 +15,9 @@ namespace backend.Data
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomUser> RoomUsers { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Document> Documents { get; set; }
         public DbSet<PostImage> PostImages { get; set; }
+        public DbSet<PostDocument> PostDocuments { get; set; }
         public DbSet<Friends> Friends { get; set; }
         public DbSet<FavoritePost> FavoritePosts { get; set; }
 

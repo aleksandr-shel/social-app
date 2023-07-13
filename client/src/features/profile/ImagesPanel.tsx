@@ -2,6 +2,11 @@ import * as React from 'react';
 import {Image} from '../../app/models/Image';
 import styled from 'styled-components';
 import ImagePanelItem from './ImagePanelItem';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { useAppDispatch } from '../../app/stores/store';
+import { openModal } from '../../app/stores/slices/modalSlice';
+import AddImageModal from './Images/AddImageModal';
 interface Props{
     images:Image[],
     owner: boolean,
@@ -46,10 +51,19 @@ const ImagesPanelDiv = styled.div`
     .right-btn{
         right: 0;
     }
-    .header{
-        color:#01579b;
+
+    .photos-top{
+        display: flex;
+        justify-content: space-between;
         border-bottom: 2px solid #01579b;
+    }
+    .header {
+        color:#01579b;
         margin: 0.5em 1em 0 1em;
+        a {
+            color:inherit;
+            text-decoration: none;
+        }
     }
 
     .disabled{
@@ -61,6 +75,7 @@ function ImagesPanel({images, owner}:Props) {
     const pageSize = 3;
     const [current, setCurrent] = React.useState(1);
     const [pages, setPages] = React.useState<number>(0);
+    const dispatch = useAppDispatch();
 
     React.useEffect(()=>{
         setCurrent(1);
@@ -78,14 +93,48 @@ function ImagesPanel({images, owner}:Props) {
         }
     }
 
-    if (images.length === 0) return null;
+    function handleAddImageClick(){
+        dispatch(openModal(<AddImageModal/>))
+    }
 
+    if (images.length === 0 && owner) 
+    {
+        return(
+            <ImagesPanelDiv>
+                <div className='photos-top'>
+                    <h4 className='header'>
+                        <Link to='images'>
+                            Images
+                        </Link>
+                    </h4>
+                </div>
+                <div style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100px'}}>
+                    <Button onClick={handleAddImageClick}>
+                        Add Image
+                    </Button>
+                </div>
+            </ImagesPanelDiv>
+        )
+    }
+
+    if (images.length === 0) return null
+
+    
     return ( 
         <ImagesPanelDiv>
-            <div>
+            <div className='photos-top'>
                 <h4 className='header'>
-                    Photos
+                    <Link to='images'>
+                        Images
+                    </Link>
                 </h4>
+                {
+                    owner
+                    &&
+                    <Button onClick={handleAddImageClick}>
+                        Add Image
+                    </Button>
+                }
             </div>
             <div className='images-container'>
                 <div className={pages > 1 ? 'left-btn btn-slider' : 'left-btn btn-slider disabled'} onClick={handleLeftBtn}>

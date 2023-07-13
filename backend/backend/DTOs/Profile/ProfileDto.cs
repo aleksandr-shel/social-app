@@ -15,6 +15,7 @@ namespace backend.DTOs.Profile
         public bool Following { get; set; }
         public int Followers { get; set; }
         public int Followings { get; set; }
+
         public override bool Equals(object obj)
         {
             return obj is ProfileDto dto &&

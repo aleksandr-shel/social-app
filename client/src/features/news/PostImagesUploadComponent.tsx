@@ -29,14 +29,13 @@ const PostImagesUploadDiv = styled.div`
 `;
 
 interface Props{
-    setFiles:(files:any)=>void,
+    setImages:(files:any)=>void,
     srcs:string[],
-    setSrcs: React.Dispatch<React.SetStateAction<string[]>>,
-    files: File[],
+    setSrcs: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 
-function PostImagesUploadComponent({setFiles,srcs, setSrcs, files}:Props) {
+function PostImagesUploadComponent({setImages,srcs, setSrcs}:Props) {
 
     const [hitMaxImages, setHitMaxImages] = React.useState(false);
 
@@ -57,7 +56,7 @@ function PostImagesUploadComponent({setFiles,srcs, setSrcs, files}:Props) {
             return [...newSrcs]
         })
 
-        setFiles((files:any[])=>{
+        setImages((files:any[])=>{
             let newFiles = files.filter((file, i)=>{
                 return index !== i;
             })
@@ -73,14 +72,14 @@ function PostImagesUploadComponent({setFiles,srcs, setSrcs, files}:Props) {
             const reader = new FileReader()
             reader.onload = ()=>{
                 setSrcs((srcs:any)=>{
-                    setFiles((files:any)=>[...files,file])
+                    setImages((images:any)=>[...images,file])
                     return [...srcs!, reader.result]
                 })
 
             }
             reader.readAsDataURL(file);
         })
-      }, [setSrcs, srcs, setFiles])
+      }, [setSrcs, srcs, setImages])
 
     const {getRootProps, getInputProps} = useDropzone({onDrop})
     return ( 

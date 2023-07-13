@@ -42,6 +42,7 @@ namespace backend.Controllers
             // posts query of people which user follows
             var postsQuery = _context.Posts
                 .Include(x => x.Images)
+                .Include(x => x.Documents)
                 .Include(x => x.Author)
                 .Include(a => a.Author.Images)
                 .Where(x => followings.Contains(x.Author))
@@ -88,12 +89,12 @@ namespace backend.Controllers
             };
 
 
-            if (post.Files != null)
+            if (post.Images != null)
             {
-                if (post.Files.Length > 10) {
+                if (post.Images.Length > 10) {
                     return BadRequest("No more than 10 images");
                 }
-                foreach(var file in post.Files)
+                foreach(var file in post.Images)
                 {
                     (string url, string key) = await _uploadFile.UploadFile(file);
                     var postImage = new PostImage
@@ -103,6 +104,26 @@ namespace backend.Controllers
                     };
 
                     newPost.Images.Add(postImage);
+                }
+            }
+
+            if (post.Files != null)
+            {
+                if (post.Files.Length > 10)
+                {
+                    return BadRequest("No more than 10 images");
+                }
+                foreach (var file in post.Files)
+                {
+                    (string url, string key) = await _uploadFile.UploadFile(file);
+                    var postDoc = new PostDocument
+                    {
+                        Url = url,
+                        Key = key,
+                        Name = file.FileName,
+                    };
+
+                    newPost.Documents.Add(postDoc);
                 }
             }
 
@@ -147,6 +168,7 @@ namespace backend.Controllers
             var post = await _context
                 .Posts
                 .Include(x => x.Images)
+                .Include(x => x.Documents)
                 .Include(x => x.Author)
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (post == null)
@@ -165,6 +187,15 @@ namespace backend.Controllers
                 if (res)
                 {
                     _context.PostImages.Remove(image);
+                }
+            }
+
+            foreach (var doc in post.Documents)
+            {
+                bool res = await _uploadFile.DeleteFile(doc.Key);
+                if (res)
+                {
+                    _context.PostDocuments.Remove(doc);
                 }
             }
 

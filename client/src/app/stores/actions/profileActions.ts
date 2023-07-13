@@ -3,7 +3,7 @@ import agent from "../../api/agent";
 import { Image } from "../../models/Image";
 import { ProfileUpdateValues } from "../../models/User";
 import { closeModal } from "../slices/modalSlice";
-import { deleteImage, setMain, setProfile, updateProfileImage, updateProfileRed } from "../slices/profileSlice";
+import { addProfileImage, deleteImage, setMain, setProfile, setProfileImages, updateProfileImage, updateProfileRed } from "../slices/profileSlice";
 import { RootState } from "../store";
 
 
@@ -35,11 +35,15 @@ export const updateProfileAct = (updateProfile:ProfileUpdateValues):ThunkAction<
     }
 }
 
-export const addImageAct = (file:File):ThunkAction<void, RootState, unknown, AnyAction>=>{
+export const addImageAct = (file:File, isMain: boolean):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch)=>{
         try{
-            const image = await agent.Profiles.addImage(file).then(response => response.data);
-            dispatch(updateProfileImage(image))
+            const image = await agent.Profiles.addImage(file, isMain).then(response => response.data);
+            if (isMain){
+                dispatch(updateProfileImage(image))
+            } else {
+                dispatch(addProfileImage(image))
+            }
             dispatch(closeModal());
         }catch(error){
             console.log(error);
@@ -66,6 +70,18 @@ export const deleteImageAct = (image:Image):ThunkAction<void, RootState, unknown
             agent.Profiles.deleteImage(image.key).then(()=>{
                 dispatch(deleteImage(image))
             })
+        }catch(error){
+            console.log(error);
+        }
+    }
+}
+
+
+export const getProfileImages = (username:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async(dispatch)=>{
+        try{
+            const images = await agent.Profiles.getImages(username);
+            dispatch(setProfileImages(images))
         }catch(error){
             console.log(error);
         }

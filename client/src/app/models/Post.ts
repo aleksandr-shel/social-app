@@ -1,3 +1,4 @@
+import { Document } from "./Document"
 import { Image } from "./Image"
 
 
@@ -7,6 +8,7 @@ export interface Post{
     author:Author,
     date:string,
     images: Image[],
+    documents: Document[],
     likes:number,
     liked:boolean,
 }
@@ -26,4 +28,5 @@ export interface PostUpdate{
 export interface PostCreate{
     content:string,
     files?:File[],
+    images?:File[],
 }

@@ -11,5 +11,6 @@ namespace backend.DTOs.Post
         public int Likes { get; set; }
         public bool Liked { get; set; }
         public ICollection<PostImageDto> Images { get; set; }
+        public ICollection<PostDocumentDto> Documents { get; set; }
     }
 }

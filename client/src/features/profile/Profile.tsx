@@ -100,7 +100,7 @@ function Profile() {
     return ( 
         <>
             <Grid container>
-                <Grid item xs={8} style={{display:'flex'}}>
+                <Grid item xs={10} style={{display:'flex'}}>
                     {
                         editMode ?
                         <EditProfileComponent setEditMode={setEditMode}/>

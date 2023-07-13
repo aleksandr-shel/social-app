@@ -316,6 +316,21 @@ function NewsPost({post}:Props) {
                                 </div>
                             </div>
                         }
+                        {
+                            post.documents.length !== 0
+                            &&
+                            <div>
+                                {
+                                    post.documents.map((doc, index)=>{
+                                        return(
+                                            <div key={index}>
+                                                <a href={doc.url} target='_blank' rel='noreferrer'>{doc.name}</a>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        }
                         <div>
                             <div className={`like-btn ${animation ? 'animation':''}`} style={{width:'fit-content'}} onClick={toggleFavorite}>
                                 {

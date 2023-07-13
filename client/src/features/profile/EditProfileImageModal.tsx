@@ -10,7 +10,7 @@ function EditProfileImageModal() {
     const [file, setFile] = React.useState<File>();
     function handleUpload(){
         if (file){
-            dispatch(addImageAct(file));
+            dispatch(addImageAct(file, true));
         }
     }
     return ( 

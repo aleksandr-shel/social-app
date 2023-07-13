@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using backend.Data;
+using backend.DTOs.Post;
 using backend.DTOs.Profile;
 using backend.Models;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +25,7 @@ namespace backend.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> Followers()
+        public async Task<IActionResult> Friends()
         {
             var followings = _mapper.Map<List<ProfileDto>>(await _context.Friends
                 .Where(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name))
@@ -45,6 +47,19 @@ namespace backend.Controllers
                 followings
             };
             return Ok(res);
+        }
+
+        [HttpGet("{username}/followers")]
+        public async Task<IActionResult> Followers(string username)
+        {
+            var followers = await _context.Friends
+                .Where(x => x.Observer.UserName == username)
+                .Select(x => x.Target)
+                .ProjectTo<AuthorDto>(_mapper.ConfigurationProvider, new { currentUsername = username })
+                .ToListAsync();
+                
+                
+            return Ok(followers);
         }
 
         [HttpGet("followings")]

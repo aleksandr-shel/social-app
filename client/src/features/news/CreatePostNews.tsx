@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { createPost } from '../../app/stores/actions/postsActions';
 import { useAppDispatch } from '../../app/stores/store';
 import PostImagesUploadComponent from './PostImagesUploadComponent';
+import PostFilesUploadComponent from './PostFilesUploadComponent';
 
 const StyledCreatePostDiv = styled.form`
     border-radius: 15px;
@@ -23,9 +24,11 @@ function CreatePostNews() {
     const [content, setContent] = React.useState<string>('');
     const dispatch = useAppDispatch();
     // const [focused, setFocused] = React.useState(false);
+    const [images, setImages] = React.useState<File[]>([]);
     const [files, setFiles] = React.useState<File[]>([]);
     const [srcs, setSrcs] = React.useState<string[]>([]);
 
+    const [srcsFiles, setSrcsFiles] = React.useState<string[]>([]);
     // React.useEffect(()=>{
     //     console.log(files);
     // },[files])
@@ -35,10 +38,12 @@ function CreatePostNews() {
     // },[srcs])
 
     function handleSubmit(){
-        dispatch(createPost({content, files}));
+        dispatch(createPost({content, images, files}));
         setContent('');
-        setFiles([]);
+        setImages([]);
         setSrcs([]);
+        setSrcsFiles([]);
+        setFiles([]);
     }
 
     function handleKeyDown(e:React.KeyboardEvent<HTMLFormElement>){
@@ -63,8 +68,10 @@ function CreatePostNews() {
                     onChange={(e)=>setContent(e.target.value)}
                     />
             </FormControl>
-            <PostImagesUploadComponent srcs={srcs} setSrcs={setSrcs} files={files} setFiles={setFiles}/>
-            
+            <div style={{display:'flex'}}>
+                <PostImagesUploadComponent srcs={srcs} setSrcs={setSrcs} setImages={setImages}/>
+                <PostFilesUploadComponent srcs={srcsFiles} setSrcs={setSrcsFiles} setFiles={setFiles} files={files}/>
+            </div>
             <Button className='btn btn-primary' type='submit' variant='outlined'>
                 Post
             </Button>

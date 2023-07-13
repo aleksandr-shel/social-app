@@ -6,5 +6,6 @@ namespace backend.DTOs.Profile
     {
         [AllowedExtensions(new string[] { ".jpg", ".png", ".jpeg" })]
         public IFormFile Image { get; set; }
+        public bool IsMain { get; set; } = false;
     }
 }

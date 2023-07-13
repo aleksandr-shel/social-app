@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Profile, ProfileUpdateValues } from "../../models/User";
 import {Image} from '../../models/Image';
+import { Author } from "../../models/Post";
 interface ProfileState{
-    profile: Profile | null
+    profile: Profile | null,
+    images: Image[],
+    followers: Author[]
 }
 
 const initialState: ProfileState={
-    profile: null
+    profile: null,
+    images:[],
+    followers: [],
 }
 
 const profileSlice = createSlice({
@@ -35,6 +40,10 @@ const profileSlice = createSlice({
                 }
             })
         },
+        addProfileImage:(state, {payload}:PayloadAction<Image>)=>{
+            state.profile?.images.push(payload);
+            state.images.push(payload);
+        },
         setMain:(state, {payload}:PayloadAction<Image>)=>{
             state.profile!.imageUrl = payload.url;
 
@@ -51,10 +60,16 @@ const profileSlice = createSlice({
                 state.profile!.imageUrl = undefined
             }
             state.profile!.images = state.profile!.images.filter(x => x.key !== payload.key)
+        },
+        setProfileImages:(state, {payload}:PayloadAction<Image[]>)=>{
+            state.images = payload;
+        },
+        setProfileFollowers:(state, {payload}:PayloadAction<Author[]>)=>{
+            state.followers = payload
         }
     }
 })
 
-export const {setProfile, toggleFollow, updateProfileRed, updateProfileImage, setMain, deleteImage} = profileSlice.actions
+export const {setProfile, toggleFollow, updateProfileRed, updateProfileImage, setMain, deleteImage, addProfileImage, setProfileImages, setProfileFollowers} = profileSlice.actions
 
 export default profileSlice

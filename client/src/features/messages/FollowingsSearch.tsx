@@ -2,7 +2,7 @@ import { Avatar, Button, List, ListItem, ListItemAvatar, ListItemText, TextField
 import * as React from 'react';
 import { Form } from 'react-bootstrap';
 import { Profile } from '../../app/models/User';
-import { getFollowings } from '../../app/stores/actions/friendsActions';
+import { getMyFollowings } from '../../app/stores/actions/friendsActions';
 import { openModal } from '../../app/stores/slices/modalSlice';
 import { setProfile } from '../../app/stores/slices/profileSlice';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
@@ -17,7 +17,7 @@ function FollowingsSearch() {
     
     React.useEffect(()=>{
         if (followings.length === 0){
-            dispatch(getFollowings())
+            dispatch(getMyFollowings())
         }
     },[dispatch, followings.length])
     function handleSearch(e:React.FormEvent<HTMLFormElement>){

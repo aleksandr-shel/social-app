@@ -44,7 +44,7 @@ function Friends() {
 
     React.useEffect(()=>{
         document.title='Friends';
-		dispatch(getFollows())
+		    dispatch(getFollows())
     },[dispatch])
 
     const [value, setValue] = React.useState(0);

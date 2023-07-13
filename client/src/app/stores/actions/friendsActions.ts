@@ -19,7 +19,7 @@ export const getFollows = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
     }
 }
 
-export const getFollowings = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
+export const getMyFollowings = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch)=>{
         try{
             const followings = await agent.Friends.followings()

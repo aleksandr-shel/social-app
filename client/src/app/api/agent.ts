@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { Image } from "../models/Image";
 import { Message, PostMessage } from "../models/Message";
-import { Post, PostCreate, PostUpdate } from "../models/Post";
+import { Author, Post, PostCreate, PostUpdate } from "../models/Post";
 import { Room } from "../models/Room";
 import {Profile, ProfileUpdateValues, User,UserFormValues } from "../models/User";
 import { FriendsState } from "../stores/slices/friendsSlice";
@@ -97,6 +97,11 @@ const Posts = {
         // requests.post<Post>('posts', newPost)
         let formData = new FormData()
         formData.append('content', newPost.content)
+        if (newPost.images !== undefined && newPost.images.length>0){
+            newPost.images.forEach(image=>{
+                formData.append('images',image);
+            })
+        }
         if (newPost.files !== undefined && newPost.files.length>0){
             newPost.files.forEach(file=>{
                 formData.append('files',file);
@@ -116,16 +121,17 @@ const Posts = {
 const Profiles = {
     getProfile:(username:string)=> requests.get<Profile>(`profile/${username}`),
     updateProfile:(updateProfile:ProfileUpdateValues)=>requests.put<Profile>('profile', updateProfile),
-    addImage:(image:File)=>{
+    addImage:(image:File, isMain:boolean)=>{
         let formData = new FormData()
         formData.append('Image', image);
+        formData.append('isMain', `${isMain}`);
         return axios.post<Image>('profile/Image',formData,{
             headers:{'Content-Type':'multipart/form-data'}
         })
     },
     deleteImage:(key:string)=>requests.del(`profile/image/${key}`),
     setMain:(key:string)=>requests.put(`profile/image/${key}`, {}),
-    getImages:()=>requests.get<Image[]>('profile/images'),
+    getImages:(username:string)=>requests.get<Image[]>(`profile/images/${username}`),
     search:(q:string)=>{
         return requests.get<Profile[]>(`profile/search?q=${q}`)
     }
@@ -135,6 +141,7 @@ const Friends = {
     toggleFriend:(username:string)=>axios.post(`friends/${username}`,{}),
     getFollows:()=>requests.get<FriendsState>('friends'),
     followings:()=>requests.get<Profile[]>('friends/followings'),
+    followers:(username:string) => requests.get<Author[]>(`friends/${username}/followers`)
 }
 
 

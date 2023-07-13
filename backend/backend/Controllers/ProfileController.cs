@@ -126,17 +126,22 @@ namespace backend.Controllers
 
             (string url, string key) = await _uploadFile.UploadFile(profilePostImageDto.Image);
 
-            foreach(var img in user.Images)
-            {
-                img.IsMain = false;
-            }
-
             var image = new Image
             {
                 Url = url,
                 Key = key,
-                IsMain = true,
             };
+            if (profilePostImageDto.IsMain)
+            {
+                foreach (var img in user.Images)
+                {
+                    img.IsMain = false;
+                }
+                image.IsMain = true;
+            } else
+            {
+                image.IsMain = false;
+            }
 
             user.Images.Add(image);
 
@@ -208,22 +213,15 @@ namespace backend.Controllers
             return BadRequest("Error deleting image");
         }
 
-        [HttpGet("images")]
-        public async Task<IActionResult> GetProfileImages()
+        [HttpGet("images/{username}")]
+        public async Task<IActionResult> GetProfileImages(string username)
         {
             var user = await _context.Users
               .Include(x => x.Images)
-              .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+              .FirstOrDefaultAsync(x => x.UserName == username);
             var images = _mapper.Map<List<ProfileImage>>(user.Images);
             return Ok(images);
         }
-
-        [HttpGet("test")]
-        public async Task<IActionResult> test()
-        {
-            return Ok("api works");
-        }
-
     }
 
 

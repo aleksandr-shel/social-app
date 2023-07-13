@@ -96,6 +96,37 @@ namespace backend.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("backend.Models.Document", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Documents");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Document");
+                });
+
             modelBuilder.Entity("backend.Models.FavoritePost", b =>
                 {
                     b.Property<string>("UserId")
@@ -492,6 +523,25 @@ namespace backend.Data.Migrations
                     b.HasDiscriminator().HasValue("GroupPost");
                 });
 
+            modelBuilder.Entity("backend.Models.PostDocument", b =>
+                {
+                    b.HasBaseType("backend.Models.Document");
+
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasIndex("PostId");
+
+                    b.HasDiscriminator().HasValue("PostDocument");
+                });
+
+            modelBuilder.Entity("backend.Models.Document", b =>
+                {
+                    b.HasOne("backend.Models.AppUser", null)
+                        .WithMany("Document")
+                        .HasForeignKey("AppUserId");
+                });
+
             modelBuilder.Entity("backend.Models.FavoritePost", b =>
                 {
                     b.HasOne("backend.Models.Post", "Post")
@@ -709,8 +759,17 @@ namespace backend.Data.Migrations
                     b.Navigation("Group");
                 });
 
+            modelBuilder.Entity("backend.Models.PostDocument", b =>
+                {
+                    b.HasOne("backend.Models.Post", null)
+                        .WithMany("Documents")
+                        .HasForeignKey("PostId");
+                });
+
             modelBuilder.Entity("backend.Models.AppUser", b =>
                 {
+                    b.Navigation("Document");
+
                     b.Navigation("FavoritePosts");
 
                     b.Navigation("Followers");
@@ -741,6 +800,8 @@ namespace backend.Data.Migrations
 
             modelBuilder.Entity("backend.Models.Post", b =>
                 {
+                    b.Navigation("Documents");
+
                     b.Navigation("Images");
 
                     b.Navigation("UserLikes");

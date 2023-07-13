@@ -18,6 +18,7 @@ import { setToken } from './stores/slices/userSlice';
 import { useAppDispatch, useAppSelector } from './stores/store';
 import ImageModalContainer from './common/ImageModalContainer';
 import Groups from '../features/groups/Groups';
+import Images from '../features/profile/Images/Images';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -48,6 +49,7 @@ function App() {
 					<Route path='*' element={<NotFound/>}/>
 					<Route index element={<Navigate to="/news" />}/>
 					<Route path='profile/:username' element={<Profile/>}/>
+					<Route path='profile/:username/images' element={<Images/>}/>
 					<Route path='news' element={<News/>}/>
 					<Route path='messages' element={<MessagesPanel/>}/>
 					{/* <Route path='settings' element={<Settings/>}/>
