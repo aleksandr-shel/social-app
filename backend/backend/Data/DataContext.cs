@@ -27,6 +27,7 @@ namespace backend.Data
         public DbSet<GroupFollower> GroupFollowers { get; set; }
         public DbSet<GroupPost> GroupPosts { get; set; }
         public DbSet<GroupAdmin> GroupAdmins { get; set; }
+        public DbSet<GroupImage> GroupImages { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

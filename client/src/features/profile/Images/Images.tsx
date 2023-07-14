@@ -27,6 +27,10 @@ const ImagesDiv = styled.div`
         max-height: 100%;
         margin: auto;
     }
+
+    .profile-link a{
+        color: #0072b1;
+    }
 `
 
 function Images() {
@@ -51,7 +55,7 @@ function Images() {
     return ( 
         <ImagesDiv>
             <Breadcrumb>
-                <Breadcrumb.Item linkAs={Link} linkProps={{ to: `/profile/${username}` }}>{profile === null ? username : profile.firstName + ' ' + profile.lastName}</Breadcrumb.Item>
+                <Breadcrumb.Item className='profile-link' linkAs={Link} linkProps={{ to: `/profile/${username}` }}>{profile === null ? username : profile.firstName + ' ' + profile.lastName}</Breadcrumb.Item>
                 <Breadcrumb.Item active>Images</Breadcrumb.Item>
             </Breadcrumb>
             {

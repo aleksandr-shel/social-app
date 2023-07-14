@@ -141,7 +141,7 @@ const Friends = {
     toggleFriend:(username:string)=>axios.post(`friends/${username}`,{}),
     getFollows:()=>requests.get<FriendsState>('friends'),
     followings:()=>requests.get<Profile[]>('friends/followings'),
-    followers:(username:string) => requests.get<Author[]>(`friends/${username}/followers`)
+    followers:(username:string, n:number) => requests.get<Author[]>(`friends/${username}/followers/${n}`)
 }
 
 

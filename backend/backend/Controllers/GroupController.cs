@@ -44,6 +44,7 @@ namespace backend.Controllers
             var groups = await _context.GroupFollowers
                 .Where(x => x.FollowerId == user.Id)
                 .Select(x => x.Group)
+                .ProjectTo<GroupDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
                 .ToListAsync();
 
             return Ok(groups);
@@ -77,14 +78,33 @@ namespace backend.Controllers
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 
             //implement image and background image upload
-            //
-            //
-
+            GroupImage groupImage = null;
+            if (group.Image != null)
+            {
+                (string url, string key) = await _uploadFile.UploadFile(group.Image);
+                groupImage = new GroupImage
+                {
+                    Url = url,
+                    Key = key
+                };
+            }
+            GroupImage groupBackgroundImage = null;
+            if (group.BackgroundImage != null)
+            {
+                (string url, string key) = await _uploadFile.UploadFile(group.BackgroundImage);
+                groupBackgroundImage = new GroupImage
+                {
+                    Url = url,
+                    Key = key
+                };
+            }
             var newGroup = new Group
             {
                 Name = group.Name,
                 Description = group.Description,
                 Category = group.Category,
+                GroupImage = groupImage,
+                GroupBackGroundImage = groupBackgroundImage
             };
 
             var groupAdmin = new GroupAdmin
@@ -129,6 +149,45 @@ namespace backend.Controllers
             }
 
             //Implement deletion of a group
+
+            //also need to remove images from storage before deleting group from table
+            var group = await _context.Groups
+                .Include(x => x.GroupImage)
+                .Include(x => x.GroupBackGroundImage)
+                .FirstOrDefaultAsync(x => x.Id == groupId);
+
+            if (group == null)
+            {
+                return BadRequest("No group with such id");
+            }
+            
+            if (group.GroupImage != null)
+            {
+                var isRemoved = await _uploadFile.DeleteFile(group.GroupImage.Key);
+
+                if (isRemoved)
+                {
+                    _context.GroupImages.Remove(group.GroupImage);
+                }
+            }
+
+            if (group.GroupBackGroundImage != null)
+            {
+                var isRemoved = await _uploadFile.DeleteFile(group.GroupBackGroundImage.Key);
+                if (isRemoved)
+                {
+                    _context.GroupImages.Remove(group.GroupBackGroundImage);
+                }
+            }
+
+            _context.Groups.Remove(group);
+
+            var res = await _context.SaveChangesAsync() > 0;
+
+            if (!res)
+            {
+                return BadRequest("Problem removing a group");
+            }
 
             return Ok();
         }

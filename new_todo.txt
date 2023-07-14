@@ -2,6 +2,7 @@
 2) make a like button done
 3) make a better photo carousel done
 4) make groups 
+4.1) business, interests, events, brand
 5) make file uploads to posts done
 5.2) try to make uploads of only files. and then somehow show files based on file types (for images use img, for documents use a)
 6) make article creation 

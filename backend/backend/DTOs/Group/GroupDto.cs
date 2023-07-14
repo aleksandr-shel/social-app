@@ -10,6 +10,8 @@ namespace backend.DTOs.Group
         public string Category { get; set; }
         public bool IsAdmin { get; set; }
         public int Followers { get; set; }
+        public string Image { get; set; }
+        public string BackgroundImage { get; set; }
 
     }
 }

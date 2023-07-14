@@ -49,12 +49,13 @@ namespace backend.Controllers
             return Ok(res);
         }
 
-        [HttpGet("{username}/followers")]
-        public async Task<IActionResult> Followers(string username)
+        [HttpGet("{username}/followers/{n?}")]
+        public async Task<IActionResult> Followers(string username, int n = 50)
         {
             var followers = await _context.Friends
-                .Where(x => x.Observer.UserName == username)
-                .Select(x => x.Target)
+                .Where(x => x.Target.UserName == username)
+                .Select(x => x.Observer)
+                .Take(n)
                 .ProjectTo<AuthorDto>(_mapper.ConfigurationProvider, new { currentUsername = username })
                 .ToListAsync();
                 

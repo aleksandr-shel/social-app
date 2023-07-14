@@ -7,7 +7,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {Link} from 'react-router-dom';
 import { useAppSelector } from '../../app/stores/store';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
+// import Diversity3Icon from '@mui/icons-material/Diversity3';
 
 function LeftSide() {
 
@@ -57,12 +57,12 @@ function LeftSide() {
                             </ListItemIcon>
                             <ListItemText primary="Favorite" />
                         </ListItemButton>
-                        <ListItemButton component={Link} to='/groups'>
+                        {/* <ListItemButton component={Link} to='/groups'>
                             <ListItemIcon>  
                                 <Diversity3Icon fontSize='large'/>
                             </ListItemIcon>
                             <ListItemText primary="Groups" />
-                        </ListItemButton>
+                        </ListItemButton> */}
                     </List>
                 </Grid>
             

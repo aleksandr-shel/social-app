@@ -217,6 +217,23 @@ namespace backend.Data.Migrations
                     b.ToTable("GroupFollowers");
                 });
 
+            modelBuilder.Entity("backend.Models.GroupImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupImages");
+                });
+
             modelBuilder.Entity("backend.Models.Image", b =>
                 {
                     b.Property<Guid>("Id")
@@ -582,11 +599,11 @@ namespace backend.Data.Migrations
 
             modelBuilder.Entity("backend.Models.Group", b =>
                 {
-                    b.HasOne("backend.Models.Image", "GroupBackGroundImage")
+                    b.HasOne("backend.Models.GroupImage", "GroupBackGroundImage")
                         .WithMany()
                         .HasForeignKey("GroupBackGroundImageId");
 
-                    b.HasOne("backend.Models.Image", "GroupImage")
+                    b.HasOne("backend.Models.GroupImage", "GroupImage")
                         .WithMany()
                         .HasForeignKey("GroupImageId");
 

@@ -15,6 +15,7 @@ import { setCurrentImage, setImages } from '../../app/stores/slices/imagesSlices
 import { openModal } from '../../app/stores/slices/imageModalSlice';
 import { openModal as openGeneralModal } from '../../app/stores/slices/modalSlice';
 import styled from 'styled-components';
+import FollowersPanel from './FollowersPanel';
 
 const CustomBtn = styled.button`
     cursor: pointer;
@@ -181,6 +182,9 @@ function Profile() {
                         &&
                         <ProfileNewsList profilePosts={profile.posts} username={username}/>
                     }
+                </Grid>
+                <Grid item xs={3}>
+                    <FollowersPanel/>
                 </Grid>
             </Grid>
         </>

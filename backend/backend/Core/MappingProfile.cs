@@ -33,9 +33,13 @@ namespace backend.Core
 
             CreateMap<Group, GroupDto>()
                 .ForMember(x => x.Followers, p => p.MapFrom(x => x.Followers.Count()))
-                .ForMember(x => x.IsAdmin, p => p.MapFrom(x => x.Admins.Any(x=>x.User.UserName == currentUsername)));
-        
-            
+                .ForMember(x => x.IsAdmin, p => p.MapFrom(x => x.Admins.Any(x => x.User.UserName == currentUsername)))
+                .ForMember(x => x.Image, p => p.MapFrom(x => x.GroupImage.Url))
+                .ForMember(x => x.BackgroundImage, p => p.MapFrom(x => x.GroupBackGroundImage.Url));
+
+
+
+
         }
     }
 }

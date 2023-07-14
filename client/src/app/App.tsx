@@ -17,8 +17,8 @@ import { stopHubConnection } from './stores/slices/messagesSlice';
 import { setToken } from './stores/slices/userSlice';
 import { useAppDispatch, useAppSelector } from './stores/store';
 import ImageModalContainer from './common/ImageModalContainer';
-import Groups from '../features/groups/Groups';
 import Images from '../features/profile/Images/Images';
+import FollowersPage from '../features/profile/FollowersPage';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -50,13 +50,14 @@ function App() {
 					<Route index element={<Navigate to="/news" />}/>
 					<Route path='profile/:username' element={<Profile/>}/>
 					<Route path='profile/:username/images' element={<Images/>}/>
+					<Route path='profile/:username/followers' element={<FollowersPage/>}/>
 					<Route path='news' element={<News/>}/>
 					<Route path='messages' element={<MessagesPanel/>}/>
 					{/* <Route path='settings' element={<Settings/>}/>
 					<Route path='help' element={<Help/>}/> */}
 					<Route path='friends' element={<Friends/>}/>
 					<Route path='favorite' element={<FavoriteList/>}/>
-					<Route path='groups' element={<Groups/>}/>
+					{/* <Route path='groups' element={<Groups/>}/> */}
 					<Route path='search' element={<SearchResults/>}/>
 				</Route>
 			</Routes>
