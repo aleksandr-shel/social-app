@@ -7,6 +7,7 @@ import { openModal } from '../../app/stores/slices/modalSlice';
 import { setProfile } from '../../app/stores/slices/profileSlice';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import MessageForm from './MessageForm';
+import agent from '../../app/api/agent';
 
 
 function FollowingsSearch() {
@@ -20,12 +21,18 @@ function FollowingsSearch() {
             dispatch(getMyFollowings())
         }
     },[dispatch, followings.length])
-    function handleSearch(e:React.FormEvent<HTMLFormElement>){
+    async function handleSearch(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         if (q === ''){
             setSearchFollowings([])
         } else {
-            setSearchFollowings(followings.filter(x => (x.firstName + ' ' + x.lastName).toLowerCase().includes(q.toLowerCase())));
+            const profiles = await agent.Profiles.search(q);
+            if (profiles.length === 0){
+                setSearchFollowings([])
+            } else {
+                setSearchFollowings(profiles)
+            }
+            // setSearchFollowings(followings.filter(x => (x.firstName + ' ' + x.lastName).toLowerCase().includes(q.toLowerCase())));
         }
     }   
     function handleClickMessageToProfile(profile:Profile){
@@ -37,11 +44,11 @@ function FollowingsSearch() {
             <h4>
                 Followings
             </h4>
-            <Form onSubmit={handleSearch}>
+            <Form onSubmit={async (e)=> await handleSearch(e)}>
                 <TextField
                         style={{width:'100%'}}
                         size='small'
-                        label="Search followings"
+                        label="Search"
                         variant="filled"
                         value={q}
                         onChange={(e)=>setQ(e.target.value)}
