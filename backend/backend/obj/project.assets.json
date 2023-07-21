@@ -752,6 +752,41 @@
           }
         }
       },
+      "NWebsec.AspNetCore.Core/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/NWebsec.AspNetCore.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/NWebsec.AspNetCore.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "NWebsec.AspNetCore.Middleware/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "NWebsec.AspNetCore.Core": "3.0.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/NWebsec.AspNetCore.Middleware.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/NWebsec.AspNetCore.Middleware.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Pomelo.EntityFrameworkCore.MySql/6.0.2": {
         "type": "package",
         "dependencies": {
@@ -2247,6 +2282,32 @@
         "packageIcon.png"
       ]
     },
+    "NWebsec.AspNetCore.Core/3.0.0": {
+      "sha512": "dvrs4Lvc7k98KKaMxKPHeOn0kONEIQpVrzweji9SLl9XEn1+XWVJe5f7mNvXoKPKjjcNuBIwVXr3K+g+DzZHEw==",
+      "type": "package",
+      "path": "nwebsec.aspnetcore.core/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/NWebsec.AspNetCore.Core.dll",
+        "lib/netcoreapp3.1/NWebsec.AspNetCore.Core.xml",
+        "nwebsec.aspnetcore.core.3.0.0.nupkg.sha512",
+        "nwebsec.aspnetcore.core.nuspec"
+      ]
+    },
+    "NWebsec.AspNetCore.Middleware/3.0.0": {
+      "sha512": "sQJUG6zk/96UaAcFaf3fQuzjAS9rsf2fXyks1YlG4E3QOWl0h6nIO9fMzfKoskRA+abs01rV+6Kc5P7xccXlzw==",
+      "type": "package",
+      "path": "nwebsec.aspnetcore.middleware/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.1/NWebsec.AspNetCore.Middleware.dll",
+        "lib/netcoreapp3.1/NWebsec.AspNetCore.Middleware.xml",
+        "nwebsec.aspnetcore.middleware.3.0.0.nupkg.sha512",
+        "nwebsec.aspnetcore.middleware.nuspec"
+      ]
+    },
     "Pomelo.EntityFrameworkCore.MySql/6.0.2": {
       "sha512": "KvlZ800CnEuEGnxj5OT1fCKGjQXxW5kpPlCP91JqBYG+2Z3927eqXmlX6LLKUt4swqE8ZsEQ+Zkpab8bqstf4g==",
       "type": "package",
@@ -2857,6 +2918,7 @@
       "Microsoft.EntityFrameworkCore >= 6.0.13",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.13",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.13",
+      "NWebsec.AspNetCore.Middleware >= 3.0.0",
       "Pomelo.EntityFrameworkCore.MySql >= 6.0.2",
       "SendGrid >= 9.28.1",
       "Swashbuckle.AspNetCore >= 6.2.3",
@@ -2941,6 +3003,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[6.0.13, )"
+          },
+          "NWebsec.AspNetCore.Middleware": {
+            "target": "Package",
+            "version": "[3.0.0, )"
           },
           "Pomelo.EntityFrameworkCore.MySql": {
             "target": "Package",

@@ -60,6 +60,7 @@ const ProfileDiv = styled.div`
     .avatar-div div{
         border-radius: 50%;
         border: 5px solid white;
+        background-color: #EAEAEA;
     }
 
     .info{
