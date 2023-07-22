@@ -10,6 +10,7 @@ import profileSlice from "./slices/profileSlice";
 import searchSlice from "./slices/searchSlice";
 import userSlice from "./slices/userSlice";
 import imageModalSlice from "./slices/imageModalSlice";
+import groupSlice from "./slices/groupsSlice";
 
 const store = configureStore({
     reducer:{
@@ -23,6 +24,7 @@ const store = configureStore({
         modalReducer: modalSlice.reducer,
         imagesReducer: imagesSlice.reducer,
         imageModalReducer: imageModalSlice.reducer,
+        groupReducer: groupSlice.reducer,
     },
     middleware:(getDefaultMiddleware)=> getDefaultMiddleware({
         serializableCheck: false

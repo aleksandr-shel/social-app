@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from './stores/store';
 import ImageModalContainer from './common/ImageModalContainer';
 import Images from '../features/profile/Images/Images';
 import FollowersPage from '../features/profile/FollowersPage';
+import Groups from '../features/groups/Groups';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -57,7 +58,7 @@ function App() {
 					<Route path='help' element={<Help/>}/> */}
 					<Route path='friends' element={<Friends/>}/>
 					<Route path='favorite' element={<FavoriteList/>}/>
-					{/* <Route path='groups' element={<Groups/>}/> */}
+					<Route path='groups' element={<Groups/>}/>
 					<Route path='search' element={<SearchResults/>}/>
 				</Route>
 			</Routes>

@@ -43,6 +43,10 @@ const StyledPostDiv = styled.div`
         flex-wrap: nowrap;
     }
 
+    .images-container img{
+        border-radius: 15px;
+    }
+
     .first-image{
         overflow: hidden;
         display: flex;

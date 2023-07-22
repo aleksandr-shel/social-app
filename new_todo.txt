@@ -7,7 +7,7 @@
 5.1) business, interests, events, brand
 6) make article creation 
 7) fix avatar image when it is png done
-8) make Content Security Policy (CSP)
+8) make Content Security Policy (CSP) done
 9) try to make app mobile adjustible
 10) try to make mobile app with react native
 11) 

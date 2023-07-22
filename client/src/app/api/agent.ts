@@ -9,6 +9,7 @@ import { FriendsState } from "../stores/slices/friendsSlice";
 import { logout } from "../stores/slices/userSlice";
 import store from "../stores/store";
 import { PaginatedResult } from "../models/pagination";
+import { Group } from "../models/Group";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -152,12 +153,17 @@ const Messages = {
     deleteMessage:(id:string)=>requests.del(`messages/${id}`),
 }
 
+const Groups = {
+    list:()=>requests.get<Group[]>('group'),
+}
+
 const agent = {
     Account,
     Posts,
     Profiles,
     Friends,
     Messages,
+    Groups,
 }
 
 export default agent;
