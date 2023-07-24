@@ -20,6 +20,7 @@ import ImageModalContainer from './common/ImageModalContainer';
 import Images from '../features/profile/Images/Images';
 import FollowersPage from '../features/profile/FollowersPage';
 import Groups from '../features/groups/Groups';
+import GroupPage from '../features/groups/GroupPage';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -59,6 +60,7 @@ function App() {
 					<Route path='friends' element={<Friends/>}/>
 					<Route path='favorite' element={<FavoriteList/>}/>
 					<Route path='groups' element={<Groups/>}/>
+					<Route path='groups/:groupId' element={<GroupPage/>}/>
 					<Route path='search' element={<SearchResults/>}/>
 				</Route>
 			</Routes>

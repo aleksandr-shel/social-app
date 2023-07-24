@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import { loadGroups } from '../../app/stores/actions/groupsActions';
+import GroupItem from './GroupItem';
+import styled from 'styled-components';
 
+const GroupsDiv = styled.div`
+    max-width: 400px;
+    overflow: hidden;
+`
 
 function Groups() {
 
@@ -14,19 +20,17 @@ function Groups() {
         dispatch(loadGroups());
     },[dispatch])
     return ( 
-        <>
+        <GroupsDiv>
             {
                 groups.map((group, index)=>{
                     return(
-                        <>
-                            {
-                                group.image
-                            }
-                        </>
+                        <React.Fragment key={group.id}>
+                            <GroupItem group={group}/>
+                        </React.Fragment>
                     )
                 })
             }
-        </>
+        </GroupsDiv>
      );
 }
 

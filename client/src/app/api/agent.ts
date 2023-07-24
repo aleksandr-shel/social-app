@@ -9,7 +9,7 @@ import { FriendsState } from "../stores/slices/friendsSlice";
 import { logout } from "../stores/slices/userSlice";
 import store from "../stores/store";
 import { PaginatedResult } from "../models/pagination";
-import { Group } from "../models/Group";
+import { Group, GroupCreate, GroupPost, GroupUpdate } from "../models/Group";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -94,7 +94,7 @@ const Posts = {
     getPosts: (params: URLSearchParams)=>axios.get<PaginatedResult<Post[]>>('posts', {params}).then(responseBody),
     getPost: (id:string)=> requests.get<Post>(`posts/${id}`),
     updatePost:(id:string, updatePost: PostUpdate) => requests.put<Post>(`posts/${id}`, updatePost),
-    createPost:(newPost:PostCreate) => {
+    createPost:async(newPost:PostCreate) => {
         // requests.post<Post>('posts', newPost)
         let formData = new FormData()
         formData.append('content', newPost.content)
@@ -155,6 +155,56 @@ const Messages = {
 
 const Groups = {
     list:()=>requests.get<Group[]>('group'),
+    listToManage:()=>requests.get<Group[]>('group/manage'),
+    get:(groupId:string) => requests.get<Group>(`group/${groupId}`),
+    create:(newGroup:GroupCreate)=>{
+        let formData = new FormData();
+        formData.append('name',newGroup.name)
+        formData.append('category',newGroup.category)
+        formData.append('description',newGroup.description)
+        if (newGroup.image){
+            formData.append('image',newGroup.image)
+        }
+
+        if (newGroup.backgroundImage){
+            formData.append('image',newGroup.backgroundImage)
+        }
+
+        return axios.post<Group>('group', formData,{
+            headers:{'Content-Type':'multipart/form-data'}
+        })
+    },
+    delete:(groupId:string)=>requests.del(`group/${groupId}`),
+    update:(updateGroup:GroupUpdate)=>requests.put('group',updateGroup),
+    toggleAdmin:(groupId:string, username:string)=>requests.put(`group/${groupId}/admin`,{}),
+    followGroup:(groupId:string)=>requests.post(`group/follow/${groupId}`,{}),
+    postInGroup:async(groupId:string, newPost:PostCreate)=>{
+        let formData = new FormData()
+        formData.append('content', newPost.content)
+        if (newPost.images !== undefined && newPost.images.length>0){
+            newPost.images.forEach(image=>{
+                formData.append('images',image);
+            })
+        }
+        if (newPost.files !== undefined && newPost.files.length>0){
+            newPost.files.forEach(file=>{
+                formData.append('files',file);
+            })
+        }
+        return axios.post<GroupPost>(`group/post/${groupId}`,formData,{
+            headers:{'Content-Type':'multipart/form-data'}
+        }).then(response=>{
+            return response.data;
+        })
+    },
+    deletePostInGroup:(groupId:string, postId:string)=>requests.del(`group/post/${groupId}/${postId}`),
+    updatePostInGroup:(groupId:string, postUpdate: PostUpdate)=>requests.put(`group/post/${groupId}`,postUpdate),
+    getPosts:(groupId:string)=>requests.get(`group/post/${groupId}`),
+    search:(q:string)=>requests.get(`group/search?q=${q}`)
+}
+
+const Search = {
+    search:(q:string)=>requests.get(`search`)
 }
 
 const agent = {
@@ -164,6 +214,7 @@ const agent = {
     Friends,
     Messages,
     Groups,
+    Search
 }
 
 export default agent;

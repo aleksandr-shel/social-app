@@ -1,13 +1,11 @@
-1) make pagination done
-2) make a like button done
-3) make a better photo carousel done
-4) make file uploads to posts done
-4.1) try to make uploads of only files. and then somehow show files based on file types (for images use img, for documents use a)
-5) make groups 
-5.1) business, interests, events, brand
-6) make article creation 
-7) fix avatar image when it is png done
-8) make Content Security Policy (CSP) done
-9) try to make app mobile adjustible
-10) try to make mobile app with react native
-11) 
+1) try to make uploads of only files. and then somehow show files based on file types (for images use img, for documents use a)
+2) make groups 
+2.1) business, interests, events, brand group types
+3) make article creation 
+4) Make a better search on posts groups, people, articles, everything...
+
+
+
+
+...) try to make app mobile adjustible
+...) try to make mobile app with react native
