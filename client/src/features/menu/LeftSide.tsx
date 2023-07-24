@@ -57,12 +57,12 @@ function LeftSide() {
                             </ListItemIcon>
                             <ListItemText primary="Favorite" />
                         </ListItemButton>
-                        <ListItemButton component={Link} to='/groups'>
+                        {/* <ListItemButton component={Link} to='/groups'>
                             <ListItemIcon>  
                                 <Diversity3Icon fontSize='large'/>
                             </ListItemIcon>
                             <ListItemText primary="Groups" />
-                        </ListItemButton>
+                        </ListItemButton> */}
                     </List>
                 </Grid>
             
