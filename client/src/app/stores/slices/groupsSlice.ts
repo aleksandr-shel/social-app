@@ -2,11 +2,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Group } from "../../models/Group";
 
 interface GroupsState{
-    groups: Group[]
+    groups: Group[],
+    selectedGroup: Group | null,
 }
 
 const initialState:GroupsState = {
-    groups: []
+    groups: [],
+    selectedGroup: null
 }
 
 const groupSlice = createSlice({
@@ -16,10 +18,13 @@ const groupSlice = createSlice({
         setGroups:(state, {payload}:PayloadAction<Group[]>)=>{
             state.groups = payload;
 
-        }
+        },
+        selectGroup: (state, {payload}:PayloadAction<Group>)=>{
+            state.selectedGroup = payload
+        },
     }
 })
 
-export const {setGroups} = groupSlice.actions
+export const {setGroups, selectGroup} = groupSlice.actions
 
 export default groupSlice
