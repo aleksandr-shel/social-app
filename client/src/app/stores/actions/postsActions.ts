@@ -1,11 +1,8 @@
-import { AnyAction, ThunkAction } from "@reduxjs/toolkit"
+import { AnyAction, ThunkAction} from "@reduxjs/toolkit"
 import agent from "../../api/agent"
 import { PostCreate, PostUpdate } from "../../models/Post"
-import { addPost, addPosts, deletePostAction, setFavoritePosts, setPageNumber, setPagination, setPosts, updatePost } from "../slices/postsSlice"
-import { setLoading } from "../slices/userSlice"
+import { addPost, addPosts, deletePostAction, setFavoritePosts, setLoading, setPageNumber, setPagination, setPosts, updatePost } from "../slices/postsSlice"
 import { RootState } from "../store"
-
-
 
 export const getPosts = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch, getState)=>{
@@ -17,9 +14,9 @@ export const getPosts = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
             params.append('pageNumber', pagingParam.pageNumber.toString());
             params.append('pageSize', pagingParam.pageSize.toString())
             const result = await agent.Posts.getPosts(params);
+            dispatch(setLoading(false))
             dispatch(setPosts(result.data));
             dispatch(setPagination(result.pagination));
-            dispatch(setLoading(false))
         }catch(error){
             console.log(error);
             dispatch(setLoading(false))
@@ -29,10 +26,10 @@ export const getPosts = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
 
 export const getNextPosts = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch, getState)=>{
-        dispatch(setLoading(true))
-        // console.log('getting next');
+        console.log('getting next', getState().postsReducer.loading);
         try{
             if (!getState().postsReducer.loading && !!getState().postsReducer.pagination && getState().postsReducer.pagination!.currentPage < getState().postsReducer.pagination!.totalPages){
+                dispatch(setLoading(true))
                 dispatch(setPageNumber(getState().postsReducer.pagination?.currentPage! + 1))
                 const params = new URLSearchParams();
                 const {pagingParam} = getState().postsReducer

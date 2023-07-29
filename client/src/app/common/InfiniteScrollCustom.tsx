@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useAppSelector } from '../stores/store';
 
 interface Props {
     loadMore: ()=>void,
@@ -10,6 +11,7 @@ function InfiniteScrollCustom({loadMore,children}:Props) {
     const [innerHeight, setInnerHeight] = React.useState(0);
     const [scrollY, setScrollY] = React.useState(0);
     const [offsetHeight, setOffsetHeight] = React.useState(0);
+    const {loading} = useAppSelector(state => state.postsReducer);  
     // React.useEffect(()=>{
     //     let scrollHandler = ()=>{
     //         if (window.innerHeight + window.scrollY>= document.body.offsetHeight) {
@@ -27,7 +29,6 @@ function InfiniteScrollCustom({loadMore,children}:Props) {
             setOffsetHeight(document.body.offsetHeight);
             setScrollY(window.scrollY);
             setInnerHeight(window.innerHeight);
-            console.log('dsadsadsad')
         }
         window.removeEventListener('scroll', onScroll);
         window.addEventListener('scroll', onScroll, { passive: true });
@@ -35,8 +36,10 @@ function InfiniteScrollCustom({loadMore,children}:Props) {
     },[])
 
     React.useEffect(()=>{
-        if (innerHeight + scrollY >= offsetHeight - 1){
-            loadMore();
+        if (!loading){
+            if (innerHeight + scrollY >= offsetHeight - 1){
+                loadMore();
+            }
         }
     },[innerHeight,scrollY,offsetHeight])
 
