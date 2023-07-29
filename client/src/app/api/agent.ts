@@ -200,7 +200,7 @@ const Groups = {
     deletePostInGroup:(groupId:string, postId:string)=>requests.del(`group/post/${groupId}/${postId}`),
     updatePostInGroup:(groupId:string, postUpdate: PostUpdate)=>requests.put(`group/post/${groupId}`,postUpdate),
     getPosts:(groupId:string)=>requests.get(`group/post/${groupId}`),
-    search:(q:string)=>requests.get(`group/search?q=${q}`)
+    search:(q:string)=>requests.get<Group[]>(`group/search?q=${q}`)
 }
 
 const Search = {

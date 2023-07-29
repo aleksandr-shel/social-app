@@ -14,10 +14,10 @@ function Layout() {
                 <Grid item xs={12}>
                     <TopMenu/>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2} sm={3}>
                     <LeftSide/>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={10} sm={9}>
                     <Outlet/>
                 </Grid>
             </Grid>

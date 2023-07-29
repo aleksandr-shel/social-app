@@ -5,7 +5,7 @@ import { Author } from '../../app/models/Post';
 import { Room } from '../../app/models/Room';
 import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 import styled from 'styled-components';
-import { selectRoom, setPartner } from '../../app/stores/slices/messagesSlice';
+import { selectRoom, setPartner } from '../../app/stores/slices/signalRSlice';
 import { formatDistanceToNow } from 'date-fns';
 
 interface Props{

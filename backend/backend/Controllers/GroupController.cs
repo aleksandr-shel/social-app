@@ -419,14 +419,26 @@ namespace backend.Controllers
 
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search([FromQuery] [Required]string q)
+        public async Task<IActionResult> Search([FromQuery] [Required]string Q)
         {
-            var groups = await _context.Groups
+            var queryArray = Q.ToLower().Split();
+            var result = new List<GroupDto>();
+
+            foreach (string q in queryArray)
+            {
+                result.AddRange(await _context.Groups
                 .Where(x => x.Name.Contains(q))
                 .ProjectTo<GroupDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
                 .OrderByDescending(x => x.Follow)
-                .ToListAsync();
-            return Ok(groups);
+                .ToListAsync());
+            }
+
+            if (result.Count > 0)
+            {
+                return Ok(result.Distinct());
+            }
+
+            return Ok();
         }
     }
 }

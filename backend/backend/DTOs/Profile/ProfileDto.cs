@@ -10,6 +10,10 @@ namespace backend.DTOs.Profile
         public string About { get; set; }
 
         public string Username { get; set; }
+        public bool Online { get; set; }
+        public DateTime Dob { get; set; }
+        public string City { get; set; }
+        public string PhoneNumber { get; set; }
         public ICollection<ProfileImage> Images { get; set; }
         public ICollection<PostDto> Posts { get; set; }
         public bool Following { get; set; }

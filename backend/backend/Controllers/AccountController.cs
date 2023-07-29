@@ -136,8 +136,24 @@ namespace backend.Controllers
         {
             var user = await _userManager.Users
                 .FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+
+            user.Online = true;
+
+            await _userManager.UpdateAsync(user);
+
             //await SetRefreshToken(user);
             return Ok(CreateUserDto(user));
+        }
+
+        [HttpPost("offline")]
+        public async Task<IActionResult> Offline()
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
+
+            user.Online = false;
+            await _userManager.UpdateAsync(user);
+
+            return Ok();
         }
 
         [HttpPost("refreshToken")]

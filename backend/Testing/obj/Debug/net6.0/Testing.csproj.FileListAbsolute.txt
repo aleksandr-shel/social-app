@@ -163,3 +163,5 @@ C:\Web Development\Social-App\backend\Testing\bin\Debug\net6.0\Google.Apis.dll
 C:\Web Development\Social-App\backend\Testing\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
 C:\Web Development\Social-App\backend\Testing\bin\Debug\net6.0\Google.Apis.Auth.dll
 C:\Web Development\Social-App\backend\Testing\bin\Debug\net6.0\Google.Apis.Core.dll
+C:\Web Development\Social-App\backend\Testing\bin\Debug\net6.0\NWebsec.AspNetCore.Core.dll
+C:\Web Development\Social-App\backend\Testing\bin\Debug\net6.0\NWebsec.AspNetCore.Middleware.dll

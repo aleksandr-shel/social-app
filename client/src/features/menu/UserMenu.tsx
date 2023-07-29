@@ -37,7 +37,7 @@ function UserMenu() {
                             <AccountCircleIcon/>
                             🢓
                         </Button>
-                        <Popper open={openUserMenu} anchorEl={anchorUserMenuBtn} placement='bottom-end'>
+                        <Popper style={{zIndex:1001}} open={openUserMenu} anchorEl={anchorUserMenuBtn} placement='bottom-end'>
                             <Paper sx={{ width: 320, maxWidth: '100%'}}>
                                 <MenuList>
                                     <MenuItem component={Link} to={`profile/${user?.username}`}>

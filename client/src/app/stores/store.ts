@@ -3,7 +3,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import appSlice from "./slices/appSlice";
 import friendsSlice from "./slices/friendsSlice";
 import imagesSlice from "./slices/imagesSlices";
-import messagesSlice from "./slices/messagesSlice";
+import messagesSlice from "./slices/signalRSlice";
 import modalSlice from "./slices/modalSlice";
 import postsSlice from "./slices/postsSlice";
 import profileSlice from "./slices/profileSlice";

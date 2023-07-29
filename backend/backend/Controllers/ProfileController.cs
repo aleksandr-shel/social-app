@@ -48,10 +48,22 @@ namespace backend.Controllers
             return Ok(profile);
         }
 
+
+
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery]SearchParams search)
         {
+            //bool searchExpressions(AppUser x)
+            //{
+            //    bool res = false;
+            //    foreach (string q in queryArray)
+            //    {
+            //        res = res || (x.FirstName + " " + x.LastName).ToLower().Contains(q);
+            //    }
 
+
+            //    return res;
+            //}
             var queryArray = search.Q.Split();
             var result = new List<ProfileDto>();
             foreach (string q in queryArray)
@@ -61,6 +73,24 @@ namespace backend.Controllers
                     .Include(x => x.Images)
                     .ToListAsync()));
             }
+            if (result.Count == 0)
+            {
+                string q = search.Q;
+                for (int i = q.Length - 1; i >= 2; i--)
+                {
+                    result.AddRange(_mapper.Map<List<ProfileDto>>(await _context.Users
+                        .Where(x => (x.FirstName + " " + x.LastName).ToLower().Contains(q.Substring(0, i)))
+                        .Include(x => x.Images)
+                        .ToListAsync()));
+                    if (result.Count > 10)
+                    {
+                        break;
+                    }
+
+                }
+
+            }
+
             if (result.Count > 0)
             {
                 return Ok(result.Distinct());
@@ -228,6 +258,7 @@ namespace backend.Controllers
     public class SearchParams
     {
         [Required]
+        [MinLength(2)]
         public string Q { get; set; }
     }
 }

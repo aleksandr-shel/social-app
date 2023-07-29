@@ -74,11 +74,11 @@ export const createPost = (postCreate:PostCreate):ThunkAction<void, RootState, u
     }
 }
 
-export const editPost = (id:string, updateCreate:PostUpdate):ThunkAction<void, RootState, unknown, AnyAction>=>{
+export const editPost = (id:string, updateP:PostUpdate):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch)=>{
         try{
-            agent.Posts.updatePost(id, updateCreate).then((updatedPost)=>{
-                dispatch(updatePost(updatedPost));
+            agent.Posts.updatePost(id, updateP).then(()=>{
+                dispatch(updatePost({id, content:updateP.content}));
             })
         } catch(error){
             console.log(error);

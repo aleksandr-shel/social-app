@@ -4,7 +4,7 @@ import { Message } from '../../models/Message';
 import { Author } from '../../models/Post';
 import { Room } from '../../models/Room';
 
-interface MessagesState{
+interface SignalRState{
     rooms: Room[],
     hubConnection: HubConnection | null;
     messages: Message[],
@@ -14,7 +14,7 @@ interface MessagesState{
     connected: boolean,
 }
 
-const initialState : MessagesState = {
+const initialState : SignalRState = {
     rooms: [],
     hubConnection: null,
     messages: [],
@@ -24,7 +24,7 @@ const initialState : MessagesState = {
     connected: false,
 }
 
-const messagesSlice = createSlice({
+const signalRSlice = createSlice({
     name:'messages',
     initialState,
     reducers:{
@@ -32,6 +32,7 @@ const messagesSlice = createSlice({
             state.hubConnection = action.payload;
         },
         stopHubConnection: (state)=>{
+            console.log('stoping hub connection')
             state.hubConnection?.stop().catch(error=> console.log('Error stoping connection',error))
         },
         setRooms:(state, {payload}:PayloadAction<Room[]>)=>{
@@ -79,6 +80,6 @@ const messagesSlice = createSlice({
     }
 })
 
-export const {setHubConnection, stopHubConnection, setRooms, setMessages, setLoading, addMessage, setPartner, selectRoom, addRoom, deleteMessage, setConnected} = messagesSlice.actions;
+export const {setHubConnection, stopHubConnection, setRooms, setMessages, setLoading, addMessage, setPartner, selectRoom, addRoom, deleteMessage, setConnected} = signalRSlice.actions;
 
-export default messagesSlice;
+export default signalRSlice;

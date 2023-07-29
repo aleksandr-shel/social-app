@@ -48,7 +48,7 @@ export const current = ():ThunkAction<void, RootState, unknown, AnyAction>=>{
             const response = await agent.Account.current();
             dispatch(userActions.setUser(response))
             dispatch(userActions.setToken(response.token))
-            dispatch(startRefreshTokenTimer(response))
+            // dispatch(startRefreshTokenTimer(response))
             window.localStorage.setItem('netverse-token', response.token)
         }catch(error){
             console.log(error);

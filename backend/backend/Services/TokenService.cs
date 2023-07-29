@@ -34,7 +34,7 @@ namespace backend.Services
             {
                 Subject = new ClaimsIdentity(claims),
                 SigningCredentials = creds,
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(7)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

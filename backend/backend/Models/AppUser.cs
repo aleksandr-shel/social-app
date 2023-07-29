@@ -7,6 +7,9 @@ namespace backend.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string About { get; set; }
+        public bool Online { get; set; }
+        public DateTime Dob { get; set; }
+        public string City { get; set; }
         public ICollection<RoomUser> Rooms { get; set; }
         public ICollection<Image> Images { get; set; }
         public ICollection<Document> Document { get; set; }

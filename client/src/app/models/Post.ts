@@ -25,6 +25,11 @@ export interface PostUpdate{
     content: string
 }
 
+export interface PostUpdated{
+    id:string,
+    content:string,
+}
+
 export interface PostCreate{
     content:string,
     files?:File[],

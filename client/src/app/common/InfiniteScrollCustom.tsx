@@ -7,17 +7,39 @@ interface Props {
 
 function InfiniteScrollCustom({loadMore,children}:Props) {
 
+    const [innerHeight, setInnerHeight] = React.useState(0);
+    const [scrollY, setScrollY] = React.useState(0);
+    const [offsetHeight, setOffsetHeight] = React.useState(0);
+    // React.useEffect(()=>{
+    //     let scrollHandler = ()=>{
+    //         if (window.innerHeight + window.scrollY>= document.body.offsetHeight) {
+    //             loadMore();
+    //         }
+    //     }
+    //     window.addEventListener('scroll',scrollHandler)
+    //     return ()=>{
+    //         window.removeEventListener('scroll',scrollHandler)
+    //     }
+    // },[loadMore])
+
     React.useEffect(()=>{
-        let scrollHandler = ()=>{
-            if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-                loadMore();
-            }
+        const onScroll = ()=>{
+            setOffsetHeight(document.body.offsetHeight);
+            setScrollY(window.scrollY);
+            setInnerHeight(window.innerHeight);
+            console.log('dsadsadsad')
         }
-        window.addEventListener('scroll',scrollHandler)
-        return ()=>{
-            window.removeEventListener('scroll',scrollHandler)
+        window.removeEventListener('scroll', onScroll);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    },[])
+
+    React.useEffect(()=>{
+        if (innerHeight + scrollY >= offsetHeight - 1){
+            loadMore();
         }
-    },[loadMore])
+    },[innerHeight,scrollY,offsetHeight])
+
     return (
         <>
             {children}

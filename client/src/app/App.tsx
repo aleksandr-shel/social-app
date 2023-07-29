@@ -13,7 +13,7 @@ import ModalContainer from './common/ModalContainer';
 import Layout from './layout/Layout';
 import { createHubConnection } from './stores/actions/messagesActions';
 import { current } from './stores/actions/userActions';
-import { stopHubConnection } from './stores/slices/messagesSlice';
+import { stopHubConnection } from './stores/slices/signalRSlice';
 import { setToken } from './stores/slices/userSlice';
 import { useAppDispatch, useAppSelector } from './stores/store';
 import ImageModalContainer from './common/ImageModalContainer';
@@ -21,6 +21,7 @@ import Images from '../features/profile/Images/Images';
 import FollowersPage from '../features/profile/FollowersPage';
 import Groups from '../features/groups/Groups';
 import GroupPage from '../features/groups/GroupPage';
+import CreateGroup from '../features/groups/CreateGroup';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -59,8 +60,9 @@ function App() {
 					<Route path='help' element={<Help/>}/> */}
 					<Route path='friends' element={<Friends/>}/>
 					<Route path='favorite' element={<FavoriteList/>}/>
-					<Route path='groups' element={<Groups/>}/>
+					{/* <Route path='groups' element={<Groups/>}/>
 					<Route path='groups/:groupId' element={<GroupPage/>}/>
+					<Route path='create-group' element={<CreateGroup/>}/> */}
 					<Route path='search' element={<SearchResults/>}/>
 				</Route>
 			</Routes>

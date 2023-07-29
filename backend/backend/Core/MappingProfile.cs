@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using backend.DTOs.Comment;
 using backend.DTOs.Group;
 using backend.DTOs.Messages;
 using backend.DTOs.Post;
@@ -38,7 +39,8 @@ namespace backend.Core
                 .ForMember(x => x.Image, p => p.MapFrom(x => x.GroupImage.Url))
                 .ForMember(x => x.BackgroundImage, p => p.MapFrom(x => x.GroupBackGroundImage.Url));
 
-
+            CreateMap<Comment, CommentDto>()
+                .ForMember(x => x.PostId, p => p.MapFrom(x => x.Post.Id));
 
 
         }

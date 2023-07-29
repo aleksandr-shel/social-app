@@ -1,7 +1,7 @@
 import { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import agent from "../../api/agent";
-import { selectGroup, setGroups } from "../slices/groupsSlice";
+import { selectGroup, setGroups, setSearchResults, toggleGroupFollow } from "../slices/groupsSlice";
 
 
 export const loadGroups = ():ThunkAction<void, RootState, unknown, AnyAction> =>{
@@ -25,5 +25,27 @@ export const loadSelectedGroup = (groupId:string):ThunkAction<void, RootState, u
         }catch(err){
             console.log(err);
         }
+    }
+}
+
+export const searchGroups = (q:string):ThunkAction<void, RootState, unknown, AnyAction> =>{
+    return async (dispatch)=>{
+        console.log('loading a group')
+        try{
+            const groups = await agent.Groups.search(q)
+            dispatch(setSearchResults(groups))
+        }catch(err){
+            console.log(err);
+        }
+    }
+}
+
+export const toggleFollowGroupAction = (groupId:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
+    return async (dispatch)=>{
+        agent.Groups.followGroup(groupId).then(()=>{
+            dispatch(toggleGroupFollow(groupId))
+        }).catch(err=>{
+            console.log(err)
+        })
     }
 }

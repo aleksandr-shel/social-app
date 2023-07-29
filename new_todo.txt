@@ -1,11 +1,14 @@
+0) Add comments under posts;
 1) try to make uploads of only files. and then somehow show files based on file types (for images use img, for documents use a)
-2) make groups 
-2.1) business, interests, events, brand group types
-3) make article creation 
-4) Make a better search on posts groups, people, articles, everything...
-
-
+2) make article creation 
+3) Make a better search on posts groups, people, articles, everything...
+4) Add date of birth, city and so on
+5) Edit username option
+6) Add online observer: when user online it shows that he/she is online
+7) make post appear in real time to followers of a user (make sure users are online before that)
 
 
 ...) try to make app mobile adjustible
 ...) try to make mobile app with react native
+...2) make groups 
+2.1) business, interests, events, brand group types

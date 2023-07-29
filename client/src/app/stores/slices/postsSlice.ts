@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Post } from "../../models/Post";
+import { Post, PostUpdated } from "../../models/Post";
 import { Pagination } from "../../models/pagination";
 
 interface PostsState{
@@ -42,9 +42,9 @@ const postsSlice = createSlice({
         addPost:(state, {payload}:PayloadAction<Post>)=>{
             state.posts?.unshift(payload);
         },
-        updatePost:(state, {payload}:PayloadAction<Post>)=>{
+        updatePost:(state, {payload}:PayloadAction<PostUpdated>)=>{
             state.posts = state.posts!.map(post => {
-                return post.id === payload.id ? payload : post
+                return post.id === payload.id ? {...post, content: payload.content} : post
             })
         },
         toggleFavorite:(state, {payload}:PayloadAction<string>)=>{

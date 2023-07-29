@@ -18,9 +18,9 @@ function TopMenu() {
     return (
         <Wrapper>
             <Grid container>
-                <Grid item xs={0.25} lg={1.5}>
+                <Grid item xs={0} lg={1.5}>
                 </Grid>
-                <Grid item xs={2.75} lg={1.5} style={{ display: 'flex', alignItems: 'center' }}>
+                <Grid item xs={4} sm={3} lg={1.5} style={{ display: 'flex', alignItems: 'center' }}>
                     <ListItemButton component={Link} to='news' disableRipple={true}>
                         <ListItemIcon>
                             <Diversity2Icon fontSize='large' color='primary' />
@@ -28,10 +28,10 @@ function TopMenu() {
                         <ListItemText primary='NetVerse' style={{color:'#01579b', fontWeight:'bolder'}}/>
                     </ListItemButton>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={5} sm={3}>
                     <SearchForm/>
                 </Grid>
-                <Grid item xs={6} style={{ display: 'flex', alignItems: 'center', justifyContent:'center'}}>
+                <Grid item xs={3} sm={6} style={{ display: 'flex', alignItems: 'center', justifyContent:'center'}}>
                     <UserMenu/>
                 </Grid>
             </Grid>

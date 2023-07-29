@@ -102,7 +102,7 @@ function Profile() {
     return ( 
         <>
             <Grid container>
-                <Grid item xs={10} style={{display:'flex'}}>
+                <Grid item xs={12} lg={10} style={{display:'flex'}}>
                     {
                         editMode ?
                         <EditProfileComponent setEditMode={setEditMode}/>
@@ -176,7 +176,7 @@ function Profile() {
                         </ProfileDiv>
                     }
                 </Grid>
-                <Grid item xs={7}>
+                <Grid item xs={8} lg={7}>
                     <ImagesPanel owner={user !== null && user?.username === profile.username} images={profile.images}/>
                     {
                         profile?.posts 
@@ -184,7 +184,7 @@ function Profile() {
                         <ProfileNewsList profilePosts={profile.posts} username={username}/>
                     }
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={4} lg={3}>
                     <FollowersPanel/>
                 </Grid>
             </Grid>

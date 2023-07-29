@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../app/stores/store';
 import { selectGroup } from '../../app/stores/slices/groupsSlice';
+import { toggleFollowGroupAction } from '../../app/stores/actions/groupsActions';
 
 interface Props{
     group:Group
@@ -16,7 +17,7 @@ const GroupItemDiv = styled.div`
     margin: 0.5em;
     padding: 0.5em;
     border: 0.5px solid  #D3D3D3;
-
+    justify-content: space-between;
     &:hover{
         box-shadow: 0 0 2px black;
     }
@@ -42,6 +43,27 @@ const GroupItemDiv = styled.div`
     }
 `
 
+const CustomBtn = styled.button`
+    cursor: pointer;
+    border:0;
+    border-radius: 20px;
+    color:white;
+    padding: 0.5em 0.5em;
+    margin: 0.5em;
+    font-weight: bold;
+    position: relative;
+    min-width: 180px;
+    white-space: nowrap;
+
+    &:hover{
+        box-shadow: 0 0 10px #0072b1;
+    }
+
+    &:active{
+        box-shadow: 0 0 30px #0072b1;
+    }
+`
+
 function GroupItem({group}:Props) {
 
     const navigate = useNavigate();
@@ -52,25 +74,42 @@ function GroupItem({group}:Props) {
         navigate(`/groups/${group.id}`)
     }
 
+    function handleJoinLeaveBtn(e:React.MouseEvent<HTMLButtonElement, MouseEvent>){
+        e.stopPropagation()
+        dispatch(toggleFollowGroupAction(group.id))
+    }
+
     return ( 
         <GroupItemDiv onClick={()=>handleClick(group)} title={group.description}>
-            <div className='image'>
-                {
-                    group.image ?
-                    <img src={group.image} alt={group.name}/>
-                    :
-                    <div style={{fontSize:'xxx-large', fontWeight:'bolder'}}>
-                        {group.name.slice(0,1)}
-                    </div>
-                }
+            <div style={{display:'flex'}}>
+                <div className='image'>
+                    {
+                        group.image ?
+                        <img src={group.image} alt={group.name}/>
+                        :
+                        <div style={{fontSize:'xxx-large', fontWeight:'bolder'}}>
+                            {group.name.slice(0,1)}
+                        </div>
+                    }
+                </div>
+                <div className='group-info'>
+                    <h4>
+                        {group.name}
+                    </h4>
+                    <p>
+                        {group.category}
+                    </p>
+                </div>
             </div>
-            <div className='group-info'>
-                <h4>
-                    {group.name}
-                </h4>
-                <p>
-                    {group.category}
-                </p>
+            <div>
+                <CustomBtn onClick={handleJoinLeaveBtn} style={{backgroundColor: group.follow ? 'darkred':'#0072b1'}}>
+                    {
+                        group.follow ?
+                        'leave'
+                        :
+                        'join'
+                    }
+                </CustomBtn>
             </div>
         </GroupItemDiv>
      );

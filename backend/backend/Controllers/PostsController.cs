@@ -41,11 +41,6 @@ namespace backend.Controllers
                 .ToListAsync();
             // posts query of people which user follows
             var postsQuery = _context.Posts
-                .Include(x => x.Images)
-                .Include(x => x.Documents)
-                .Include(x => x.Author)
-                .Include(a => a.Author.Images)
-                .Where(x => followings.Contains(x.Author))
                 .OrderByDescending(x => x.Date)
                 .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) });
             //var _posts = _mapper.Map<List<PostDto>>(posts);
@@ -141,10 +136,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Update(Guid id, PostUpdateDto updateDto)
         {
             var post = await _context.Posts
-                .Include(x => x.Images)
                 .Include(_x => _x.Author)
-                .Include(a => a.Author.Images)
-                .Include(x => x.UserLikes)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (post.Author.Id != User.FindFirstValue(ClaimTypes.NameIdentifier))
@@ -157,7 +149,8 @@ namespace backend.Controllers
             var result = await _context.SaveChangesAsync() > 0;
             if (result)
             {
-                return Ok(_mapper.Map<PostDto>(post));
+
+                return Ok();
             }
             return BadRequest();
         }

@@ -8,6 +8,24 @@ import {Link} from 'react-router-dom';
 import { useAppSelector } from '../../app/stores/store';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import styled from 'styled-components';
+import MobileLeftSide from './MobileLeftSide';
+
+const LeftSideDiv = styled.div`
+    .mobile{
+        display: none;
+    }
+    @media screen and (max-width: 600px) {
+        .desktop{
+            display: none;
+        }
+        .mobile{
+            display: block;
+            z-index: 1002 !important;
+            position: fixed;
+        }
+    }
+`
 
 function LeftSide() {
 
@@ -16,58 +34,67 @@ function LeftSide() {
     
     return (
         <>
-        {
-            user === null ?
-            <>
-            </>
-            :
-            <Grid container>
-                <Grid item xs={1} lg={6}>
+            <LeftSideDiv>
+                {
+                user === null ?
+                <>
+                </>
+                :
+                <>
+                    <div className='desktop'>
+                        <Grid container>
+                            <Grid item xs={0} lg={6}>
 
-                </Grid>
-                <Grid item xs={11} lg={6}>
-                    <List>
-                        <ListItemButton component={Link} to={`/profile/${user?.username}`}>
-                            <ListItemIcon>
-                                <AccountCircleIcon fontSize='large'/>
-                            </ListItemIcon>
-                            <ListItemText style={{textAlign:'left'}} primary="My Profile" />
-                        </ListItemButton>
-                        <ListItemButton component={Link} to='/news'>
-                            <ListItemIcon>
-                                <NewspaperIcon fontSize='large'/>
-                            </ListItemIcon>
-                            <ListItemText primary="News"/>
-                        </ListItemButton>
-                        <ListItemButton component={Link} to='/messages'>
-                            <ListItemIcon>  
-                                <EmailIcon fontSize='large'/>
-                            </ListItemIcon>
-                            <ListItemText primary="Messages" />
-                        </ListItemButton>
-                        <ListItemButton component={Link} to='/friends'>
-                            <ListItemIcon>  
-                                <PeopleAltIcon fontSize='large'/>
-                            </ListItemIcon>
-                            <ListItemText primary="Friends" />
-                        </ListItemButton>
-                        <ListItemButton component={Link} to='/favorite'>
-                            <ListItemIcon>  
-                                <BookmarkBorderIcon fontSize='large'/>
-                            </ListItemIcon>
-                            <ListItemText primary="Favorite" />
-                        </ListItemButton>
-                        {/* <ListItemButton component={Link} to='/groups'>
-                            <ListItemIcon>  
-                                <Diversity3Icon fontSize='large'/>
-                            </ListItemIcon>
-                            <ListItemText primary="Groups" />
-                        </ListItemButton> */}
-                    </List>
-                </Grid>
-            
-            </Grid>
-        }
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                <List>
+                                    <ListItemButton component={Link} to={`/profile/${user?.username}`}>
+                                        <ListItemIcon>
+                                            <AccountCircleIcon fontSize='large'/>
+                                        </ListItemIcon>
+                                        <ListItemText style={{textAlign:'left'}} primary="My Profile" />
+                                    </ListItemButton>
+                                    <ListItemButton component={Link} to='/news'>
+                                        <ListItemIcon>
+                                            <NewspaperIcon fontSize='large'/>
+                                        </ListItemIcon>
+                                        <ListItemText primary="News"/>
+                                    </ListItemButton>
+                                    <ListItemButton component={Link} to='/messages'>
+                                        <ListItemIcon>  
+                                            <EmailIcon fontSize='large'/>
+                                        </ListItemIcon>
+                                        <ListItemText primary="Messages" />
+                                    </ListItemButton>
+                                    <ListItemButton component={Link} to='/friends'>
+                                        <ListItemIcon>  
+                                            <PeopleAltIcon fontSize='large'/>
+                                        </ListItemIcon>
+                                        <ListItemText primary="Friends" />
+                                    </ListItemButton>
+                                    <ListItemButton component={Link} to='/favorite'>
+                                        <ListItemIcon>  
+                                            <BookmarkBorderIcon fontSize='large'/>
+                                        </ListItemIcon>
+                                        <ListItemText primary="Favorite" />
+                                    </ListItemButton>
+                                    {/* <ListItemButton component={Link} to='/groups'>
+                                        <ListItemIcon>  
+                                            <Diversity3Icon fontSize='large'/>
+                                        </ListItemIcon>
+                                        <ListItemText primary="Groups" />
+                                    </ListItemButton> */}
+                                </List>
+                            </Grid>
+                        
+                        </Grid>
+                    </div>
+                    <div className='mobile'>
+                        <MobileLeftSide user={user}/>
+                    </div>
+                </>
+            }
+            </LeftSideDiv>
         </>
     );
 }

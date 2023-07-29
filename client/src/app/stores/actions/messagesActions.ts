@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import agent from "../../api/agent";
 import { Message, PostMessage } from "../../models/Message";
 import { Room } from "../../models/Room";
-import { addMessage, addRoom, deleteMessage, setHubConnection, setLoading, setMessages, setRooms } from "../slices/messagesSlice";
+import { addMessage, addRoom, deleteMessage, setHubConnection, setLoading, setMessages, setRooms } from "../slices/signalRSlice";
 import { closeModal } from "../slices/modalSlice";
 import { toggleFavorite } from "../slices/postsSlice";
 import { RootState } from "../store";

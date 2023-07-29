@@ -10,7 +10,8 @@ namespace backend.Models
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public ICollection<PostImage> Images { get; set; } = new List<PostImage>();
         public ICollection<PostDocument> Documents { get; set; } = new List<PostDocument>();
-        public ICollection<FavoritePost> UserLikes { get; set; }
+        public ICollection<FavoritePost> UserLikes { get; set; } = new List<FavoritePost>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     }
 }

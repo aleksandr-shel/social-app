@@ -6,5 +6,5 @@ body{
 
 .main-grid{
   overflow-x: auto;
-  min-width: 850px;
+  /* min-width: 850px; */
 }

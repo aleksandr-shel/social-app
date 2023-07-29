@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using backend.Data;
 using backend.DTOs.Messages;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace backend.RealTime.Messages
 {
@@ -31,16 +34,45 @@ namespace backend.RealTime.Messages
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomId);
         }
 
+
+        public async Task ConnectToPostCommentsSection(string postId)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, postId);
+        }
+
+        public async Task DisconnectFromPostCommentsSection(string postId)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, postId);
+        }
+
         public override async Task OnConnectedAsync()
         {
-
+            Console.WriteLine("Connected");
             var httpContext = Context.GetHttpContext();
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == httpContext.User.FindFirstValue(ClaimTypes.Email));
-            string roomId = httpContext.Request.Query["roomId"];
             if (user != null)
             {
+                //implement later, too much headache
+                //user.Online = true;
+                //await _context.SaveChangesAsync();
+
                 await Groups.AddToGroupAsync(Context.ConnectionId, user.Id);
             }
         }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            //implement later, too much headache
+            //var httpContext = Context.GetHttpContext();
+            //var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == httpContext.User.FindFirstValue(ClaimTypes.Email));
+            //if (user != null)
+            //{
+            //    user.Online = false;
+            //    await _context.SaveChangesAsync();
+            //}
+            Console.WriteLine("Connection terminated");
+            return Task.CompletedTask;
+        }
+
     }
 }

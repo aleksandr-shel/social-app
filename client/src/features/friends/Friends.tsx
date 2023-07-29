@@ -56,7 +56,7 @@ function Friends() {
     return ( 
         <>
 			<Grid container>
-				<Grid item xs={6}>
+				<Grid item xs={12} sm={10} md={8} lg={6}>
 					<Box sx={{ width: '100%' }}>
 						<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 							<Tabs value={value} onChange={handleChange} aria-label="basic tabs example">

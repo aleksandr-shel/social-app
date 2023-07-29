@@ -15,6 +15,7 @@ import { toggleFavoritePost } from '../../app/stores/actions/messagesActions';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { openModal } from '../../app/stores/slices/imageModalSlice';
+import Comments from './Comments';
 
 const StyledPostDiv = styled.div`
     border-radius: 15px;
@@ -22,6 +23,7 @@ const StyledPostDiv = styled.div`
     margin-top: 1em;
     border: 0.5px solid  #D3D3D3;
     padding: 1em;
+    position: relative;
     .header-post{
         margin-bottom: 0.5em;
     }
@@ -167,6 +169,9 @@ function NewsPost({post}:Props) {
 
     //like-btn
     const [animation,setAnimation] = React.useState(false);
+
+    //comment section on
+    const [commentsSection, setCommentsSection] = React.useState(false);
 
     //Dots Popper handler
     const [anchorDotsButton, setAnchorDotsButton] = React.useState<null | HTMLElement>(null);
@@ -349,6 +354,7 @@ function NewsPost({post}:Props) {
                             </div>
                         </div>
                     </div>
+                    {/* <Comments show={commentsSection} setShow={setCommentsSection}/> */}
                 </StyledPostDiv>
             }
         </>

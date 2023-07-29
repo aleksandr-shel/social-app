@@ -34,4 +34,8 @@ export interface Profile{
     following: boolean,
     followers: number,
     followings: number,
+    dob:string,
+    phoneNumber:string,
+    city:string,
+    online:boolean,
 }
