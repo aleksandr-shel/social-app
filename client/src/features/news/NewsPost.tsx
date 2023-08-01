@@ -15,6 +15,7 @@ import { toggleFavoritePost } from '../../app/stores/actions/messagesActions';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { openModal } from '../../app/stores/slices/imageModalSlice';
+import CommentIcon from '@mui/icons-material/Comment';
 import Comments from './Comments';
 
 const StyledPostDiv = styled.div`
@@ -27,7 +28,6 @@ const StyledPostDiv = styled.div`
     .header-post{
         margin-bottom: 0.5em;
     }
-
     .date-div{
         font-size: small;
     }
@@ -146,6 +146,19 @@ const StyledPostDiv = styled.div`
             transform: scale(1.05);
         }
     }
+
+    .comment-btn{
+        border-radius: 20px;
+        background-color: #e3e3e3;
+        padding: 0.5em;
+        margin-top: 0.2em;
+        margin-left: 1em;
+        cursor: pointer;
+    }
+
+    .comment-btn:active{
+        transform: scale(0.95);
+    }
 `
 const DotsButton = styled.div`
     cursor:pointer;
@@ -170,8 +183,8 @@ function NewsPost({post}:Props) {
     //like-btn
     const [animation,setAnimation] = React.useState(false);
 
-    //comment section on
-    const [commentsSection, setCommentsSection] = React.useState(false);
+    //comments
+    const [showComments, setShowComments] = React.useState(false);
 
     //Dots Popper handler
     const [anchorDotsButton, setAnchorDotsButton] = React.useState<null | HTMLElement>(null);
@@ -340,7 +353,7 @@ function NewsPost({post}:Props) {
                                 }
                             </div>
                         }
-                        <div>
+                        <div style={{display:'flex'}}>
                             <div className={`like-btn ${animation ? 'animation':''}`} style={{width:'fit-content'}} onClick={toggleFavorite}>
                                 {
                                     post.liked ?
@@ -352,9 +365,13 @@ function NewsPost({post}:Props) {
                                 }
                                 {post.likes}
                             </div>
+                            <div className='comment-btn' onClick={()=>setShowComments(!showComments)}>
+                                {post.commentsTotal}
+                                <CommentIcon/>
+                            </div>
                         </div>
                     </div>
-                    {/* <Comments show={commentsSection} setShow={setCommentsSection}/> */}
+                    <Comments comments={post.comments} commentsTotal={post.commentsTotal} show={showComments} setShow={setShowComments} postId={post.id}/>
                 </StyledPostDiv>
             }
         </>

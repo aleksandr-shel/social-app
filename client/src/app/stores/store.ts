@@ -17,7 +17,7 @@ const store = configureStore({
         userReducer: userSlice.reducer,
         appReducer: appSlice.reducer,
         postsReducer: postsSlice.reducer,
-        messagesReducer: messagesSlice.reducer,
+        signalrReducer: messagesSlice.reducer,
         profileReducer: profileSlice.reducer,
         searchReducer: searchSlice.reducer,
         friendsReducer: friendsSlice.reducer,

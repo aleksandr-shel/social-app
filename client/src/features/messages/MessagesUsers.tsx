@@ -9,7 +9,7 @@ import RoomComponent from './RoomComponent';
 
 function MessagesUsers() {
 
-    const {rooms} = useAppSelector(state=>state.messagesReducer);
+    const {rooms} = useAppSelector(state=>state.signalrReducer);
     const dispatch = useAppDispatch();
     React.useEffect(()=>{
         dispatch(getRooms())

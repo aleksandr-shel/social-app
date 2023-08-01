@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../app/stores/store';
 function PostMessageComponent() {
     const dispatch = useAppDispatch();
     const [content, setContent] = React.useState<string>('');
-    const {partner} = useAppSelector(state => state.messagesReducer);
+    const {partner} = useAppSelector(state => state.signalrReducer);
     function handleSubmit(e:React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         if (partner){

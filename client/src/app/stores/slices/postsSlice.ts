@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post, PostUpdated } from "../../models/Post";
 import { Pagination } from "../../models/pagination";
+import { Comment, DeleteComment } from "../../models/Comment";
 
 interface PostsState{
     posts: Post[] | null,
@@ -74,9 +75,32 @@ const postsSlice = createSlice({
         setPageNumber: (state, action: PayloadAction<number>) =>{
             state.pagingParam.pageNumber = action.payload
         },
+        addComments: (state, {payload}:PayloadAction<Comment[]>)=>{
+            let updatedComments = state.posts?.find(x => x.id === payload[0].postId)?.comments;
+            payload.forEach(x =>{
+                updatedComments?.push(x)
+            })
+
+            state.posts = state.posts!.map(post=>{
+                return post.id === payload[0].postId ? {...post, comments:updatedComments!} : post
+            })
+        },
+        addComment:(state,{payload}:PayloadAction<Comment>)=>{
+            state.posts = state.posts!.map(post=>{
+                return post.id === payload.postId ? {...post, comments:[...post.comments, payload]} : post
+            })
+        },
+        deleteComment:(state, {payload}:PayloadAction<DeleteComment>)=>{
+            let updatedComments = state.posts?.find(x => x.id === payload.postId)?.comments.filter(x => {
+                return x.id !== payload.commentId;
+            })
+            state.posts = state.posts!.map(post=>{
+                return post.id === payload.postId ? {...post, comments:updatedComments!} : post
+            })
+        }
     }
 })
 
-export const {addPosts, setPosts, deletePostAction, setLoading, addPost, updatePost, toggleFavorite, setFavoritePosts, setPageNumber, setPagination} = postsSlice.actions
+export const {addPosts, setPosts, deletePostAction, setLoading, addPost, updatePost, toggleFavorite, setFavoritePosts, setPageNumber, setPagination, addComments, addComment, deleteComment} = postsSlice.actions
 
 export default postsSlice

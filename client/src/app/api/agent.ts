@@ -10,6 +10,7 @@ import { logout } from "../stores/slices/userSlice";
 import store from "../stores/store";
 import { PaginatedResult } from "../models/pagination";
 import { Group, GroupCreate, GroupPost, GroupUpdate } from "../models/Group";
+import { Comment, CreateComment, UpdateComment } from "../models/Comment";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -207,6 +208,13 @@ const Search = {
     search:(q:string)=>requests.get(`search`)
 }
 
+const Comments = {
+    createComment:(comment:CreateComment)=>requests.post<Comment>('comments', comment),
+    getMoreComments:(postId:string)=>requests.get<Comment[]>(`comments/${postId}`),
+    updateComment:(commentId:string, comment:UpdateComment)=>requests.put<Comment>(`comments/${commentId}`, comment),
+    deleteComment:(commentId:string)=>requests.del(`comments/${commentId}`)
+}
+
 const agent = {
     Account,
     Posts,
@@ -214,7 +222,8 @@ const agent = {
     Friends,
     Messages,
     Groups,
-    Search
+    Search,
+    Comments
 }
 
 export default agent;

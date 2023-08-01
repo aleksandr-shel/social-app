@@ -101,7 +101,7 @@ export const postMessage = (username:string, message:PostMessage):ThunkAction<vo
 export const connectToRoom = (roomId:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async (dispatch,getState)=>{
         try{
-            await getState().messagesReducer.hubConnection?.invoke("ConnectToRoom", roomId)
+            await getState().signalrReducer.hubConnection?.invoke("ConnectToRoom", roomId)
         }catch(error){
             console.log(error);
         }
@@ -111,7 +111,7 @@ export const connectToRoom = (roomId:string):ThunkAction<void, RootState, unknow
 export const disconnectFromRoom = (roomId:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async (dispatch,getState)=>{
         try{
-            await getState().messagesReducer.hubConnection?.invoke("DisconnectFromRoom", roomId)
+            await getState().signalrReducer.hubConnection?.invoke("DisconnectFromRoom", roomId)
         }catch(error){
             console.log(error);
         }

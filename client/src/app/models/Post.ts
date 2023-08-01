@@ -1,6 +1,6 @@
 import { Document } from "./Document"
 import { Image } from "./Image"
-
+import { Comment } from "./Comment"
 
 export interface Post{
     id:string,
@@ -11,6 +11,8 @@ export interface Post{
     documents: Document[],
     likes:number,
     liked:boolean,
+    commentsTotal:number,
+    comments:Comment[],
 }
 
 

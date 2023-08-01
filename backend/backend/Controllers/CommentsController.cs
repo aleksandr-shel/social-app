@@ -32,7 +32,8 @@ namespace backend.Controllers
         {
             var comments = await _context.Comments
                 .Where(x => x.Post.Id == postId)
-                .OrderByDescending(x => x.Date)
+                .OrderBy(x => x.Date)
+                .Skip(3)
                 .ProjectTo<CommentDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
             return Ok(comments);

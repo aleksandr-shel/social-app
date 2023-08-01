@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "q2zz9jUv0wOtlgGrgAksLn1aaCHOb9wisIfqOuAyb1Q=",
+  "Hash": "+iQvcU537MCvOVnGMKDohv/Z+i0/JeGLMbbXs/BpO+I=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -255,12 +255,12 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\787.c4e7f8f9.chunk.js.map"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.f6d8a568.js",
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.205ca95b.js",
       "SourceId": "backend",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
-      "RelativePath": "static/js/main.f6d8a568.js",
+      "RelativePath": "static/js/main.205ca95b.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -269,15 +269,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.f6d8a568.js"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.205ca95b.js"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.f6d8a568.js.LICENSE.txt",
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.205ca95b.js.LICENSE.txt",
       "SourceId": "backend",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
-      "RelativePath": "static/js/main.f6d8a568.js.LICENSE.txt",
+      "RelativePath": "static/js/main.205ca95b.js.LICENSE.txt",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -286,15 +286,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.f6d8a568.js.LICENSE.txt"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.205ca95b.js.LICENSE.txt"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.f6d8a568.js.map",
+      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.205ca95b.js.map",
       "SourceId": "backend",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
-      "RelativePath": "static/js/main.f6d8a568.js.map",
+      "RelativePath": "static/js/main.205ca95b.js.map",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -303,7 +303,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\static\\js\\main.f6d8a568.js.map"
+      "OriginalItemSpec": "wwwroot\\static\\js\\main.205ca95b.js.map"
     },
     {
       "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\User.jpg",

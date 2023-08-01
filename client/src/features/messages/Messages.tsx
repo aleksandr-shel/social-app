@@ -8,7 +8,7 @@ import PostMessageComponent from './PostMessageComponent';
 
 function Messages() {
     const dispatch = useAppDispatch();
-    const {messages, loadingMessages, selectedRoom} = useAppSelector(state => state.messagesReducer);
+    const {messages, loadingMessages, selectedRoom} = useAppSelector(state => state.signalrReducer);
     
     
     React.useEffect(()=>{

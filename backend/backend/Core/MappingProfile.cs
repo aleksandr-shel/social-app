@@ -16,7 +16,9 @@ namespace backend.Core
             string currentUsername = null;
             CreateMap<Post, PostDto>()
                 .ForMember(x => x.Likes, p => p.MapFrom(x => x.UserLikes.Count()))
-                .ForMember(x => x.Liked, p => p.MapFrom(x => x.UserLikes.Any(x => x.AppUser.UserName == currentUsername)));
+                .ForMember(x => x.Liked, p => p.MapFrom(x => x.UserLikes.Any(x => x.AppUser.UserName == currentUsername)))
+                .ForMember(x => x.CommentsTotal, p => p.MapFrom(x => x.Comments.Count()))
+                .ForMember(x => x.Comments, p => p.MapFrom(x => x.Comments.OrderBy(x => x.Date).Take(3)));
             CreateMap<AppUser, AuthorDto>()
                 .ForMember(x => x.ImageUrl, p => p.MapFrom(x => x.Images.FirstOrDefault(i => i.IsMain).Url));
             CreateMap<AppUser, ProfileDto>()
@@ -41,7 +43,6 @@ namespace backend.Core
 
             CreateMap<Comment, CommentDto>()
                 .ForMember(x => x.PostId, p => p.MapFrom(x => x.Post.Id));
-
 
         }
     }
