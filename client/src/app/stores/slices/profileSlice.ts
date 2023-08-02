@@ -5,13 +5,15 @@ import { Author } from "../../models/Post";
 interface ProfileState{
     profile: Profile | null,
     images: Image[],
-    followers: Author[]
+    followers: Author[],
+    loading: boolean,
 }
 
 const initialState: ProfileState={
     profile: null,
     images:[],
     followers: [],
+    loading: false,
 }
 
 const profileSlice = createSlice({
@@ -66,10 +68,13 @@ const profileSlice = createSlice({
         },
         setProfileFollowers:(state, {payload}:PayloadAction<Author[]>)=>{
             state.followers = payload
+        },
+        setLoading:(state, {payload}:PayloadAction<boolean>)=>{
+            state.loading = payload;
         }
     }
 })
 
-export const {setProfile, toggleFollow, updateProfileRed, updateProfileImage, setMain, deleteImage, addProfileImage, setProfileImages, setProfileFollowers} = profileSlice.actions
+export const {setProfile, toggleFollow, updateProfileRed, updateProfileImage, setMain, deleteImage, addProfileImage, setProfileImages, setProfileFollowers, setLoading} = profileSlice.actions
 
 export default profileSlice

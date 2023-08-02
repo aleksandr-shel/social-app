@@ -3,7 +3,7 @@ import agent from "../../api/agent";
 import { Image } from "../../models/Image";
 import { ProfileUpdateValues } from "../../models/User";
 import { closeModal } from "../slices/modalSlice";
-import { addProfileImage, deleteImage, setMain, setProfile, setProfileFollowers, setProfileImages, updateProfileImage, updateProfileRed } from "../slices/profileSlice";
+import { addProfileImage, deleteImage, setLoading, setMain, setProfile, setProfileFollowers, setProfileImages, updateProfileImage, updateProfileRed } from "../slices/profileSlice";
 import { RootState } from "../store";
 
 
@@ -11,11 +11,14 @@ import { RootState } from "../store";
 
 export const getProfile = (username:string):ThunkAction<void, RootState, unknown, AnyAction>=>{
     return async(dispatch)=>{
+        dispatch(setLoading(true))
         try{
             const profile = await agent.Profiles.getProfile(username);
             dispatch(setProfile(profile))
+            dispatch(setLoading(false))
         }catch(error){
             console.log(error);
+            dispatch(setLoading(false))
         }
     }
 }

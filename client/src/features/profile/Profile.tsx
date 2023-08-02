@@ -16,6 +16,7 @@ import { openModal } from '../../app/stores/slices/imageModalSlice';
 import { openModal as openGeneralModal } from '../../app/stores/slices/modalSlice';
 import styled from 'styled-components';
 import FollowersPanel from './FollowersPanel';
+import LoadingComponent from '../../app/layout/LoadingComponent';
 
 const CustomBtn = styled.button`
     cursor: pointer;
@@ -76,7 +77,7 @@ function Profile() {
     const {username} = useParams();
     const [editMode, setEditMode] = React.useState(false);
     const {user} = useAppSelector(state => state.userReducer);
-    const {profile} = useAppSelector(state => state.profileReducer);
+    const {profile, loading} = useAppSelector(state => state.profileReducer);
     const dispatch = useAppDispatch();
 
     React.useEffect(()=>{
@@ -99,6 +100,13 @@ function Profile() {
     }
     if (!profile) return null
 
+    if (loading) return (
+        <Grid container>
+            <Grid item xs={12} lg={10} style={{height:'90vh'}}>
+                <LoadingComponent/>
+            </Grid>
+        </Grid>
+    )
     return ( 
         <>
             <Grid container>

@@ -96,9 +96,11 @@ namespace backend.Data
                 .HasOne(x => x.User)
                 .WithMany(x => x.GroupAdmins)
                 .HasForeignKey(x => x.UserId);
-            
 
-
+            builder.Entity<Comment>()
+                .HasOne(x => x.Post)
+                .WithMany(x => x.Comments)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
         }

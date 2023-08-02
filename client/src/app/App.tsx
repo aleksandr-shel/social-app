@@ -19,9 +19,6 @@ import { useAppDispatch, useAppSelector } from './stores/store';
 import ImageModalContainer from './common/ImageModalContainer';
 import Images from '../features/profile/Images/Images';
 import FollowersPage from '../features/profile/FollowersPage';
-import Groups from '../features/groups/Groups';
-import GroupPage from '../features/groups/GroupPage';
-import CreateGroup from '../features/groups/CreateGroup';
 
 function App() {
 	const dispatch = useAppDispatch();

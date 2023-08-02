@@ -42,10 +42,11 @@ namespace backend.Controllers
             //    .Include(x => x.Posts.OrderByDescending(p=>p.Date))
             //    .FirstOrDefaultAsync(x => x.UserName == username));
             var profile = await _context.Users
+               .Where(x => x.UserName == username)
                .ProjectTo<ProfileDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
-               .FirstOrDefaultAsync(x => x.Username == username);
+               .ToListAsync();
 
-            return Ok(profile);
+            return Ok(profile.First());
         }
 
 

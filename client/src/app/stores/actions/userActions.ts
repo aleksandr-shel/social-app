@@ -77,7 +77,7 @@ export const startRefreshTokenTimer = (user:User):ThunkAction<void, RootState, u
         const jwtToken = JSON.parse(atob(user.token.split('.')[1]))
         const expires = new Date(jwtToken.exp * 1000);
         const timeout = expires.getTime() - Date.now() - (60 * 1000);
-        // console.log(timeout);
+        console.log(timeout);
         const refreshTokenTimeout = setTimeout(()=>{dispatch(refreshToken())}, timeout);
         dispatch(setRefreshTokenTimeout(refreshTokenTimeout))
     }
