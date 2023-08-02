@@ -39,73 +39,43 @@ const StyledPostDiv = styled.div`
     }
     /* images styles */
     .images-container{
-        display: flex;
         margin-top: 1em;
-        display: flex;
-        flex-wrap: nowrap;
     }
 
     .images-container img{
         border-radius: 15px;
     }
 
-    .first-image{
-        overflow: hidden;
+    .first-two-images{
         display: flex;
         justify-content: center;
         align-items: center;
-        flex: 1 0 50%;
     }
 
-    .images-container .first-image img{
+    .first-two-images .image{
+        flex: 1 1 50%;
+    }
+
+    .first-two-images .image img{
         height: 100%;
         width: 100%;
         object-fit: cover;
     }
 
-    .not-first-images{
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .image{
-        overflow: hidden;
+    .rest-images{
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .not-first-images .image img{
+
+    .rest-images .image{
+        flex: 0 1 50%;
+    }
+
+    .rest-images .image img{
         height: 100%;
         width: 100%;
         object-fit: cover;
-    }
-
-    .image.one{
-        flex: 0 1 100%;
-    }
-    .image.two{
-        flex: 0 0 50%;
-    }
-    .image.three{
-        flex: 0 1 50%;
-    }
-    .image.four{
-        flex: 0 1 50%;
-    }
-    .image.five{
-        flex: 0 1 50%;
-    }
-    .image.six{
-        flex: 0 1 33%;
-    }
-    .image.seven{
-        flex: 0 1 33%;
-    }
-    .image.eight{
-        flex: 0 1 33%;
-    }
-    .image.nine{
-        flex: 0 1 33%;
     }
 
     /* like button styles */
@@ -213,28 +183,6 @@ function NewsPost({post}:Props) {
 
     //edit mode
     const [editMode, setEditMode] = React.useState(false);
-    function toStringNumber(length:number){
-        switch(length){
-            case 1:
-                return 'one';
-            case 2:
-                return 'two';
-            case 3:
-                return 'three';
-            case 4:
-                return 'four';
-            case 5:
-                return 'five';
-            case 6:
-                return 'six';
-            case 7:
-                return 'seven';
-            case 8:
-                return 'eight';
-            case 9:
-                return 'nine';
-        }
-    }
     function clickMore(){
         setMoreBtn(false);
         setLess(true);
@@ -323,19 +271,36 @@ function NewsPost({post}:Props) {
                             post.images.length !== 0
                             &&
                             <div className='images-container'>
-                                <div className='first-image'>
-                                    <img alt={post.images[0].key} src={post.images[0].url} onClick={()=>handleClickImage(post.images[0])}/>
+                                <div className='first-two-images'>
+                                    <div className='image' key={post.images[0].key}>
+                                        <img alt={post.images[0].key} src={post.images[0].url} onClick={()=>handleClickImage(post.images[0])}/>
+                                    </div>
+                                    {
+                                        post.images.length >= 2
+                                        &&
+                                        <div className='image' key={post.images[1].key}>
+                                            <img alt={post.images[1].key} src={post.images[1].url} onClick={()=>handleClickImage(post.images[1])}/>
+                                        </div>
+                                    }
                                 </div>
-                                <div className='not-first-images'>
-                                    {post.images.map((img, index)=>{
-                                        if (index === 0) return null;
-                                        return(
-                                            <div key={img.key} className={'image ' + toStringNumber(post.images.length - 1)}>
-                                                <img alt={img.key} src={img.url} onClick={()=>handleClickImage(img)}/>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
+                                {
+                                    post.images.length > 2
+                                    &&
+                                    <div className='rest-images'>
+                                        {
+                                            post.images.map((img,index)=>{
+                                                if (index <=1){
+                                                    return null;
+                                                }
+                                                return(
+                                                    <div className='image' key={img.key}>
+                                                        <img alt={img.key} src={img.url} onClick={()=>handleClickImage(img)}/>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                }
                             </div>
                         }
                         {
