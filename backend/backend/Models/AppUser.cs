@@ -19,7 +19,7 @@ namespace backend.Models
         public ICollection<Friends> Followings { get; set; }
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
         public ICollection<FavoritePost> FavoritePosts { get; set; }
-        public ICollection<GroupFollower> Groups { get; set; } = new List<GroupFollower>();
-        public ICollection<GroupAdmin> GroupAdmins { get; set; } = new List<GroupAdmin>();
+        public virtual ICollection<GroupFollower> Groups { get; set; } = new List<GroupFollower>();
+        public virtual ICollection<GroupAdmin> GroupAdmins { get; set; } = new List<GroupAdmin>();
     }
 }

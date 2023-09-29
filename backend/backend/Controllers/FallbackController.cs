@@ -8,6 +8,7 @@ namespace backend.Controllers
     {
         public IActionResult Index()
         {
+            Console.WriteLine("User visited a site");
             return PhysicalFile(Path.Combine(Directory.GetCurrentDirectory(),
                 "wwwroot", "index.html"), "text/HTML");
         }

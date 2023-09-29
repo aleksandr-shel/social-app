@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using backend.CustomAttributes;
 using backend.Data;
+using backend.DTOs.Post;
 using backend.DTOs.Profile;
 using backend.Helper;
 using backend.Models;
@@ -41,12 +42,53 @@ namespace backend.Controllers
             //    .Include(x => x.Images)
             //    .Include(x => x.Posts.OrderByDescending(p=>p.Date))
             //    .FirstOrDefaultAsync(x => x.UserName == username));
-            var profile = await _context.Users
-               .Where(x => x.UserName == username)
-               .ProjectTo<ProfileDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
-               .ToListAsync();
 
-            return Ok(profile.First());
+            Console.WriteLine("Loading profile " + username);
+            //var profile = await _context.Users
+            //   .Where(x => x.UserName == username)
+            //   .ProjectTo<ProfileDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) })
+            //   .ToListAsync();
+
+
+            //var query = _context
+            //    .Users
+            //    .Where(x => x.UserName == username)
+            //    .ProjectTo<ProfileDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) });
+
+            //var profile = await query.FirstOrDefaultAsync();
+
+
+
+            //much faster way to load profile
+            //var start = DateTime.Now;
+            var user = await _context.Users
+                .Where(x => x.UserName == username)
+                .Include(x => x.Images)
+                .Include(x => x.Followers)
+                .ThenInclude(follower=>((Friends)follower).Observer)
+                .Include(x => x.Followings)
+                .FirstOrDefaultAsync();
+            if (user == null) return NotFound("User was not found");
+
+            var userPosts = _mapper.Map<List<PostDto>>(
+                await _context.Posts
+                .Include(p => p.Images)
+                .Where(p => p.Author.UserName == username)
+                .OrderByDescending(x => x.Date)
+                .ToListAsync());
+
+            var profile = _mapper.Map<AppUser, ProfileDto>(user, opt =>
+                opt.AfterMap((src, dest) => {
+                    dest.Following = user.Followers.Any(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name));
+                    dest.Posts = userPosts;
+                })
+            );
+            //var end = DateTime.Now;
+            //var diff = end - start;
+            //Console.WriteLine("***************************************************");
+            //Console.WriteLine(diff.TotalSeconds);
+            //Console.WriteLine("***************************************************");
+            return Ok(profile);
         }
 
 
