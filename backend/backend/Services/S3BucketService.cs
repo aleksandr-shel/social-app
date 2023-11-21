@@ -9,7 +9,7 @@ namespace backend.Services
     {
         private readonly IAmazonS3 _client;
         private readonly ILogger<S3BucketService> _logger;
-        private readonly string _bucketName = "social-app-coopchik";
+        private readonly string _bucketName = "shared-bucket-aleksandr";
         private readonly string _region = "ca-central-1";
         public S3BucketService(IAmazonS3 client, ILogger<S3BucketService> logger)
         {
@@ -53,7 +53,7 @@ namespace backend.Services
                 if (file.Length > 0)
                 {
                     await using var stream = file.OpenReadStream();
-                    var key = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    var key = "social-app-coopchik/" + Guid.NewGuid().ToString() + "_" + file.FileName;
 
                     key = Regex.Replace(key, @"[^\u0000-\u007F]+", string.Empty);
 
