@@ -69,7 +69,7 @@ app.UseCsp(opt =>
     .FontSources(s =>s.Self())
     .FormActions(s => s.Self())
     .FrameAncestors(s => s.Self())
-    .ImageSources(s => s.Self().CustomSources("https://social-app-coopchik.s3.ca-central-1.amazonaws.com/", "data:"))
+    .ImageSources(s => s.Self().CustomSources("https://shared-bucket-aleksandr.s3.ca-central-1.amazonaws.com/", "data:"))
     .ScriptSources(s => s.Self().CustomSources("https://accounts.google.com/gsi/client")   )
 );
 
