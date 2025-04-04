@@ -37,17 +37,17 @@ A full-stack social media application built with **ASP.NET Core (C#)** on the ba
 
 ## 🖼️ Screenshots
 
-### 🔹 Homepage
+### 🔹 Login
 ![Login](./screenshots/login.jpg)
 
-### 🔹 Profile Page
+### 🔹 Profile Pages
 ![Profile Page](./screenshots/profile.jpg)
 ![Profile Page 2](./screenshots/profile2.jpg)
 
 ### 🔹 Messages
 ![Messages](./screenshots/messages.jpg)
 
-### 🔹 Create Post
+### 🔹 New Message
 ![Send message](./screenshots/message.jpg)
 
 ## ⚙️ Installation
