@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/pUW9OXb4JLaNjFZC9vQ0zs/hTcoxm3umwNSDn4jlWE=",
+  "Hash": "VS7U4rcMMwst2pnqfwabCDQ+y7mn/b1mvuIIhUPRKmA=",
   "Source": "backend",
   "BasePath": "_content/backend",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "backend\\wwwroot",
       "Source": "backend",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\asset-manifest.json",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\asset-manifest.json",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "asset-manifest.json",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\asset-manifest.json"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\cover.jpg",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\cover.jpg",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "cover.jpg",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\cover.jpg"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\favicon.ico",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\favicon.ico",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\index.html",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\index.html",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\logo.png",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\logo.png",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "logo.png",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\logo.png"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\logo192.png",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\logo192.png",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "logo192.png",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\logo192.png"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\logo512.png",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\logo512.png",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "logo512.png",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\logo512.png"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\manifest.json",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\manifest.json",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "manifest.json",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\manifest.json"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\robots.txt",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\robots.txt",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "robots.txt",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\robots.txt"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\social-media-name.png",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\social-media-name.png",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "social-media-name.png",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\social-media-name.png"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "static/css/main.ca07ae73.css",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\static\\css\\main.ca07ae73.css"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css.map",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css.map",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "static/css/main.ca07ae73.css.map",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\static\\css\\main.ca07ae73.css.map"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "static/js/787.c4e7f8f9.chunk.js",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\787.c4e7f8f9.chunk.js"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js.map",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js.map",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "static/js/787.c4e7f8f9.chunk.js.map",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\787.c4e7f8f9.chunk.js.map"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "static/js/main.cd5a4594.js",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\main.cd5a4594.js"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.LICENSE.txt",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.LICENSE.txt",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "static/js/main.cd5a4594.js.LICENSE.txt",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\main.cd5a4594.js.LICENSE.txt"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.map",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.map",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "static/js/main.cd5a4594.js.map",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\static\\js\\main.cd5a4594.js.map"
     },
     {
-      "Identity": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\User.jpg",
+      "Identity": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\User.jpg",
       "SourceId": "backend",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\",
+      "ContentRoot": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\",
       "BasePath": "_content/backend",
       "RelativePath": "User.jpg",
       "AssetKind": "All",

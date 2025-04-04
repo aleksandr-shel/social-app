@@ -1,75 +1,75 @@
 {
   "Files": [
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\User.jpg",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\User.jpg",
       "PackagePath": "staticwebassets\\User.jpg"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\asset-manifest.json",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\asset-manifest.json",
       "PackagePath": "staticwebassets\\asset-manifest.json"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\cover.jpg",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\cover.jpg",
       "PackagePath": "staticwebassets\\cover.jpg"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\favicon.ico",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\index.html",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\logo.png",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\logo.png",
       "PackagePath": "staticwebassets\\logo.png"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\logo192.png",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\logo192.png",
       "PackagePath": "staticwebassets\\logo192.png"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\logo512.png",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\logo512.png",
       "PackagePath": "staticwebassets\\logo512.png"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\manifest.json",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\manifest.json",
       "PackagePath": "staticwebassets\\manifest.json"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\robots.txt",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\robots.txt",
       "PackagePath": "staticwebassets\\robots.txt"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\social-media-name.png",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\social-media-name.png",
       "PackagePath": "staticwebassets\\social-media-name.png"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css",
       "PackagePath": "staticwebassets\\static\\css\\main.ca07ae73.css"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css.map",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\css\\main.ca07ae73.css.map",
       "PackagePath": "staticwebassets\\static\\css\\main.ca07ae73.css.map"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js",
       "PackagePath": "staticwebassets\\static\\js\\787.c4e7f8f9.chunk.js"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js.map",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\787.c4e7f8f9.chunk.js.map",
       "PackagePath": "staticwebassets\\static\\js\\787.c4e7f8f9.chunk.js.map"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js",
       "PackagePath": "staticwebassets\\static\\js\\main.cd5a4594.js"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.LICENSE.txt",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.LICENSE.txt",
       "PackagePath": "staticwebassets\\static\\js\\main.cd5a4594.js.LICENSE.txt"
     },
     {
-      "Id": "C:\\Web Development\\Social-App\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.map",
+      "Id": "C:\\web development\\social-app\\backend\\backend\\wwwroot\\static\\js\\main.cd5a4594.js.map",
       "PackagePath": "staticwebassets\\static\\js\\main.cd5a4594.js.map"
     },
     {

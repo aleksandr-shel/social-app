@@ -1,5 +1,4 @@
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\appsettings.Development.json
-C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\appsettings.json
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\backend.exe
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\backend.deps.json
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\backend.runtimeconfig.json
@@ -54,7 +53,6 @@ C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\backend.MvcApplic
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets.build.json
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets.development.json
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\scopedcss\bundle\backend.styles.css
-C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\backend.csproj.CopyComplete
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\backend.dll
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\refint\backend.dll
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\backend.pdb
@@ -88,3 +86,4 @@ C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets\m
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.backend.props
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.backend.props
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets.pack.json
+C:\web development\social-app\backend\backend\obj\Debug\net6.0\backend.csproj.Up2Date
