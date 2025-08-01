@@ -53,7 +53,7 @@ A full-stack social media application built with **ASP.NET Core (C#)** on the ba
 ## ⚙️ Installation
 
 ### Prerequisites
-- [.NET 7 SDK](https://dotnet.microsoft.com/)
+- [.NET 9 SDK](https://dotnet.microsoft.com/)
 - [Node.js](https://nodejs.org/)
 - PostgreSQL / SQL Server running locally
 
