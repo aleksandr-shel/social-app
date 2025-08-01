@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
@@ -73,6 +72,7 @@ namespace backend.Controllers
             var userPosts = _mapper.Map<List<PostDto>>(
                 await _context.Posts
                 .Include(p => p.Images)
+                .Include(p => p.Documents)
                 .Where(p => p.Author.UserName == username)
                 .OrderByDescending(x => x.Date)
                 .ToListAsync());

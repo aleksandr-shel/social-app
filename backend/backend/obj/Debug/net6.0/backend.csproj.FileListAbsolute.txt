@@ -81,9 +81,12 @@ C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\Google.Apis.Core.
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\NWebsec.AspNetCore.Core.dll
 C:\Web Development\Social-App\backend\backend\bin\Debug\net6.0\NWebsec.AspNetCore.Middleware.dll
 C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\backend.sourcelink.json
-C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props
-C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets\msbuild.build.backend.props
-C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.backend.props
-C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.backend.props
-C:\Web Development\Social-App\backend\backend\obj\Debug\net6.0\staticwebassets.pack.json
 C:\web development\social-app\backend\backend\obj\Debug\net6.0\backend.csproj.Up2Date
+C:\web development\social-app\backend\backend\bin\Debug\net6.0\appsettings.json
+C:\web development\social-app\backend\backend\bin\Debug\net6.0\backend.staticwebassets.endpoints.json
+C:\web development\social-app\backend\backend\obj\Debug\net6.0\staticwebassets.build.json.cache
+C:\web development\social-app\backend\backend\obj\Debug\net6.0\staticwebassets.build.endpoints.json
+C:\web development\social-app\backend\backend\obj\Debug\net6.0\rpswa.dswa.cache.json
+C:\web development\social-app\backend\backend\obj\Debug\net6.0\rjimswa.dswa.cache.json
+C:\web development\social-app\backend\backend\obj\Debug\net6.0\rjsmrazor.dswa.cache.json
+C:\web development\social-app\backend\backend\obj\Debug\net6.0\rjsmcshtml.dswa.cache.json

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace backend.Services
 {
-    public class S3BucketService : IUploadFile
+    public class S3BucketService : IUploadFile, IGeneratePresignedUrl
     {
         private readonly IAmazonS3 _client;
         private readonly ILogger<S3BucketService> _logger;
@@ -53,7 +53,7 @@ namespace backend.Services
                 if (file.Length > 0)
                 {
                     await using var stream = file.OpenReadStream();
-                    var key = "social-app-coopchik/" + Guid.NewGuid().ToString() + "_" + file.FileName;
+                    var key = "social-app-coopchik-" + Guid.NewGuid().ToString() + "_" + file.FileName;
 
                     key = Regex.Replace(key, @"[^\u0000-\u007F]+", string.Empty);
 
@@ -85,6 +85,19 @@ namespace backend.Services
                 _logger.LogError(e.Message, e);
             }
             return (null, null);
+        }
+
+        public string GeneratePreSignedURL(string objectKey, int expireSeconds = 3600)
+        {
+            var request = new GetPreSignedUrlRequest
+            {
+                BucketName = _bucketName,
+                Key = objectKey,
+                Expires = DateTime.UtcNow.AddSeconds(expireSeconds)
+            };
+
+            string url = _client.GetPreSignedURL(request);
+            return url;
         }
 
         void uploadRequest_UploadPartProgressEvent(object sender, UploadProgressArgs e)

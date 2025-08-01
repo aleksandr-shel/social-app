@@ -35,18 +35,24 @@ namespace backend.Controllers
         [HttpGet]
         public async Task<ActionResult> List([FromQuery] PagingParams param)
         {
-            var followings = await _context.Friends
-                .Where(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name))
-                .Select(x => x.Target)
-                .ToListAsync();
+            //var followings = await _context.Friends
+            //    .Where(x => x.Observer.UserName == User.FindFirstValue(ClaimTypes.Name))
+            //    .Select(x => x.Target)
+            //    .ToListAsync();
             // posts query of people which user follows
             var postsQuery = _context.Posts
                 .OrderByDescending(x => x.Date)
                 .ProjectTo<PostDto>(_mapper.ConfigurationProvider, new { currentUsername = User.FindFirstValue(ClaimTypes.Name) });
-            //var _posts = _mapper.Map<List<PostDto>>(posts);
 
             return await HandlePagedList(postsQuery, param);
 
+
+
+            //var _posts = _mapper.Map<List<PostDto>>(await 
+            //    _context.Posts
+            //    .Include(p => p.Images)
+            //    .ToListAsync());
+            //return Ok(_posts);
             // posts of every people in app
             //var posts_ = await _context.Posts
             //    .Include(x => x.Images)

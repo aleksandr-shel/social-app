@@ -9,17 +9,10 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+Console.WriteLine($"Environment: {builder.Environment.EnvironmentName}");
 var config = builder.Configuration;
 
 // Add services to the container.
-
-builder.Services.AddControllers(opt =>
-{
-    //added authorization, so only authenticated users can access 
-    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-    opt.Filters.Add(new AuthorizeFilter(policy));
-});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -27,6 +20,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices(config);
 builder.Services.AddIdentityServices(config);
+
+builder.Services.AddControllers(opt =>
+{
+    //added authorization, so only authenticated users can access 
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    opt.Filters.Add(new AuthorizeFilter(policy));
+});
 
 var app = builder.Build();
 

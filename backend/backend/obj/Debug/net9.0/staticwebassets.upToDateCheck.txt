@@ -1,0 +1,30 @@
+wwwroot\asset-manifest.json
+wwwroot\cover.jpg
+wwwroot\favicon.ico
+wwwroot\index.html
+wwwroot\logo.png
+wwwroot\logo192.png
+wwwroot\logo512.png
+wwwroot\manifest.json
+wwwroot\robots.txt
+wwwroot\social-media-name.png
+wwwroot\static\css\main.ca07ae73.css
+wwwroot\static\css\main.ca07ae73.css.map
+wwwroot\static\js\787.c4e7f8f9.chunk.js
+wwwroot\static\js\787.c4e7f8f9.chunk.js.map
+wwwroot\static\js\main.cd5a4594.js
+wwwroot\static\js\main.cd5a4594.js.LICENSE.txt
+wwwroot\static\js\main.cd5a4594.js.map
+wwwroot\User.jpg
+C:\web development\social-app\backend\backend\wwwroot\static\js\main.cd5a4594.js.map
+C:\web development\social-app\backend\backend\wwwroot\static\js\main.cd5a4594.js.LICENSE.txt
+C:\web development\social-app\backend\backend\wwwroot\static\js\main.cd5a4594.js
+C:\web development\social-app\backend\backend\wwwroot\static\js\787.c4e7f8f9.chunk.js.map
+C:\web development\social-app\backend\backend\wwwroot\static\js\787.c4e7f8f9.chunk.js
+C:\web development\social-app\backend\backend\wwwroot\static\css\main.ca07ae73.css.map
+C:\web development\social-app\backend\backend\wwwroot\static\css\main.ca07ae73.css
+C:\web development\social-app\backend\backend\wwwroot\robots.txt
+C:\web development\social-app\backend\backend\wwwroot\manifest.json
+C:\web development\social-app\backend\backend\wwwroot\index.html
+C:\web development\social-app\backend\backend\wwwroot\favicon.ico
+C:\web development\social-app\backend\backend\wwwroot\asset-manifest.json

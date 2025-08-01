@@ -3,6 +3,7 @@ using Amazon.S3;
 using AutoMapper;
 using backend.Core;
 using backend.Data;
+using backend.Resolvers;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,9 @@ namespace backend.Extensions
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                opt.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("defaultConnection")));
+                //opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                //opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
                 //opt.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection")));
                 //opt.UseMySql(Helper.Helper.GetRDSConnectionString(), ServerVersion.AutoDetect(Helper.Helper.GetRDSConnectionString()));
             });
@@ -31,11 +34,15 @@ namespace backend.Extensions
                 });
             });
 
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new MappingProfile());
-            }).CreateMapper();
-            services.AddSingleton(mapper);
+            //it adds Automapper manually
+            //var mapperConfig = new MapperConfiguration(cfg=>
+            //{
+            //    cfg.AddProfile(new MappingProfile());
+            //});
+            //var mapper = mapperConfig.CreateMapper();
+            //services.AddSingleton(mapper);
+
+            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddSignalR();
             services.AddScoped<EmailSender>();
@@ -43,7 +50,11 @@ namespace backend.Extensions
             services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(config.GetValue<string>("AWSCredentials:AccessKeyID"), config.GetValue<string>("AWSCredentials:SecretAccessKey"), RegionEndpoint.CACentral1));
 
             services.AddSingleton<IUploadFile>(provider=> new S3BucketService(provider.GetRequiredService<IAmazonS3>(), provider.GetRequiredService<ILogger<S3BucketService>>()));
-
+            services.AddSingleton<IGeneratePresignedUrl>(provider=> new S3BucketService(provider.GetRequiredService<IAmazonS3>(), provider.GetRequiredService<ILogger<S3BucketService>>()));
+            services.AddScoped<AppUserImageResolver>();
+            services.AddScoped<ImageProfileImageResolver>();
+            services.AddScoped<PostDocResolver>();
+            services.AddScoped<PostImageResolver>();
             return services;
         }
     }

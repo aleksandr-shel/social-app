@@ -17,5 +17,14 @@ namespace backend.Controllers
 
             return Ok(list);
         }
+
+        protected async Task<PagedList<T>> GetPagedList<T>(IQueryable<T> query, PagingParams param)
+        {
+            var list = await PagedList<T>.CreateAsync(query, param.PageNumber, param.PageSize);
+
+            Response.AddPaginationHeader(list.CurrentPage, list.PageSize, list.TotalCount, list.TotalPages);
+
+            return list;
+        }
     }
 }

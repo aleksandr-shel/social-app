@@ -5,6 +5,7 @@ using backend.DTOs.Messages;
 using backend.DTOs.Post;
 using backend.DTOs.Profile;
 using backend.Models;
+using backend.Resolvers;
 
 namespace backend.Core
 {
@@ -28,17 +29,21 @@ namespace backend.Core
             //    .ForMember(x => x.Followers, p => p.MapFrom(x => x.Followers.Count()))
             //    .ForMember(x => x.Followings, p => p.MapFrom(x => x.Followings.Count()));
             CreateMap<AppUser, ProfileDto>()
-                .ForMember(x => x.ImageUrl, p => p.MapFrom(x => x.Images.FirstOrDefault(i => i.IsMain).Url))
+                .ForMember(x => x.ImageUrl, p => p.MapFrom<AppUserImageResolver>())
                 .ForMember(x => x.Posts, p => p.MapFrom(x => x.Posts.OrderByDescending(p => p.Date)))
                 .ForMember(x => x.Following, p => p.Ignore())
                 .ForMember(x => x.Followers, p => p.MapFrom(x => x.Followers.Count()))
                 .ForMember(x => x.Followings, p => p.MapFrom(x => x.Followings.Count()));
-            CreateMap<Image, ProfileImage>();
+            CreateMap<Image, ProfileImage>()
+                .ForMember(x => x.Url, p => p.MapFrom<ImageProfileImageResolver>());
             CreateMap<Message, MessageDto>()
                 .ForMember(x => x.RoomId, p => p.MapFrom(x => x.Room.Id));
 
-            CreateMap<PostImage, PostImageDto>();
-            CreateMap<PostDocument, PostDocumentDto>();
+            CreateMap<PostImage, PostImageDto>()
+                .ForMember(x => x.Url, p => p.MapFrom<PostImageResolver>());
+   
+            CreateMap<PostDocument, PostDocumentDto>()
+                .ForMember(x => x.Url, p => p.MapFrom<PostDocResolver>());
 
             CreateMap<Group, GroupDto>()
                 .ForMember(x => x.Followers, p => p.MapFrom(x => x.Followers.Count()))
@@ -50,6 +55,8 @@ namespace backend.Core
             CreateMap<Comment, CommentDto>()
                 .ForMember(x => x.PostId, p => p.MapFrom(x => x.Post.Id));
 
+
+            
         }
     }
 }

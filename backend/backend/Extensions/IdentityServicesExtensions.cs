@@ -56,7 +56,7 @@ namespace backend.Extensions
                     };
                 });
 
-            //services.AddAuthorization();
+            services.AddAuthorization();
 
             services.AddScoped<TokenService>();
 

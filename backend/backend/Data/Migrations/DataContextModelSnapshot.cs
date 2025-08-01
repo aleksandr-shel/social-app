@@ -17,443 +17,33 @@ namespace backend.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.13")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("ProductVersion", "8.0.18")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("backend.Models.AppUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("About")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Dob")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("Online")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("backend.Models.Comment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("backend.Models.Document", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Documents");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Document");
-                });
-
-            modelBuilder.Entity("backend.Models.FavoritePost", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "PostId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("FavoritePosts");
-                });
-
-            modelBuilder.Entity("backend.Models.Friends", b =>
-                {
-                    b.Property<string>("ObserverId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("TargetId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ObserverId", "TargetId");
-
-                    b.HasIndex("TargetId");
-
-                    b.ToTable("Friends");
-                });
-
-            modelBuilder.Entity("backend.Models.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("GroupBackGroundImageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("GroupImageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupBackGroundImageId");
-
-                    b.HasIndex("GroupImageId");
-
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("backend.Models.GroupAdmin", b =>
-                {
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("GroupId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("GroupAdmins");
-                });
-
-            modelBuilder.Entity("backend.Models.GroupFollower", b =>
-                {
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FollowerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("GroupId", "FollowerId");
-
-                    b.HasIndex("FollowerId");
-
-                    b.ToTable("GroupFollowers");
-                });
-
-            modelBuilder.Entity("backend.Models.GroupImage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GroupImages");
-                });
-
-            modelBuilder.Entity("backend.Models.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("backend.Models.Message", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("backend.Models.Post", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AuthorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Posts");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Post");
-                });
-
-            modelBuilder.Entity("backend.Models.PostImage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostImages");
-                });
-
-            modelBuilder.Entity("backend.Models.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Expires")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Revoked")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("RefreshToken");
-                });
-
-            modelBuilder.Entity("backend.Models.Room", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("LastMessage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("backend.Models.RoomUser", b =>
-                {
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("RoomId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RoomUsers");
-                });
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("NormalizedName")
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -464,17 +54,17 @@ namespace backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -489,17 +79,17 @@ namespace backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
 
@@ -511,17 +101,17 @@ namespace backend.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -533,10 +123,10 @@ namespace backend.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -548,32 +138,434 @@ namespace backend.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("backend.Models.GroupPost", b =>
+            modelBuilder.Entity("backend.Models.AppUser", b =>
                 {
-                    b.HasBaseType("backend.Models.Post");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<Guid?>("GroupId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("About")
+                        .HasColumnType("longtext");
 
-                    b.HasIndex("GroupId");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("GroupPost");
+                    b.Property<string>("City")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Dob")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<bool>("Online")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("backend.Models.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("backend.Models.Document", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Documents");
+
+                    b.HasDiscriminator().HasValue("Document");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("backend.Models.FavoritePost", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("UserId", "PostId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("FavoritePosts");
+                });
+
+            modelBuilder.Entity("backend.Models.Friends", b =>
+                {
+                    b.Property<string>("ObserverId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("TargetId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ObserverId", "TargetId");
+
+                    b.HasIndex("TargetId");
+
+                    b.ToTable("Friends");
+                });
+
+            modelBuilder.Entity("backend.Models.Group", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid?>("GroupBackGroundImageId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("GroupImageId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupBackGroundImageId");
+
+                    b.HasIndex("GroupImageId");
+
+                    b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupAdmin", b =>
+                {
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("GroupId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GroupAdmins");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupFollower", b =>
+                {
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("FollowerId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("GroupId", "FollowerId");
+
+                    b.HasIndex("FollowerId");
+
+                    b.ToTable("GroupFollowers");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GroupImages");
+                });
+
+            modelBuilder.Entity("backend.Models.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("backend.Models.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid?>("RoomId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("SenderId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("backend.Models.Post", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("AuthorId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("varchar(13)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Posts");
+
+                    b.HasDiscriminator().HasValue("Post");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("backend.Models.PostImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostImages");
+                });
+
+            modelBuilder.Entity("backend.Models.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("Expires")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("Revoked")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("RefreshToken");
+                });
+
+            modelBuilder.Entity("backend.Models.Room", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("LastMessage")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("backend.Models.RoomUser", b =>
+                {
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("RoomId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RoomUsers");
                 });
 
             modelBuilder.Entity("backend.Models.PostDocument", b =>
@@ -581,11 +573,74 @@ namespace backend.Data.Migrations
                     b.HasBaseType("backend.Models.Document");
 
                     b.Property<Guid?>("PostId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("char(36)");
 
                     b.HasIndex("PostId");
 
                     b.HasDiscriminator().HasValue("PostDocument");
+                });
+
+            modelBuilder.Entity("backend.Models.GroupPost", b =>
+                {
+                    b.HasBaseType("backend.Models.Post");
+
+                    b.Property<Guid?>("GroupId")
+                        .HasColumnType("char(36)");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasDiscriminator().HasValue("GroupPost");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("backend.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("backend.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("backend.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("backend.Models.Comment", b =>
@@ -768,55 +823,11 @@ namespace backend.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("backend.Models.PostDocument", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("backend.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("backend.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("backend.Models.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("backend.Models.Post", null)
+                        .WithMany("Documents")
+                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("backend.Models.GroupPost", b =>
@@ -826,13 +837,6 @@ namespace backend.Data.Migrations
                         .HasForeignKey("GroupId");
 
                     b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("backend.Models.PostDocument", b =>
-                {
-                    b.HasOne("backend.Models.Post", null)
-                        .WithMany("Documents")
-                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("backend.Models.AppUser", b =>
